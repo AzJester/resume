@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Shane Turner, D.B.A. — Defense Growth and Solutions Executive">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f3354"/>
+      <stop offset="1" stop-color="#16486f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- accent rule -->
+  <rect x="80" y="300" width="120" height="6" rx="3" fill="#d8b167"/>
+
+  <!-- monogram -->
+  <rect x="80" y="78" width="92" height="92" rx="20" fill="#ffffff" opacity="0.10"/>
+  <text x="126" y="138" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff" text-anchor="middle">ST</text>
+
+  <!-- name -->
+  <text x="80" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="84" font-weight="700" fill="#ffffff">Shane Turner, D.B.A.</text>
+
+  <!-- title -->
+  <text x="80" y="360" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="600" fill="#aecbe5">Defense Growth &amp; Solutions Executive</text>
+  <text x="80" y="408" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" fill="#aecbe5">Enterprise AI Strategy · Multi-Domain T&amp;E</text>
+
+  <!-- stat chips -->
+  <g font-family="Arial, Helvetica, sans-serif" fill="#eaf2fa">
+    <text x="80" y="520" font-size="30" font-weight="700">20+ yrs</text>
+    <text x="80" y="556" font-size="20" fill="#aecbe5">Experience</text>
+
+    <text x="320" y="520" font-size="30" font-weight="700">$1B+</text>
+    <text x="320" y="556" font-size="20" fill="#aecbe5">Contract wins</text>
+
+    <text x="520" y="520" font-size="30" font-weight="700">$896M</text>
+    <text x="520" y="556" font-size="20" fill="#aecbe5">Program directed</text>
+
+    <text x="780" y="520" font-size="30" font-weight="700">700+</text>
+    <text x="780" y="556" font-size="20" fill="#aecbe5">Personnel led</text>
+  </g>
+
+  <!-- clearance badge -->
+  <g transform="translate(80,150)">
+    <circle cx="10" cy="0" r="8" fill="#d8b167"/>
+  </g>
+  <text x="980" y="138" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#eaf2fa" text-anchor="end">Active TS Clearance</text>
+
+  <!-- url -->
+  <text x="1120" y="600" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#7ea7cc" text-anchor="end">azjester.github.io/resume</text>
+</svg>
