@@ -1,0 +1,60 @@
+name: Build resume PDF
+
+# Regenerates the downloadable PDF and the social-share PNG from the page
+# whenever the content or styles change, and commits the refreshed files.
+# Commits made with GITHUB_TOKEN do not trigger another workflow run, so
+# this does not loop.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - assets/styles.css
+      - assets/og-card.svg
+      - tools/build_pdf.py
+      - .github/workflows/build-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pdf-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system libraries for WeasyPrint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0 libcairo2 libffi-dev
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade weasyprint cairosvg
+
+      - name: Regenerate PDF and social card
+        run: |
+          python tools/build_pdf.py
+          python -c "import cairosvg; cairosvg.svg2png(url='assets/og-card.svg', write_to='assets/og-card.png', output_width=1200, output_height=630)"
+
+      - name: Commit refreshed assets if they changed
+        run: |
+          if [ -n "$(git status --porcelain assets/Shane-Turner-Resume.pdf assets/og-card.png)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/Shane-Turner-Resume.pdf assets/og-card.png
+            git commit -m "Regenerate resume PDF and social card [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
