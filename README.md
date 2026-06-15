@@ -8,7 +8,7 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** — bu
 ## Features
 
 - **Read anywhere** — responsive layout that works on phones, tablets, and desktops.
-- **Download PDF** — a pre-rendered, print-ready PDF (`assets/Shane-Turner-Resume.pdf`) with proper margins and clean page breaks, generated from the page itself. No print-dialog fiddling required.
+- **Download PDF** — serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
 - **Print** — a print button is also available; a dedicated print stylesheet produces a clean, ink-light document. Horizontal margins come from padding so they survive even when the browser's "Margins" setting is "None."
 - **Impact metrics strip** — scannable career highlights ($1B+ wins, $896M program, 700+ led, 20+ years) near the top.
 - **Light & dark themes** — auto-detects the visitor's system preference and remembers manual overrides.
@@ -19,16 +19,7 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** — bu
 
 ## The downloadable PDF
 
-`assets/Shane-Turner-Resume.pdf` is rendered from `index.html` with [WeasyPrint](https://weasyprint.org/), which applies the page's print stylesheet directly. Because it doesn't go through a browser print dialog, the margins and layout are always correct.
-
-Regenerate it after editing the résumé:
-
-```bash
-python3 -m pip install weasyprint
-python3 tools/build_pdf.py        # writes assets/Shane-Turner-Resume.pdf
-```
-
-A GitHub Action (`.github/workflows/build-pdf.yml`) also regenerates the PDF and the social card automatically on any push to `main` that changes the content, styles, or card, and commits the refreshed files.
+`assets/Shane-Turner-Resume.pdf` is the official, maintained résumé PDF. It is the file served by every "Download PDF" link on the page. To update it, replace that file with a new export of the résumé (keep the same filename).
 
 ## Project structure
 
@@ -40,11 +31,8 @@ A GitHub Action (`.github/workflows/build-pdf.yml`) also regenerates the PDF and
 │   ├── main.js                     # Theme toggle, print button, scroll-spy, back-to-top
 │   ├── favicon.svg                 # "ST" monogram icon
 │   ├── og-card.svg / og-card.png   # Social share card (source + rendered)
-│   ├── Shane-Turner-Resume.pdf     # Pre-rendered, print-ready PDF
+│   ├── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
 │   └── Shane-Turner-Resume.docx    # Downloadable Word version
-├── tools/
-│   └── build_pdf.py                # Renders index.html -> PDF (WeasyPrint)
-├── .github/workflows/build-pdf.yml # Auto-regenerates the PDF + card on push
 └── README.md
 ```
 
@@ -60,7 +48,7 @@ All résumé text lives in `index.html`. Common edits:
 - **Education / service / affiliations** — the `#education` section.
 - **"Current as of" date** — the `<time id="lastUpdated">` element in the footer.
 
-After editing, regenerate the PDF (above) and replace `assets/Shane-Turner-Resume.docx` if you want the Word file to stay in sync.
+When the résumé content changes, update `assets/Shane-Turner-Resume.pdf` and `assets/Shane-Turner-Resume.docx` so the downloadable copies stay in sync with the page.
 
 ## Hosting on GitHub Pages
 
