@@ -429,9 +429,13 @@ h1, h2, h3, h4 { line-height: 1.2; margin: 0; }
     --hero-text: #000; --hero-muted: #333;
   }
 
-  @page { margin: 14mm 14mm 16mm; }
+  /* Vertical margins come from @page so they repeat on every page.
+     Horizontal margins are applied as padding below, so they survive
+     even when the print dialog's "Margins" setting is "None". */
+  @page { size: letter; margin: 15mm 0; }
 
   html, body { background: #fff !important; color: #000 !important; font-size: 10.5pt; line-height: 1.4; }
+  body { padding: 0 16mm !important; }
 
   [data-no-print], .skip-link, .to-top { display: none !important; }
 
@@ -485,6 +489,12 @@ h1, h2, h3, h4 { line-height: 1.2; margin: 0; }
     break-after: avoid;
   }
   .section__title::after { display: none; }
+
+  /* Keep headings attached to the content that follows them, and never
+     split an employer block, a single role, or an education entry across
+     a page break. */
+  .org__head, .role__head, .edu-col__title { break-after: avoid; }
+  .org, .role, .edu-list li, .edu-col { break-inside: avoid; }
 
   /* Capability + affiliation tags as compact inline text */
   .tags { gap: .3rem .5rem; }
