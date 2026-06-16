@@ -1,21 +1,21 @@
-# Shane Turner — Résumé
+# Shane Turner Résumé
 
-A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** — built to be read comfortably on any device, downloaded as a print-ready PDF, or printed directly.
+A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built to be read comfortably on any device, downloaded as a print-ready PDF, or printed directly.
 
 🔗 **Live site:** enable GitHub Pages for this repo (see below), then visit
 `https://azjester.github.io/resume/`.
 
 ## Features
 
-- **Read anywhere** — responsive layout that works on phones, tablets, and desktops.
-- **Download PDF** — serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
-- **Print** — a print button is also available; a dedicated print stylesheet produces a clean, ink-light document. Horizontal margins come from padding so they survive even when the browser's "Margins" setting is "None."
-- **Impact metrics strip** — scannable career highlights ($1B+ wins, $896M program, 700+ led, 20+ years) near the top.
-- **Light & dark themes** — auto-detects the visitor's system preference and remembers manual overrides.
-- **Social share card** — `assets/og-card.png` gives links a branded preview on LinkedIn, Slack, email, etc.
-- **Structured data** — schema.org `Person` JSON-LD for search engines and rich previews.
-- **Download the Word version** — the original `.docx` is linked in the footer.
-- **Accessible** — semantic HTML, skip link, keyboard focus styles, reduced-motion support, and WCAG AA color contrast.
+- **Read anywhere**: responsive layout that works on phones, tablets, and desktops.
+- **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
+- **Print**: a print button is also available; a dedicated print stylesheet produces a clean, ink-light document. Horizontal margins come from padding so they survive even when the browser's "Margins" setting is "None."
+- **Impact metrics strip**: scannable career highlights ($1B+ wins, $896M program, 700+ led, 20+ years) near the top.
+- **Light & dark themes**: auto-detects the visitor's system preference and remembers manual overrides.
+- **Social share card**: `assets/og-card.png` gives links a branded preview on LinkedIn, Slack, email, etc.
+- **Structured data**: schema.org `Person` JSON-LD for search engines and rich previews.
+- **Download the Word version**: the original `.docx` is linked in the footer.
+- **Accessible**: semantic HTML, skip link, keyboard focus styles, reduced-motion support, and WCAG AA color contrast.
 
 ## The downloadable PDF
 
@@ -40,13 +40,13 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** — bu
 
 All résumé text lives in `index.html`. Common edits:
 
-- **Contact details** — the `.contact` list and the `tel:` / `mailto:` links in the hero section.
-- **Summary** — the two paragraphs under `.hero__summary`.
-- **Impact metrics** — the `.metrics` block at the top of `.wrap`.
-- **Capabilities** — the `#capabilities` tag list.
-- **Experience** — each employer is an `<article class="org">`; each position is a `<div class="role">` with a `<ul class="bullets">`.
-- **Education / service / affiliations** — the `#education` section.
-- **"Current as of" date** — the `<time id="lastUpdated">` element in the footer.
+- **Contact details**: the `.contact` list and the `tel:` / `mailto:` links in the hero section.
+- **Summary**: the two paragraphs under `.hero__summary`.
+- **Impact metrics**: the `.metrics` block at the top of `.wrap`.
+- **Capabilities**: the `#capabilities` tag list.
+- **Experience**: each employer is an `<article class="org">`; each position is a `<div class="role">` with a `<ul class="bullets">`.
+- **Education / service / affiliations**: the `#education` section.
+- **"Current as of" date**: the `<time id="lastUpdated">` element in the footer.
 
 When the résumé content changes, update `assets/Shane-Turner-Resume.pdf` and `assets/Shane-Turner-Resume.docx` so the downloadable copies stay in sync with the page.
 
