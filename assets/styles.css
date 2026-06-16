@@ -157,6 +157,12 @@ strong { font-weight: 700; color: inherit; }
           mask-image: radial-gradient(120% 80% at 50% 0%, #000 40%, transparent 80%);
 }
 .hero__inner { padding: clamp(3.5rem, 9vw, 6.5rem) 1.5rem clamp(2.5rem, 5vw, 3.5rem); }
+.hero__main { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, .9fr); gap: 3.5rem; align-items: center; }
+.hero__portrait { justify-self: end; width: 100%; max-width: 380px; }
+.hero__portrait img {
+  display: block; width: 100%; height: auto; border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(221, 180, 94, .4), 0 30px 60px rgba(0, 0, 0, .5);
+}
 .hero__eyebrow {
   font-size: .82rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
   color: var(--gold-bright); margin: 0 0 1rem;
@@ -188,10 +194,10 @@ strong { font-weight: 700; color: inherit; }
 }
 .badge-dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 0 4px rgba(221,180,94,.18); }
 
-.hero__cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 2.75rem; }
+.hero__cta { display: flex; flex-wrap: wrap; gap: .75rem; }
 
 .hero__stats {
-  margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  margin: 2.75rem 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
   background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.12);
   border-radius: 14px; overflow: hidden;
 }
@@ -390,6 +396,8 @@ strong { font-weight: 700; color: inherit; }
   .about { grid-template-columns: 1fr; gap: 1.6rem; }
   .edu-grid { grid-template-columns: 1fr; gap: 1.6rem; }
   .proof { grid-template-columns: 1fr; gap: 1.6rem; }
+  .hero__main { grid-template-columns: 1fr; gap: 1.8rem; }
+  .hero__portrait { order: -1; justify-self: start; max-width: 200px; }
   .nav { display: none; }
 }
 @media (max-width: 620px) {
@@ -412,7 +420,8 @@ strong { font-weight: 700; color: inherit; }
   html, body { background: #fff !important; color: #000 !important; font-size: 10.5pt; line-height: 1.4; }
   body { padding: 0 15mm !important; }
 
-  [data-no-print], .site-header, .to-top, .hero__bg, .hero__badges, .hero__cta, .cta__actions { display: none !important; }
+  [data-no-print], .site-header, .to-top, .hero__bg, .hero__badges, .hero__cta, .cta__actions, .hero__portrait { display: none !important; }
+  .hero__main { display: block; }
   .shell { max-width: none; padding: 0; }
 
   .hero, .cta, .footer { background: #fff !important; color: #000 !important; }
