@@ -38,7 +38,7 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built 
 
 All résumé text lives in `index.html`. Common edits:
 
-- **Contact details**: the `.contact` list and the `tel:` / `mailto:` links in the hero section.
+- **Contact details**: the `mailto:` links in the hero and contact sections (no phone number is published).
 - **Summary**: the two paragraphs under `.hero__summary`.
 - **Impact metrics**: the `.metrics` block at the top of `.wrap`.
 - **Capabilities**: the `#capabilities` tag list.
