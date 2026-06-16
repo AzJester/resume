@@ -323,12 +323,23 @@ strong { font-weight: 700; color: inherit; }
 .bullets--plain li { position: relative; padding-left: 1.2rem; }
 .bullets--plain li::before { content: ""; position: absolute; left: 0; top: .62rem; width: .4rem; height: .4rem; border-radius: 50%; background: var(--gold); }
 
-/* Early-career photo (NLOS-C) */
-.early { display: grid; grid-template-columns: 1fr minmax(0, 300px); gap: 1.75rem; align-items: start; }
+/* Early-career layout with the NLOS-C photo */
+.early { display: grid; grid-template-columns: 1fr minmax(0, 340px); gap: 2rem; align-items: center; }
+.early__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
+.early__co { display: block; font-weight: 700; font-size: .98rem; color: var(--navy-soft); }
+.early__what { display: block; margin-top: .2rem; font-size: .95rem; color: var(--ink); }
 .early__figure { margin: 0; }
-.early__figure img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); }
-.early__figure figcaption { margin-top: .55rem; font-size: .8rem; line-height: 1.45; color: var(--muted); }
-.early__credit { display: block; margin-top: .15rem; font-size: .72rem; letter-spacing: .02em; color: var(--muted); opacity: .85; }
+.early__frame {
+  overflow: hidden; border-radius: 14px;
+  box-shadow: 0 0 0 1px rgba(221, 180, 94, .3), 0 14px 34px rgba(14, 44, 73, .28);
+}
+.early__frame img { display: block; width: 100%; height: auto; transition: transform .45s ease; }
+.early__figure:hover .early__frame img { transform: scale(1.045); }
+.early__figure figcaption {
+  margin-top: .75rem; padding-left: .75rem; border-left: 3px solid var(--gold);
+  font-size: .8rem; line-height: 1.45; color: var(--muted);
+}
+.early__credit { display: block; margin-top: .3rem; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); opacity: .85; }
 
 /* ---------------- Education ---------------- */
 .edu-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; }
@@ -492,6 +503,10 @@ strong { font-weight: 700; color: inherit; }
   .bullets li::marker, .bullets--plain li::before { color: #000 !important; background: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .early { display: block; }
   .early__figure { display: none; }
+  .early__list { display: block; }
+  .early__list li { margin-bottom: .25rem; }
+  .early__co { color: #0e2c49 !important; font-size: 10pt; }
+  .early__what { font-size: 10pt; }
 
   .org__head, .role__head, .edu-col__title { break-after: avoid; }
   .org, .role, .edu-list li, .edu-col, .section__head { break-inside: avoid; }
