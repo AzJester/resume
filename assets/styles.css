@@ -1,5 +1,5 @@
 /* =========================================================
-   Shane Turner — Executive landing page
+   Shane Turner: Executive landing page
    Navy + gold, Fraunces display / Inter UI.
    ========================================================= */
 
@@ -370,7 +370,7 @@ strong { font-weight: 700; color: inherit; }
 }
 
 /* =========================================================
-   PRINT  —  collapse the landing page into a plain document.
+   PRINT: collapse the landing page into a plain document.
    (The official downloadable file is the maintained PDF.)
    ========================================================= */
 @media print {

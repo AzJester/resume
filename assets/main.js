@@ -1,4 +1,4 @@
-/* Shane Turner — Resume: progressive enhancement only.
+/* Shane Turner Resume: progressive enhancement only.
    The page is fully readable and printable with JS disabled. */
 (function () {
   "use strict";
