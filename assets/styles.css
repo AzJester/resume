@@ -323,6 +323,13 @@ strong { font-weight: 700; color: inherit; }
 .bullets--plain li { position: relative; padding-left: 1.2rem; }
 .bullets--plain li::before { content: ""; position: absolute; left: 0; top: .62rem; width: .4rem; height: .4rem; border-radius: 50%; background: var(--gold); }
 
+/* Early-career photo (NLOS-C) */
+.early { display: grid; grid-template-columns: 1fr minmax(0, 300px); gap: 1.75rem; align-items: start; }
+.early__figure { margin: 0; }
+.early__figure img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+.early__figure figcaption { margin-top: .55rem; font-size: .8rem; line-height: 1.45; color: var(--muted); }
+.early__credit { display: block; margin-top: .15rem; font-size: .72rem; letter-spacing: .02em; color: var(--muted); opacity: .85; }
+
 /* ---------------- Education ---------------- */
 .edu-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; }
 .edu-col__title { font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .9rem; }
@@ -399,6 +406,8 @@ strong { font-weight: 700; color: inherit; }
   .proof { grid-template-columns: 1fr; gap: 1.6rem; }
   .hero__main { grid-template-columns: 1fr; gap: 1.8rem; }
   .hero__portrait { order: -1; justify-self: start; max-width: 200px; }
+  .early { grid-template-columns: 1fr; gap: 1.2rem; }
+  .early__figure { max-width: 460px; }
   .nav { display: none; }
 }
 @media (max-width: 620px) {
@@ -481,6 +490,8 @@ strong { font-weight: 700; color: inherit; }
   .role__title { font-size: 10.5pt; }
   .bullets li { margin-bottom: .15rem; }
   .bullets li::marker, .bullets--plain li::before { color: #000 !important; background: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .early { display: block; }
+  .early__figure { display: none; }
 
   .org__head, .role__head, .edu-col__title { break-after: avoid; }
   .org, .role, .edu-list li, .edu-col, .section__head { break-inside: avoid; }
