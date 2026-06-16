@@ -2,8 +2,7 @@
 
 A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built to be read comfortably on any device, downloaded as a print-ready PDF, or printed directly.
 
-🔗 **Live site:** enable GitHub Pages for this repo (see below), then visit
-`https://azjester.github.io/resume/`.
+🔗 **Live site:** [`https://resume.st-dba.com`](https://resume.st-dba.com) (custom domain via `CNAME`; GitHub Pages serving from `main`).
 
 ## Features
 
