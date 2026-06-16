@@ -9,10 +9,6 @@
   var THEME_KEY = "st-resume-theme";
   var toggle = document.getElementById("themeToggle");
 
-  function systemPrefersDark() {
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  }
-
   function applyTheme(theme) {
     root.setAttribute("data-theme", theme);
     if (toggle) {
@@ -21,9 +17,10 @@
     }
   }
 
+  // Dark is the default. A visitor's manual choice is remembered and wins.
   var saved = null;
   try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
-  applyTheme(saved || (systemPrefersDark() ? "dark" : "light"));
+  applyTheme(saved === "light" || saved === "dark" ? saved : "dark");
 
   if (toggle) {
     toggle.addEventListener("click", function () {
@@ -31,18 +28,6 @@
       applyTheme(next);
       try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
     });
-  }
-
-  // Follow the OS setting only while the visitor hasn't picked one.
-  if (window.matchMedia) {
-    var mq = window.matchMedia("(prefers-color-scheme: dark)");
-    var onChange = function (e) {
-      var stored = null;
-      try { stored = localStorage.getItem(THEME_KEY); } catch (err) {}
-      if (!stored) applyTheme(e.matches ? "dark" : "light");
-    };
-    if (mq.addEventListener) mq.addEventListener("change", onChange);
-    else if (mq.addListener) mq.addListener(onChange);
   }
 
   /* ---------- Print / Save as PDF ---------- */
