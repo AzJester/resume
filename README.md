@@ -14,7 +14,7 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built 
 - **Light & dark themes**: auto-detects the visitor's system preference and remembers manual overrides.
 - **Social share card**: `assets/og-card.png` gives links a branded preview on LinkedIn, Slack, email, etc.
 - **Structured data**: schema.org `Person` JSON-LD for search engines and rich previews.
-- **Download the Word version**: the original `.docx` is linked in the footer.
+- **PDF-only download**: the résumé is offered as a PDF only; no Word version is published.
 - **Accessible**: semantic HTML, skip link, keyboard focus styles, reduced-motion support, and WCAG AA color contrast.
 
 ## The downloadable PDF
@@ -31,8 +31,7 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built 
 │   ├── main.js                     # Theme toggle, print button, scroll-spy, back-to-top
 │   ├── favicon.svg                 # "ST" monogram icon
 │   ├── og-card.svg / og-card.png   # Social share card (source + rendered)
-│   ├── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
-│   └── Shane-Turner-Resume.docx    # Downloadable Word version
+│   └── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
 └── README.md
 ```
 
@@ -48,7 +47,7 @@ All résumé text lives in `index.html`. Common edits:
 - **Education / service / affiliations**: the `#education` section.
 - **"Current as of" date**: the `<time id="lastUpdated">` element in the footer.
 
-When the résumé content changes, update `assets/Shane-Turner-Resume.pdf` and `assets/Shane-Turner-Resume.docx` so the downloadable copies stay in sync with the page.
+When the résumé content changes, update `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync with the page.
 
 ## Hosting on GitHub Pages
 
