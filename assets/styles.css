@@ -96,6 +96,9 @@ strong { font-weight: 700; color: inherit; }
 .btn--ghost:hover { border-color: var(--navy-soft); color: var(--navy-soft); text-decoration: none; transform: translateY(-2px); }
 .btn--ghost-light { border-color: rgba(255,255,255,.35); color: #eaf2fb; }
 .btn--ghost-light:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,.08); }
+/* The hero is always dark, so its ghost buttons stay light in both themes. */
+.hero .btn--ghost { border-color: rgba(255,255,255,.4); color: #eaf2fb; }
+.hero .btn--ghost:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,.08); }
 .btn--sm { padding: .5rem .85rem; font-size: .85rem; border-radius: 8px; }
 
 /* ---------------- Header ---------------- */
