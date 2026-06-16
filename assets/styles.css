@@ -13,6 +13,7 @@
   --navy-soft: #1f4e78;
   --gold: #c89a3e;
   --gold-bright: #ddb45e;
+  --gold-strong: #7e5a12; /* gold that meets WCAG AA for text on light backgrounds */
 
   /* Light surfaces */
   --bg: #f4f7fb;
@@ -36,6 +37,7 @@
   --muted: #9fb1c6;
   --border: #213043;
   --navy-soft: #6fa8df;
+  --gold-strong: #ddb45e; /* bright gold reads well on dark surfaces */
   --shadow: 0 1px 2px rgba(0,0,0,.5), 0 14px 36px rgba(0,0,0,.4);
   --shadow-lg: 0 28px 64px rgba(0,0,0,.5);
   --ring: rgba(111, 168, 223, .5);
@@ -197,8 +199,8 @@ strong { font-weight: 700; color: inherit; }
 .section--tint { background: var(--tint); }
 .section__head { margin-bottom: 2.25rem; }
 .kicker {
-  display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: .6rem;
+  display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold-strong); margin-bottom: .6rem;
 }
 .kicker--light { color: var(--gold-bright); }
 .section__title {
@@ -219,6 +221,30 @@ strong { font-weight: 700; color: inherit; }
   font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
 }
 .about__facts dd { margin: .2rem 0 0; font-weight: 600; color: var(--ink); }
+
+/* ---------------- Recognition / proof ---------------- */
+.proof { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2.5rem; align-items: center; }
+.proof__feature { position: relative; padding-left: 1.5rem; }
+.proof__feature::before {
+  content: ""; position: absolute; left: 0; top: .35rem; bottom: .35rem;
+  width: 4px; border-radius: 4px; background: linear-gradient(var(--gold-bright), var(--gold));
+}
+.proof__quote {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.25; color: var(--ink); margin: 0;
+}
+.proof__quote strong { color: var(--gold-strong); }
+.proof__cite {
+  margin: .9rem 0 0; font-family: var(--font-sans); font-size: .76rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+.proof__list { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+.proof__list li {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: var(--shadow); padding: .9rem 1.1rem;
+}
+.proof__label { display: block; font-weight: 700; color: var(--ink); }
+.proof__detail { display: block; margin-top: .15rem; color: var(--muted); font-size: .9rem; }
 
 /* ---------------- Cards (highlights) ---------------- */
 .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
@@ -331,7 +357,7 @@ strong { font-weight: 700; color: inherit; }
 /* ---------------- Scroll reveals (progressive, content always visible without support) -- */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    .section__head, .about, .cards > .card, .tags, .org, .edu-grid {
+    .section__head, .about, .proof, .cards > .card, .tags, .org, .edu-grid {
       animation: reveal linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 32%;
@@ -356,6 +382,7 @@ strong { font-weight: 700; color: inherit; }
 @media (max-width: 860px) {
   .about { grid-template-columns: 1fr; gap: 1.6rem; }
   .edu-grid { grid-template-columns: 1fr; gap: 1.6rem; }
+  .proof { grid-template-columns: 1fr; gap: 1.6rem; }
   .nav { display: none; }
 }
 @media (max-width: 620px) {
@@ -404,6 +431,14 @@ strong { font-weight: 700; color: inherit; }
   .about__facts { border: none !important; box-shadow: none !important; padding: .4rem 0 0; }
   .about__facts dl { display: block; }
   .about__facts dl > div { margin-bottom: .25rem; }
+
+  .proof { display: block; }
+  .proof__feature { padding-left: .8rem; margin-bottom: .5rem; }
+  .proof__feature::before { background: #0e2c49 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .proof__quote { font-size: 12pt; }
+  .proof__quote strong { color: #0e2c49 !important; }
+  .proof__list { display: block; }
+  .proof__list li { border: none !important; box-shadow: none !important; padding: .15rem 0; }
 
   .edu-grid { display: block; }
   .edu-col + .edu-col { margin-top: 1rem; }
