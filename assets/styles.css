@@ -161,17 +161,23 @@ strong { font-weight: 700; color: inherit; }
   font-size: .82rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
   color: var(--gold-bright); margin: 0 0 1rem;
 }
-.hero__name {
+.hero__headline {
   font-family: var(--font-display); font-weight: 600;
-  font-size: clamp(2.7rem, 7vw, 5rem); line-height: 1.02; letter-spacing: -.015em;
-  color: #fff; margin: 0 0 1.2rem;
+  font-size: clamp(2.2rem, 5.4vw, 4rem); line-height: 1.05; letter-spacing: -.015em;
+  color: #fff; margin: 0 0 1.2rem; max-width: 18ch;
 }
-.hero__cred { color: var(--gold-bright); font-weight: 500; }
+.hero__accent { color: var(--gold-bright); }
 .hero__lead {
   max-width: 46rem; font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.55;
-  color: #c6d6e6; margin: 0 0 1.6rem;
+  color: #c6d6e6; margin: 0 0 1.1rem;
 }
 .hero__lead strong { color: #fff; }
+.hero__hook {
+  display: flex; gap: .55rem; align-items: baseline;
+  max-width: 46rem; margin: 0 0 1.8rem; font-size: 1rem; color: #c6d6e6;
+}
+.hero__hook strong { color: var(--gold-bright); font-weight: 600; }
+.hero__hook-mark { color: var(--gold-bright); font-weight: 700; flex: none; }
 
 .hero__badges { list-style: none; margin: 0 0 2rem; padding: 0; display: flex; flex-wrap: wrap; gap: .55rem; }
 .hero__badges li {
@@ -366,13 +372,14 @@ strong { font-weight: 700; color: inherit; }
     .cards > .card:nth-child(3) { animation-range: entry 8% entry 40%; }
     .cards > .card:nth-child(4) { animation-range: entry 12% entry 44%; }
   }
-  .hero__eyebrow, .hero__name, .hero__lead, .hero__badges, .hero__cta, .hero__stats {
+  .hero__eyebrow, .hero__headline, .hero__lead, .hero__hook, .hero__badges, .hero__cta, .hero__stats {
     animation: rise .6s cubic-bezier(.2,.7,.2,1) both;
   }
-  .hero__name { animation-delay: .05s; }
+  .hero__headline { animation-delay: .05s; }
   .hero__lead { animation-delay: .12s; }
-  .hero__badges { animation-delay: .18s; }
-  .hero__cta { animation-delay: .24s; }
+  .hero__hook { animation-delay: .18s; }
+  .hero__badges { animation-delay: .22s; }
+  .hero__cta { animation-delay: .28s; }
   .hero__stats { animation-delay: .3s; }
 }
 @keyframes reveal { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
@@ -410,11 +417,14 @@ strong { font-weight: 700; color: inherit; }
 
   .hero, .cta, .footer { background: #fff !important; color: #000 !important; }
   .hero__inner, .cta__inner { padding: 0 0 .5rem; }
-  .hero__eyebrow { color: #333 !important; letter-spacing: .1em; margin-bottom: .3rem; }
-  .hero__name { font-size: 22pt; color: #000 !important; }
-  .hero__cred { color: #333 !important; }
-  .hero__lead { font-size: 10.5pt; color: #000 !important; max-width: none; margin-bottom: .4rem; }
+  .hero__eyebrow { font-size: 16pt; font-weight: 700; color: #000 !important; letter-spacing: normal; text-transform: none; margin-bottom: .15rem; }
+  .hero__headline { font-size: 12pt; color: #0e2c49 !important; max-width: none; margin-bottom: .4rem; }
+  .hero__accent { color: #0e2c49 !important; }
+  .hero__lead { font-size: 10.5pt; color: #000 !important; max-width: none; margin-bottom: .3rem; }
   .hero__lead strong { color: #000 !important; }
+  .hero__hook { font-size: 9.5pt; color: #000 !important; max-width: none; margin-bottom: .4rem; }
+  .hero__hook strong { color: #0e2c49 !important; }
+  .hero__hook-mark { color: #0e2c49 !important; }
 
   .hero__stats { display: flex; gap: 1.2rem; border: none; background: none; border-top: 1px solid #c2c2c2; border-bottom: 1px solid #c2c2c2; border-radius: 0; margin-top: .5rem; }
   .hero__stats .stat { background: none !important; padding: .4rem 0; flex: 1; }
