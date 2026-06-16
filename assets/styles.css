@@ -314,6 +314,7 @@ strong { font-weight: 700; color: inherit; }
 .role__title { font-size: 1.04rem; font-weight: 700; color: var(--ink); }
 .role__concurrent { font-weight: 500; color: var(--muted); font-size: .9em; }
 .role__dates { font-size: .85rem; font-weight: 600; font-style: italic; color: var(--muted); white-space: nowrap; }
+.role__division { margin: .25rem 0 0; font-weight: 600; font-size: .9rem; letter-spacing: .01em; color: var(--gold-strong); }
 .role__note { margin: .15rem 0 0; font-style: italic; color: var(--muted); font-size: .92rem; }
 .bullets { margin: .6rem 0 0; padding-left: 1.15rem; }
 .bullets li { margin-bottom: .4rem; color: var(--ink); }
@@ -475,6 +476,7 @@ strong { font-weight: 700; color: inherit; }
   .org { padding-left: 0; padding-bottom: .7rem; break-inside: avoid; }
   .org::before, .org::after { display: none; }
   .org__dates, .role__dates, .role__note { color: #333 !important; font-size: 9pt; }
+  .role__division { color: #0e2c49 !important; font-size: 9pt; font-weight: 600; }
   .role { margin-bottom: .6rem; }
   .role__title { font-size: 10.5pt; }
   .bullets li { margin-bottom: .15rem; }
