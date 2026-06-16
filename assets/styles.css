@@ -179,11 +179,11 @@ strong { font-weight: 700; color: inherit; }
 }
 .hero__lead strong { color: #fff; }
 .hero__hook {
-  display: flex; gap: .55rem; align-items: baseline;
-  max-width: 46rem; margin: 0 0 1.8rem; font-size: 1rem; color: #c6d6e6;
+  max-width: 46rem; margin: 0 0 1.8rem; font-size: 1rem; line-height: 1.55; color: #c6d6e6;
+  padding-left: 1.5rem; text-indent: -1.5rem;
 }
 .hero__hook strong { color: var(--gold-bright); font-weight: 600; }
-.hero__hook-mark { color: var(--gold-bright); font-weight: 700; flex: none; }
+.hero__hook-mark { color: var(--gold-bright); font-weight: 700; margin-right: .55rem; }
 
 .hero__badges { list-style: none; margin: 0 0 2rem; padding: 0; display: flex; flex-wrap: wrap; gap: .55rem; }
 .hero__badges li {
@@ -431,7 +431,7 @@ strong { font-weight: 700; color: inherit; }
   .hero__accent { color: #0e2c49 !important; }
   .hero__lead { font-size: 10.5pt; color: #000 !important; max-width: none; margin-bottom: .3rem; }
   .hero__lead strong { color: #000 !important; }
-  .hero__hook { font-size: 9.5pt; color: #000 !important; max-width: none; margin-bottom: .4rem; }
+  .hero__hook { font-size: 9.5pt; color: #000 !important; max-width: none; margin-bottom: .4rem; padding-left: 0; text-indent: 0; }
   .hero__hook strong { color: #0e2c49 !important; }
   .hero__hook-mark { color: #0e2c49 !important; }
 
