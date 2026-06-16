@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b2540"/><stop offset="1" stop-color="#06182a"/></linearGradient>
+  <radialGradient id="glow" cx="0.85" cy="0" r="0.75"><stop offset="0" stop-color="#c89a3e" stop-opacity="0.20"/><stop offset="1" stop-color="#c89a3e" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse"><path d="M46 0 H0 V46" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/></pattern></defs>
+<rect width="1080" height="1080" fill="url(#bg)"/><rect width="1080" height="1080" fill="url(#grid)"/><rect width="1080" height="1080" fill="url(#glow)"/>
+<text x="90" y="130" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" letter-spacing="4" fill="#d8b15e">DR. SHANE TURNER, D.B.A.</text>
+<text x="88" y="212" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#ffffff">Turning defense data into</text>
+<text x="88" y="282" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">decision advantage.</text>
+<rect x="90" y="312" width="110" height="5" rx="2" fill="#d8b15e"/>
+<rect x="640" y="108" width="350" height="46" rx="23" fill="#d8b167" fill-opacity="0.14" stroke="#d8b167" stroke-opacity="0.6"/><circle cx="674" cy="131" r="7" fill="#d8b15e"/><text x="692" y="138" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" letter-spacing="2" fill="#f0e6cf">ACTIVE TS CLEARANCE</text>
+<text x="90" y="372" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#aec8e2">Defense Growth &amp; Solutions Executive · Enterprise AI</text>
+<text x="90" y="404" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#aec8e2">Layered Defense, Autonomous Warfare &amp; Integrated Fires</text>
+<line x1="90" y1="452" x2="990" y2="452" stroke="#ffffff" stroke-opacity="0.12"/>
+<text x="90" y="548" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">20+</text><text x="90" y="585" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#b7cadd">Years across five services</text>
+<text x="560" y="548" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">$1B+</text><text x="560" y="585" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#b7cadd">In contract wins</text>
+<text x="90" y="672" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">$896M</text><text x="90" y="709" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#b7cadd">Navy program directed</text>
+<text x="560" y="672" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">700+</text><text x="560" y="709" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#b7cadd">Personnel led</text>
+<line x1="90" y1="752" x2="990" y2="752" stroke="#ffffff" stroke-opacity="0.12"/>
+<text x="90" y="812" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" letter-spacing="3" fill="#d8b15e">CORE CAPABILITIES</text>
+<text x="90" y="852" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#cddcea">Artificial Intelligence &amp; ModelOps    ·    Solution Architecture</text>
+<text x="90" y="886" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#cddcea">Multi-Domain Test &amp; Evaluation    ·    Electronic Warfare &amp; C-UAS</text>
+<text x="90" y="920" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#cddcea">Capture &amp; Win Strategy    ·    Cleared Workforce Leadership</text>
+<line x1="90" y1="972" x2="990" y2="972" stroke="#ffffff" stroke-opacity="0.10"/>
+<text x="90" y="1010" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#8ea6bd">USMC Veteran · D.B.A., Management</text>
+<text x="990" y="1010" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#d8b15e" text-anchor="end">resume.st-dba.com</text></svg>
