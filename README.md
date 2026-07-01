@@ -8,9 +8,9 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built 
 
 - **Read anywhere**: responsive layout that works on phones, tablets, and desktops.
 - **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
-- **Print**: a print button is also available; a dedicated print stylesheet produces a clean, ink-light document. Horizontal margins come from padding so they survive even when the browser's "Margins" setting is "None."
+- **Print**: a dedicated print stylesheet produces a clean, ink-light document straight from the browser's native print / Save-as-PDF (Ctrl/Cmd+P). Horizontal margins come from padding so they survive even when the browser's "Margins" setting is "None."
 - **Impact metrics strip**: scannable career highlights ($1B+ wins, $896M program, 700+ led, 20+ years) near the top.
-- **Light & dark themes**: auto-detects the visitor's system preference and remembers manual overrides.
+- **Light & dark themes**: defaults to dark and remembers a visitor's manual light/dark override.
 - **Social share card**: `assets/og-card.png` gives links a branded preview on LinkedIn, Slack, email, etc.
 - **Structured data**: schema.org `Person` JSON-LD for search engines and rich previews.
 - **PDF-only download**: the résumé is offered as a PDF only; no Word version is published.
@@ -27,10 +27,16 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built 
 ├── index.html                      # The résumé content + structure
 ├── assets/
 │   ├── styles.css                  # Screen + print styles (light/dark themes)
-│   ├── main.js                     # Theme toggle, print button, scroll-spy, back-to-top
+│   ├── main.js                     # Theme toggle, scroll-spy, back-to-top
 │   ├── favicon.svg                 # "ST" monogram icon
 │   ├── og-card.svg / og-card.png   # Social share card (source + rendered)
-│   └── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
+│   ├── shane-turner.jpg            # Hero portrait (referenced by the page)
+│   ├── nlos-c.jpg                  # XM1203 NLOS-C photo in the Early-career section
+│   ├── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
+│   └── (share collateral)          # NOT referenced by index.html; distributed directly:
+│                                   #   Shane-Turner-Resume.pptx, Shane_blue_suite.png,
+│                                   #   infographic*.svg, shane-turner-infographic*.png,
+│                                   #   XM1203_Non_Line_of_Sight-Cannon_(NLOS-C).jpg
 └── README.md
 ```
 
@@ -39,12 +45,12 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built 
 All résumé text lives in `index.html`. Common edits:
 
 - **Contact details**: the `mailto:` links in the hero and contact sections (no phone number is published).
-- **Summary**: the two paragraphs under `.hero__summary`.
-- **Impact metrics**: the `.metrics` block at the top of `.wrap`.
+- **Summary**: the hero lead + hook (`.hero__lead`, `.hero__hook`) and the Executive profile (`#about`).
+- **Impact metrics**: the `.hero__stats` definition list in the hero.
 - **Capabilities**: the `#capabilities` tag list.
 - **Experience**: each employer is an `<article class="org">`; each position is a `<div class="role">` with a `<ul class="bullets">`.
 - **Education / service / affiliations**: the `#education` section.
-- **"Current as of" date**: the `<time id="lastUpdated">` element in the footer.
+- **Layout width**: sections are wrapped by `.shell`.
 
 When the résumé content changes, update `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync with the page.
 

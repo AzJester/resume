@@ -30,12 +30,6 @@
     });
   }
 
-  /* ---------- Print / Save as PDF ---------- */
-  var printBtn = document.getElementById("printBtn");
-  if (printBtn) {
-    printBtn.addEventListener("click", function () { window.print(); });
-  }
-
   /* ---------- Back to top ---------- */
   var toTop = document.getElementById("toTop");
   if (toTop) {
