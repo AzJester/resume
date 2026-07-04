@@ -1,20 +1,18 @@
 # Shane Turner Résumé
 
-A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built to be read comfortably on any device, downloaded as a print-ready PDF, or printed directly.
+An interactive web résumé for **Shane Turner, D.B.A.** The main site is a 3D scroll "flight profile" — twelve career waypoints flown by a camera as you scroll — with flat, print, and no-JS fallbacks, plus the classic single-page version preserved at `/classic/`.
 
-🔗 **Live site:** [`https://resume.st-dba.com`](https://resume.st-dba.com) (custom domain via `CNAME`; GitHub Pages serving from `main`).
+🔗 **Live site:** [`https://resume.st-dba.com`](https://resume.st-dba.com) (custom domain via `CNAME`; GitHub Pages serving from the default branch).
 
 ## Features
 
-- **Read anywhere**: responsive layout that works on phones, tablets, and desktops.
-- **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
-- **Print**: a print button is also available; a dedicated print stylesheet produces a clean, ink-light document. Horizontal margins come from padding so they survive even when the browser's "Margins" setting is "None."
-- **Impact metrics strip**: scannable career highlights ($1B+ wins, $896M program, 700+ led, 20+ years) near the top.
-- **Light & dark themes**: auto-detects the visitor's system preference and remembers manual overrides.
+- **3D flight profile**: scroll dollies a camera through 12 waypoints (briefing → flight data → recognition → shAIne case study → profile → capabilities → experience by era → foundation → contact) with waypoint magnetism, a banking camera, per-era atmosphere tints, and a flight-plan HUD.
+- **Fallbacks everywhere**: a `3D : OFF` toggle, `prefers-reduced-motion`, `<noscript>`, and print styles all serve a flat document; the previous site lives on at [`/classic/`](https://resume.st-dba.com/classic/).
+- **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`).
+- **Opt-in sound**: ambient hum, scroll whoosh, and a docking ping behind the `SND` toggle (muted by default).
 - **Social share card**: `assets/og-card.png` gives links a branded preview on LinkedIn, Slack, email, etc.
 - **Structured data**: schema.org `Person` JSON-LD for search engines and rich previews.
-- **PDF-only download**: the résumé is offered as a PDF only; no Word version is published.
-- **Accessible**: semantic HTML, skip link, keyboard focus styles, reduced-motion support, and WCAG AA color contrast.
+- **Accessible**: DOM order matches the flight order, `aria-live` waypoint announcements, keyboard navigation (arrows / PgUp / PgDn / Home / End / J / K), skip link, focus-driven camera, and WCAG AA contrast.
 
 ## The downloadable PDF
 
@@ -24,10 +22,13 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built 
 
 ```
 .
-├── index.html                      # The résumé content + structure
+├── index.html                      # 3D flight-profile résumé (styles + engine inline)
+├── classic/
+│   └── index.html                  # The previous single-page version (noindex)
 ├── assets/
-│   ├── styles.css                  # Screen + print styles (light/dark themes)
-│   ├── main.js                     # Theme toggle, print button, scroll-spy, back-to-top
+│   ├── fonts/                      # Subset Fraunces / Inter / IBM Plex Mono woff2
+│   ├── styles.css                  # Classic page styles (light/dark themes)
+│   ├── main.js                     # Classic page scripts
 │   ├── favicon.svg                 # "ST" monogram icon
 │   ├── og-card.svg / og-card.png   # Social share card (source + rendered)
 │   └── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
@@ -36,17 +37,16 @@ A fast, accessible, single-page web résumé for **Shane Turner, D.B.A.** Built 
 
 ## Editing the content
 
-All résumé text lives in `index.html`. Common edits:
+All résumé text lives in `index.html` (each waypoint is a `<section class="ch">`). Common edits:
 
-- **Contact details**: the `mailto:` links in the hero and contact sections (no phone number is published).
-- **Summary**: the two paragraphs under `.hero__summary`.
-- **Impact metrics**: the `.metrics` block at the top of `.wrap`.
-- **Capabilities**: the `#capabilities` tag list.
-- **Experience**: each employer is an `<article class="org">`; each position is a `<div class="role">` with a `<ul class="bullets">`.
-- **Education / service / affiliations**: the `#education` section.
-- **"Current as of" date**: the `<time id="lastUpdated">` element in the footer.
+- **Contact details**: the `mailto:` links in the briefing and contact waypoints.
+- **Hero copy**: the `#wp-briefing` section (headline words are individual `<span class="w">` for the reveal).
+- **Stats**: the `#wp-flight-data` counters (`data-target` / `data-prefix` / `data-suffix`).
+- **shAIne case study**: `#wp-shaine`, including the value-model bar widths (`--bw`, percent of the $73K scale).
+- **Experience**: one waypoint per employer (`#wp-astrion`, `#wp-hii`, `#wp-amentum`, `#wp-origins`).
+- **Education / service / affiliations**: `#wp-foundation`.
 
-When the résumé content changes, update `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync with the page.
+The same content also lives in `classic/index.html`; update both when the résumé changes, and refresh `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync.
 
 ## Hosting on GitHub Pages
 
