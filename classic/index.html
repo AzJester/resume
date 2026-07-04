@@ -44,8 +44,7 @@
     "honorificPrefix": "Dr.",
     "jobTitle": "Senior Vice President, Solutions & Artificial Intelligence",
     "worksFor": { "@type": "Organization", "name": "Astrion" },
-    "email": "mailto:shane@st-dba.com",
-    "url": "https://resume.st-dba.com/",
+        "url": "https://resume.st-dba.com/",
     "sameAs": ["https://www.linkedin.com/in/drshaneturner"],
     "alumniOf": [
       { "@type": "CollegeOrUniversity", "name": "National University" },
@@ -123,7 +122,7 @@
             <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.99H5.67v8.35h2.67zM7 8.81a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.53v-4.58c0-2.45-1.31-3.59-3.06-3.59-1.41 0-2.04.78-2.39 1.32V9.99h-2.67v8.35h2.67v-4.66c0-.25.02-.49.09-.67.2-.49.65-1 1.4-1 .99 0 1.39.75 1.39 1.86v4.47h2.57z"/></svg>
             LinkedIn
           </a>
-          <a class="btn btn--ghost" href="mailto:shane@st-dba.com">
+          <a class="btn btn--ghost" href="#contact" data-eu="shane" data-ed="st-dba.com">
             <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
             Email
           </a>
@@ -505,9 +504,9 @@
         <h2 class="cta__title">Building the data, evidence, and AI advantage, together.</h2>
         <p class="cta__text">Open to executive and senior leadership conversations across defense growth, solutions, and AI. The fastest way to reach me:</p>
         <div class="cta__actions">
-          <a class="btn btn--solid" href="mailto:shane@st-dba.com">
+          <a class="btn btn--solid" href="#contact" data-eu="shane" data-ed="st-dba.com">
             <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-            shane@st-dba.com
+            <span class="eaddr">Email me</span>
           </a>
           <a class="btn btn--ghost btn--ghost-light" href="https://www.linkedin.com/in/drshaneturner" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn btn--ghost btn--ghost-light" href="../assets/Shane-Turner-Resume.pdf" download="Shane-Turner-Resume.pdf">Download Résumé</a>
@@ -527,5 +526,14 @@
   </button>
 
   <script src="../assets/main.js?v=2026-06-16b" defer></script>
+<script>
+document.querySelectorAll('[data-eu]').forEach(function (a) {
+  var addr = a.getAttribute('data-eu') + '@' + a.getAttribute('data-ed');
+  a.setAttribute('href', 'mailto:' + addr);
+  var t = a.querySelector('.eaddr');
+  if (t) t.textContent = addr;
+  else if (a.textContent.trim() === 'Email me') a.textContent = addr;
+});
+</script>
 </body>
 </html>

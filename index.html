@@ -40,7 +40,6 @@
     "honorificPrefix": "Dr.",
     "jobTitle": "Senior Vice President, Solutions & Artificial Intelligence",
     "worksFor": { "@type": "Organization", "name": "Astrion" },
-    "email": "mailto:shane@st-dba.com",
     "url": "https://resume.st-dba.com/",
     "sameAs": ["https://www.linkedin.com/in/drshaneturner"],
     "alumniOf": [
@@ -869,13 +868,13 @@ html.flat .boot { display: none; }
                 Download Résumé
               </a>
               <a class="btn btn--ghost" href="https://www.linkedin.com/in/drshaneturner" target="_blank" rel="noopener">LinkedIn</a>
-              <a class="btn btn--ghost" href="mailto:shane@st-dba.com">Email</a>
+              <a class="btn btn--ghost" href="#wp-contact" data-eu="shane" data-ed="st-dba.com">Email</a>
             </div>
             <p class="hero__route mono" data-rv><span class="sep">▸</span> Scroll to fly the route — 12 waypoints, 2026 back to 1991.</p>
           </div>
           <figure class="portrait">
             <div class="portrait__frame corners">
-              <img src="assets/shane-turner.jpg" alt="Dr. Shane Turner" width="900" height="900" />
+              <img src="assets/shane-turner-760.jpg" alt="Dr. Shane Turner" width="900" height="900" />
             </div>
             <figcaption><b>Turner, Shane · D.B.A.</b><br />SVP, Solutions &amp; AI — Astrion<br />Layered Defense · Autonomous Warfare · Integrated Fires</figcaption>
           </figure>
@@ -1114,7 +1113,7 @@ html.flat .boot { display: none; }
               </ul>
               <figure class="org__photo corners">
                 <span class="org__shot">
-                  <img src="assets/nlos-c.jpg" alt="XM1203 Non-Line-of-Sight Cannon prototype on a desert test range" width="720" height="470" loading="lazy" />
+                  <img src="assets/nlos-c-640.jpg" alt="XM1203 Non-Line-of-Sight Cannon prototype on a desert test range" width="720" height="470" loading="lazy" />
                 </span>
                 <figcaption>XM1203 NLOS-C · Yuma Proving Ground<br />U.S. Army photo · Public domain</figcaption>
               </figure>
@@ -1176,9 +1175,9 @@ html.flat .boot { display: none; }
           <h2 class="h-disp" data-rv>Building the data, evidence, and AI advantage, <span class="acc" style="color:var(--gold-bright)">together</span>.</h2>
           <p class="contact__text" data-rv>Open to executive and senior leadership conversations across defense growth, solutions, and AI. The fastest way to reach me:</p>
           <div class="cta-row" data-rv>
-            <a class="btn btn--gold" href="mailto:shane@st-dba.com">
+            <a class="btn btn--gold" href="#wp-contact" data-eu="shane" data-ed="st-dba.com">
               <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-              shane@st-dba.com
+              <span class="eaddr">Email me</span>
             </a>
             <a class="btn btn--ghost" href="https://www.linkedin.com/in/drshaneturner" target="_blank" rel="noopener">LinkedIn</a>
             <a class="btn btn--ghost" href="assets/Shane-Turner-Resume.pdf" download>Download Résumé</a>
@@ -1708,6 +1707,14 @@ html.flat .boot { display: none; }
       ctx2d.fill();
     }
   }
+
+  /* email assembled at runtime so the address never appears in the page source */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-eu]'), function (a) {
+    var addr = a.getAttribute('data-eu') + '@' + a.getAttribute('data-ed');
+    a.setAttribute('href', 'mailto:' + addr);
+    var t = a.querySelector('.eaddr');
+    if (t) t.textContent = addr;
+  });
 
   /* test hook: jump camera straight to a scroll fraction (no lerp) */
   window.__jump = function (fr) {
