@@ -8,7 +8,8 @@ An interactive web résumé for **Shane Turner, D.B.A.** The main site is a 3D s
 
 - **3D flight profile**: scroll dollies a camera through 12 waypoints (briefing → flight data → recognition → shAIne case study → profile → capabilities → experience by era → foundation → contact) with waypoint magnetism, a banking camera, per-era atmosphere tints, and a flight-plan HUD.
 - **Fallbacks everywhere**: a `3D : OFF` toggle, `prefers-reduced-motion`, `<noscript>`, and print styles all serve a flat document; the previous site lives on at [`/classic/`](https://resume.st-dba.com/classic/).
-- **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`).
+- **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
+- **Print**: an ink-light print stylesheet flattens the flight into a clean document straight from the browser's native print / Save-as-PDF (Ctrl/Cmd+P).
 - **Opt-in sound**: ambient hum, scroll whoosh, and a docking ping behind the `SND` toggle (muted by default).
 - **Social share card**: `assets/og-card.png` gives links a branded preview on LinkedIn, Slack, email, etc.
 - **Structured data**: schema.org `Person` JSON-LD for search engines and rich previews.
@@ -31,7 +32,13 @@ An interactive web résumé for **Shane Turner, D.B.A.** The main site is a 3D s
 │   ├── main.js                     # Classic page scripts
 │   ├── favicon.svg                 # "ST" monogram icon
 │   ├── og-card.svg / og-card.png   # Social share card (source + rendered)
-│   └── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
+│   ├── shane-turner.jpg            # Hero portrait (referenced by the page)
+│   ├── nlos-c.jpg                  # XM1203 NLOS-C photo in the Early-career section
+│   ├── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
+│   └── (share collateral)          # NOT referenced by index.html; distributed directly:
+│                                   #   Shane-Turner-Resume.pptx, Shane_blue_suite.png,
+│                                   #   infographic*.svg, shane-turner-infographic*.png,
+│                                   #   XM1203_Non_Line_of_Sight-Cannon_(NLOS-C).jpg
 └── README.md
 ```
 
@@ -39,7 +46,7 @@ An interactive web résumé for **Shane Turner, D.B.A.** The main site is a 3D s
 
 All résumé text lives in `index.html` (each waypoint is a `<section class="ch">`). Common edits:
 
-- **Contact details**: the `mailto:` links in the briefing and contact waypoints.
+- **Contact details**: the `mailto:` links in the briefing and contact waypoints (no phone number is published).
 - **Hero copy**: the `#wp-briefing` section (headline words are individual `<span class="w">` for the reveal).
 - **Stats**: the `#wp-flight-data` counters (`data-target` / `data-prefix` / `data-suffix`).
 - **shAIne case study**: `#wp-shaine`, including the value-model bar widths (`--bw`, percent of the $73K scale).
