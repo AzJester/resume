@@ -1498,19 +1498,6 @@ html.flat .boot { display: none; }
     sndBtn.setAttribute('aria-pressed', String(snd.on));
   }
   sndBtn.addEventListener('click', function () { if (!flat) sndToggle(); });
-  function sndPing() {
-    if (!snd.on || !snd.ctx) return;
-    var ctx = snd.ctx, t = ctx.currentTime;
-    var o = ctx.createOscillator(); o.type = 'sine';
-    o.frequency.setValueAtTime(1240, t);
-    o.frequency.exponentialRampToValueAtTime(660, t + 0.22);
-    var g = ctx.createGain();
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(0.06, t + 0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
-    o.connect(g); g.connect(snd.ctx.destination);
-    o.start(t); o.stop(t + 0.5);
-  }
   document.addEventListener('visibilitychange', function () {
     if (!snd.ctx) return;
     if (document.hidden) snd.ctx.suspend();
@@ -1581,8 +1568,7 @@ html.flat .boot { display: none; }
     }));
     if (firstAnnounce) { firstAnnounce = false; return; }
     try { history.replaceState(null, '', '#' + chapters[activeIdx].id); } catch (e) { /* sandboxed frame */ }
-    pingAt(activeIdx);
-    sndPing();
+    pingAt(activeIdx);   // arrivals are visual-only: radar ping on the rail, no sound
   }
 
   /* ---------- reveal engine ---------- */
