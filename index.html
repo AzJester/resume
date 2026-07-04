@@ -637,9 +637,11 @@ strong { color: inherit; font-weight: 650; }
 }
 .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 8px var(--gold-bright); animation: pulse 2.4s ease-in-out infinite; }
 .mode-btn {
+  display: inline-flex; align-items: center;
   font-family: var(--f-mono); font-size: .6rem; letter-spacing: .16em; font-weight: 600;
   color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 3px;
   padding: .42rem .6rem; cursor: pointer; transition: color .2s, border-color .2s;
+  text-decoration: none;
 }
 .mode-btn:hover { color: var(--gold-bright); border-color: var(--gold-dim); }
 .btn--hud { padding: .55rem .9rem; font-size: .78rem; border-radius: 4px; }
@@ -821,6 +823,10 @@ html.flat .boot { display: none; }
   body { font-size: 15px; }
   .bullets li { font-size: .85rem; }
   .ch { padding-top: 4.6rem; padding-bottom: 3rem; }
+}
+@media (max-width: 520px) {
+  .brand__id { display: none; } /* ST mark carries the brand; frees room for the version switch */
+  .btn--hud { display: none; }  /* résumé download stays available in the hero and contact */
 }
 @media (max-height: 700px) {
   .hero h1 { font-size: clamp(2rem, 4.6vw, 3.2rem); }
@@ -1210,6 +1216,7 @@ html.flat .boot { display: none; }
     <span class="chip"><span class="dot" aria-hidden="true"></span>TS · ACTIVE</span>
     <button class="mode-btn" id="sndBtn" type="button" aria-pressed="false" title="Toggle ambient sound (3D mode only)">SND : OFF</button>
     <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false" title="Toggle 3D flight / flat document mode">3D : ON</button>
+    <a class="mode-btn" href="classic/" title="Switch to the classic single-page résumé">CLASSIC</a>
     <a class="btn btn--gold btn--hud" href="assets/Shane-Turner-Resume.pdf" download>
       <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
       <span>Résumé</span>
