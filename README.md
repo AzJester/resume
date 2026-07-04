@@ -1,13 +1,13 @@
 # Shane Turner Résumé
 
-An interactive web résumé for **Shane Turner, D.B.A.** The main site is a 3D scroll "flight profile" — twelve career waypoints flown by a camera as you scroll — with flat, print, and no-JS fallbacks, plus the classic single-page version preserved at `/classic/`.
+A web résumé for **Shane Turner, D.B.A.** The main page is the classic single-page résumé; a 3D scroll "flight profile" — twelve career waypoints flown by a camera as you scroll — lives at `/3d/` behind an animated launch button in the header, with flat, print, and no-JS fallbacks of its own.
 
 🔗 **Live site:** [`https://resume.st-dba.com`](https://resume.st-dba.com) (custom domain via `CNAME`; GitHub Pages serving from the default branch).
 
 ## Features
 
 - **3D flight profile**: scroll dollies a camera through 12 waypoints (briefing → flight data → recognition → shAIne case study → profile → capabilities → experience by era → foundation → contact) with waypoint magnetism, a banking camera, per-era atmosphere tints, and a flight-plan HUD.
-- **Fallbacks everywhere**: a `3D : OFF` toggle, `prefers-reduced-motion`, `<noscript>`, and print styles all serve a flat document; the previous site lives on at [`/classic/`](https://resume.st-dba.com/classic/).
+- **Fallbacks everywhere**: on the 3D page a `3D : OFF` toggle, `prefers-reduced-motion`, `<noscript>`, and print styles all serve a flat document; a `CLASSIC` link returns to the main page.
 - **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
 - **Print**: an ink-light print stylesheet flattens the flight into a clean document straight from the browser's native print / Save-as-PDF (Ctrl/Cmd+P).
 - **Opt-in sound**: ambient hum, scroll whoosh, and a docking ping behind the `SND` toggle (muted by default).
@@ -23,9 +23,11 @@ An interactive web résumé for **Shane Turner, D.B.A.** The main site is a 3D s
 
 ```
 .
-├── index.html                      # 3D flight-profile résumé (styles + engine inline)
+├── index.html                      # Classic single-page résumé (the default)
+├── 3d/
+│   └── index.html                  # 3D flight-profile version (noindex; styles + engine inline)
 ├── classic/
-│   └── index.html                  # The previous single-page version (noindex)
+│   └── index.html                  # Redirect to the main page (old link compatibility)
 ├── assets/
 │   ├── fonts/                      # Subset Fraunces / Inter / IBM Plex Mono woff2
 │   ├── styles.css                  # Classic page styles (light/dark themes)
@@ -44,7 +46,7 @@ An interactive web résumé for **Shane Turner, D.B.A.** The main site is a 3D s
 
 ## Editing the content
 
-All résumé text lives in `index.html` (each waypoint is a `<section class="ch">`). Common edits:
+Classic résumé text lives in `index.html`; the 3D version mirrors it in `3d/index.html` (each waypoint is a `<section class="ch">`). Common 3D-page edits:
 
 - **Contact details**: the `mailto:` links in the briefing and contact waypoints (no phone number is published).
 - **Hero copy**: the `#wp-briefing` section (headline words are individual `<span class="w">` for the reveal).
@@ -53,7 +55,7 @@ All résumé text lives in `index.html` (each waypoint is a `<section class="ch"
 - **Experience**: one waypoint per employer (`#wp-astrion`, `#wp-hii`, `#wp-amentum`, `#wp-origins`).
 - **Education / service / affiliations**: `#wp-foundation`.
 
-The same content also lives in `classic/index.html`; update both when the résumé changes, and refresh `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync.
+Update both pages when the résumé changes, and refresh `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync.
 
 ## Hosting on GitHub Pages
 
