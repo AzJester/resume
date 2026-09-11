@@ -109,8 +109,8 @@
         ]
       }
     </script>
-    <link rel="stylesheet" href="flight.css?v=20260911a" />
-    <script src="flight.js?v=20260911a" defer></script>
+    <link rel="stylesheet" href="flight.css?v=20260911b" />
+    <script src="flight.js?v=20260911b" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#wp-contact">Skip to contact</a>
@@ -223,6 +223,25 @@
         </button>
       </div>
     </aside>
+
+    <div id="flight-scroll-track" aria-hidden="true"></div>
+    <nav class="flight-controls" aria-label="3D flight controls">
+      <button id="flight-previous" type="button" aria-label="Previous section">
+        ←
+      </button>
+      <div class="flight-readout">
+        <p>
+          <span class="flight-live" aria-hidden="true"></span>3D FLIGHT
+          <span id="flight-chapter">01 / 06 · Introduction</span>
+        </p>
+        <span id="flight-instruction"
+          >Scroll to explore, then fly to the next section</span
+        >
+      </div>
+      <button id="flight-next" type="button" aria-label="Next section">
+        →
+      </button>
+    </nav>
 
     <main id="main-content" tabindex="-1">
       <section
