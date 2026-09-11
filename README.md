@@ -7,8 +7,8 @@ A web résumé for **Shane Turner, D.B.A.** The main page is the classic single-
 ## Features
 
 - **Six-section flight profile**: career results in the introduction, three case studies, an explicit Astrion promotion timeline, and capabilities grouped by leadership, mission, and delivery. Navigation has readable section labels and working legacy waypoint anchors.
-- **Reading and 3D views**: phones and short screens default to reading view. Desktop flight view adds a perspective entrance, starfield, and range-grid background. Content settles before it reaches the reading area. No scroll interception, snapping, mouse tilt, or fixed-height content viewport.
-- **Progressive enhancement**: all content, links, final career figures, and expandable details work without JavaScript. The view preference is saved when storage is available; changing views preserves reading position. The operating system's reduced-motion preference always selects reading view.
+- **Reading and 3D views**: phones and short screens default to reading view. Flight view places the six sections in a perspective scene with floating panels, a starfield, a range grid, and visible travel between sections. Native document scrolling first reads a panel's entire measured content, then advances through depth to the next panel. Previous/next controls and the section menu also navigate the flight. No wheel/touch interception, snapping, or mouse tilt.
+- **Progressive enhancement**: all content, links, final career figures, and expandable details work without JavaScript. The view preference is saved when storage is available; changing views preserves the current paragraph or heading even when line wrapping changes. Flight distances remeasure after resizing, font/image loading, and opening details. The operating system's reduced-motion preference always selects reading view.
 - **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
 - **Print**: an ink-light print stylesheet flattens the flight into a clean document straight from the browser's native print / Save-as-PDF (Ctrl/Cmd+P).
 - **Opt-in sound**: a quiet ambient tone is available from the desktop flight-plan rail. It starts only after a click, and stops when the page is hidden or reading view is selected.
@@ -28,7 +28,7 @@ A web résumé for **Shane Turner, D.B.A.** The main page is the classic single-
 ├── 3d/
 │   ├── index.html                  # Six-section flight profile (noindex; canonical remains the classic résumé)
 │   ├── flight.css                  # Shared reading/flight layout, responsive and print styles
-│   └── flight.js                   # Optional motion, saved view, anchors and active navigation
+│   └── flight.js                   # Measured flight route, saved view, anchors and active navigation
 ├── classic/
 │   └── index.html                  # Redirect to the main page (old link compatibility)
 ├── assets/
@@ -60,7 +60,7 @@ Classic résumé text lives in `index.html`; the executive flight version lives 
 
 Update both pages when the résumé changes, and refresh `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync.
 
-For layout-only changes to `/3d/`, keep the official PDF and classic page intact. Preserve the existing navy/gold palette, local fonts, and portrait assets. Test phone widths (including 375 × 667), desktop, anchor navigation, view persistence, keyboard use, and printing before publishing. A view or interaction change does not require changing the public DNS or GoDaddy website builder.
+For layout-only changes to `/3d/`, keep the official PDF and classic page intact. Preserve the existing navy/gold palette, local fonts, and portrait assets. Test phone widths (including 375 × 667 and 320px), desktop, anchor navigation, view persistence, keyboard use, and printing before publishing. In flight mode, scroll to the bottom of the long results and experience panels, expand both sets of details, and check a transition in both directions. Flight-only geometry is scoped to screen media so printing retains normal document flow. A view or interaction change does not require changing the public DNS or GoDaddy website builder.
 
 ## Hosting on GitHub Pages
 

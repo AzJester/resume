@@ -538,14 +538,9 @@ main {
   position: relative;
   transform-origin: 50% 20%;
 }
-.flight-mode .journey-surface {
-  transform: translate3d(
-      0,
-      calc(var(--approach, 0) * 36px),
-      calc(var(--approach, 0) * -110px)
-    )
-    rotateX(calc(var(--approach, 0) * 3deg));
-  will-change: auto;
+.flight-controls,
+#flight-scroll-track {
+  display: none;
 }
 .eyebrow {
   font-family: var(--font-mono);
@@ -1981,6 +1976,246 @@ main {
   }
   .hero-proof dt {
     font-size: 22px;
+  }
+}
+/* A separate spatial layout. The body remains the native scroll surface, and
+   every panel gets enough travel to read its complete, measured content. */
+@media screen {
+  .flight-mode {
+    --flight-left: max(222px, calc((100vw - 1640px) / 2 + 222px));
+    --flight-right: max(52px, calc((100vw - 1640px) / 2 + 72px));
+    overflow-x: clip;
+    overflow-anchor: none;
+  }
+  .flight-mode .flight-scene {
+    z-index: 0;
+    background: radial-gradient(
+      ellipse at 60% 45%,
+      #16334d 0%,
+      #091725 48%,
+      #040b14 85%
+    );
+  }
+  .flight-mode .scene-glow {
+    background:
+      linear-gradient(90deg, #060f1b 0%, transparent 23%),
+      radial-gradient(
+        ellipse at 58% 55%,
+        rgba(87, 155, 214, 0.13),
+        transparent 60%
+      );
+  }
+  .flight-mode .scene-floor {
+    top: 52%;
+    opacity: 0.85;
+    background-image:
+      linear-gradient(rgba(111, 168, 223, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(111, 168, 223, 0.3) 1px, transparent 1px);
+  }
+  .flight-mode .scene-orbit {
+    border-radius: 28px;
+    width: 74vw;
+    height: 74vh;
+    right: 1%;
+    top: 15%;
+    border-color: rgba(131, 186, 228, 0.19);
+    transform: perspective(800px) rotateY(-28deg) scale(var(--tunnel-scale, 1));
+  }
+  .flight-mode .scene-orbit--two {
+    width: 49vw;
+    height: 50vh;
+    top: 25%;
+    right: 13%;
+    border-color: rgba(221, 180, 94, 0.16);
+    transform: perspective(800px) rotateY(-28deg) scale(var(--tunnel-scale, 1));
+  }
+  .flight-mode #flight-scroll-track {
+    display: block;
+  }
+  .flight-mode main {
+    position: fixed;
+    inset: calc(var(--header-height) + 22px) var(--flight-right) 100px
+      var(--flight-left);
+    z-index: 10;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    perspective: 1200px;
+    perspective-origin: 50% 45%;
+    pointer-events: none;
+  }
+  .flight-mode .waypoint,
+  .flight-mode .waypoint:not(.hero) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+    min-height: 0;
+    border: 1px solid rgba(154, 197, 229, 0.42);
+    border-top-color: rgba(221, 180, 94, 0.8);
+    border-radius: 12px;
+    overflow: clip;
+    perspective: none;
+    background: linear-gradient(125deg, #12283b, #091725 70%);
+    box-shadow:
+      9px 9px 0 -3px #06111e,
+      10px 10px 0 -3px #446079,
+      0 28px 70px #0008;
+    transform-origin: 50% 45%;
+    transform: translate3d(
+        var(--panel-x, 0px),
+        var(--panel-y, 0px),
+        var(--panel-z, -50px)
+      )
+      rotateY(var(--panel-turn, -3deg)) rotateX(1deg);
+    opacity: var(--panel-opacity, 0);
+    pointer-events: none;
+    backface-visibility: hidden;
+  }
+  .flight-mode .waypoint.flight-current {
+    pointer-events: auto;
+  }
+  .flight-mode .journey-surface {
+    padding: 32px 36px;
+    transform: translate3d(0, var(--content-y, 0px), 0);
+    transform-origin: 0 0;
+    min-height: 100%;
+  }
+  .flight-mode .hero h1 {
+    font-size: clamp(38px, 3.8vw, 58px);
+  }
+  .flight-mode .hero > .journey-surface,
+  .flight-mode .contact > .journey-surface {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .flight-mode .hero-grid {
+    gap: 30px;
+  }
+  .flight-mode .hero-bottom {
+    margin-top: 26px;
+  }
+  .flight-mode .flight-controls {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    align-items: center;
+    gap: 16px;
+    position: fixed;
+    z-index: 40;
+    bottom: 19px;
+    left: var(--flight-left);
+    right: var(--flight-right);
+    padding: 10px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    background: rgba(6, 15, 27, 0.94);
+    box-shadow: 0 8px 30px #0004;
+  }
+  .flight-controls button {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #14283b;
+    font-size: 22px;
+    color: var(--gold);
+  }
+  .flight-controls button:hover:not(:disabled) {
+    border-color: var(--gold);
+    background: #20374c;
+  }
+  .flight-controls button:disabled {
+    opacity: 0.3;
+  }
+  .flight-readout p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gold);
+    font: 10px var(--font-mono);
+    letter-spacing: 0.07em;
+  }
+  .flight-readout p > span:last-child {
+    color: var(--ink);
+    letter-spacing: 0;
+    margin-left: 8px;
+  }
+  .flight-live {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ddb45e88;
+  }
+  #flight-instruction {
+    display: block;
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  @media (max-width: 1180px) {
+    .flight-mode {
+      --flight-left: 38px;
+      --flight-right: 38px;
+    }
+  }
+  @media (max-width: 620px) {
+    .flight-mode {
+      --flight-left: 14px;
+      --flight-right: 14px;
+    }
+    .flight-mode main {
+      top: calc(var(--header-height) + 12px);
+      bottom: 100px;
+    }
+    .flight-mode .journey-surface {
+      padding: 24px 20px;
+    }
+    .flight-mode .hero h1 {
+      font-size: 37px;
+    }
+    .flight-mode .hero-grid {
+      gap: 22px;
+    }
+    .flight-mode .hero-proof {
+      gap: 10px;
+    }
+    .flight-mode .hero-proof dt {
+      font-size: clamp(22px, 7vw, 29px);
+    }
+    .flight-mode .hero-proof dd {
+      font-size: 9px;
+    }
+    .flight-mode .flight-controls {
+      gap: 9px;
+      padding: 8px;
+      bottom: 12px;
+    }
+    .flight-readout p {
+      font-size: 8px;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .flight-readout p > span:last-child {
+      width: 100%;
+      margin-left: 0;
+      font-size: 10px;
+    }
+    #flight-instruction {
+      margin-top: 5px;
+      font-size: 10px;
+    }
+  }
+  @media (max-width: 370px) {
+    .flight-mode .journey-surface {
+      padding: 22px 16px;
+    }
+    .flight-mode .hero h1 {
+      font-size: 33px;
+    }
   }
 }
 @media (prefers-reduced-motion: reduce) {

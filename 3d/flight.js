@@ -1,8 +1,17 @@
-/* A progressively enhanced document: the flight never owns or cancels scrolling. */
+/* Native document scrolling drives the flight. No wheel/touch interception. */
 (() => {
   "use strict";
   const root = document.documentElement;
+  const main = document.getElementById("main-content");
   const sections = [...document.querySelectorAll(".waypoint")];
+  const surfaces = sections.map((section) =>
+    section.querySelector(".journey-surface"),
+  );
+  const track = document.getElementById("flight-scroll-track");
+  const previous = document.getElementById("flight-previous");
+  const next = document.getElementById("flight-next");
+  const chapter = document.getElementById("flight-chapter");
+  const instruction = document.getElementById("flight-instruction");
   const viewToggle = document.getElementById("view-toggle");
   const viewLabel = document.getElementById("view-label");
   const viewHint = document.getElementById("view-hint");
@@ -19,26 +28,33 @@
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const smallScreen = matchMedia("(max-width: 900px), (max-height: 700px)");
   const storageKey = "resume-view-v2";
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   let preference = null;
   try {
     const saved = localStorage.getItem(storageKey);
     if (saved === "flight" || saved === "reading") preference = saved;
   } catch (_) {
-    /* Reading and navigation also work when storage is unavailable. */
+    /* Navigation still works when storage is unavailable. */
   }
   let flight = false;
+  let ready = false;
+  let printing = false;
   let frameQueued = false;
-  let activeId = "";
+  let layoutQueued = false;
+  let activeIndex = -1;
   let audio = null;
+  let path = [];
+  let flightLength = 0;
+  let lastPlace = null;
+  let movingFocus = false;
   const canvas = document.getElementById("starfield");
   const context = canvas.getContext("2d");
   let canvasWidth = 0;
   let canvasHeight = 0;
-  let canvasRatio = 1;
-  const stars = Array.from({ length: 75 }, (_, index) => ({
-    x: ((index * 97 + 13) % 997) / 997,
-    y: ((index * 173 + 41) % 991) / 991,
-    depth: 0.25 + (index % 11) / 15,
+  const stars = Array.from({ length: 95 }, (_, index) => ({
+    x: (((index * 97 + 13) % 997) / 997 - 0.5) * 2.8,
+    y: (((index * 173 + 41) % 991) / 991 - 0.5) * 2.8,
+    depth: 0.1 + ((index * 61) % 97) / 97,
   }));
 
   root.classList.add("js");
@@ -52,12 +68,136 @@
     soundToggle.setAttribute("aria-pressed", "false");
   }
 
+  // Layout offsets are measured before transforms, including nested legacy targets.
+  function contentOffset(element, index) {
+    const surface = surfaces[index];
+    if (
+      !element ||
+      element === sections[index] ||
+      element === surface ||
+      element === main
+    )
+      return 0;
+    let offset = 0;
+    let current = element;
+    while (current && current !== surface) {
+      offset += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return current === surface ? offset : 0;
+  }
+
+  function flightPosition(y = scrollY) {
+    let index = 0;
+    for (let i = 1; i < path.length; i++) {
+      if (y >= path[i].start - 1) index = i;
+    }
+    const stop = path[index];
+    if (!stop) return { index: 0, offset: 0, transition: 0, camera: 0 };
+    const transition =
+      index < path.length - 1
+        ? clamp((y - stop.depart) / stop.transition, 0, 1)
+        : 0;
+    return {
+      index,
+      offset: clamp(y - stop.start, 0, stop.overflow),
+      transition,
+      camera: index + transition,
+    };
+  }
+
+  function capturePlace() {
+    let index = 0;
+    let offset = 0;
+    if (flight && path.length) {
+      const position = flightPosition();
+      index = position.index;
+      offset = position.offset;
+      if (position.transition > 0.5) {
+        index++;
+        offset = 0;
+      }
+    } else {
+      const line = document.querySelector(".site-header").offsetHeight + 24;
+      for (let i = 0; i < sections.length; i++) {
+        if (sections[i].getBoundingClientRect().top <= line) index = i;
+      }
+      offset = Math.max(0, line - surfaces[index].getBoundingClientRect().top);
+    }
+    // Preserve a real paragraph or heading when a view change alters line wrapping.
+    let anchor = surfaces[index];
+    let anchorTop = 0;
+    for (const element of surfaces[index].querySelectorAll(
+      "h1,h2,h3,p,li,dt,summary,figure",
+    )) {
+      if (!element.getClientRects().length) continue;
+      const top = contentOffset(element, index);
+      if (top <= offset + 1 && top >= anchorTop) {
+        anchor = element;
+        anchorTop = top;
+      }
+    }
+    return { index, anchor, delta: offset - anchorTop };
+  }
+
+  function restorePlace(place) {
+    if (!place) return;
+    const offset = Math.max(
+      0,
+      contentOffset(place.anchor, place.index) + place.delta,
+    );
+    const y = flight
+      ? path[place.index].start + Math.min(offset, path[place.index].overflow)
+      : surfaces[place.index].getBoundingClientRect().top +
+        scrollY +
+        offset -
+        document.querySelector(".site-header").offsetHeight -
+        24;
+    window.scrollTo({ top: Math.max(0, y), behavior: "instant" });
+  }
+
+  function measureFlight() {
+    const viewport = sections[0].clientHeight;
+    const transition = Math.max(640, innerHeight * 0.9);
+    let start = 0;
+    path = surfaces.map((surface, index) => {
+      const overflow = Math.max(0, surface.offsetHeight - viewport);
+      const last = index === sections.length - 1;
+      const depart = start + overflow + (last ? 0 : 130);
+      const stop = { start, overflow, depart, transition };
+      start = depart + (last ? 0 : transition);
+      return stop;
+    });
+    flightLength = start;
+    track.style.height = `${Math.ceil(flightLength + innerHeight)}px`;
+  }
+
+  function refreshLayout() {
+    layoutQueued = false;
+    if (!flight || printing) return;
+    const place = lastPlace || capturePlace();
+    measureFlight();
+    restorePlace(place);
+    queueFrame();
+  }
+
+  function queueLayout() {
+    if (!layoutQueued && flight && !printing) {
+      layoutQueued = true;
+      requestAnimationFrame(refreshLayout);
+    }
+  }
+
   function applyView(announce = false) {
-    // A saved choice persists; the operating system's reduced-motion setting wins.
-    flight =
+    const chosen =
       !reducedMotion.matches &&
       (preference ? preference === "flight" : !smallScreen.matches);
+    const place = ready && chosen !== flight ? capturePlace() : null;
+    flight = chosen;
     root.classList.toggle("flight-mode", flight);
+    if (flight) measureFlight();
+    if (place) restorePlace(place);
+    ready = true;
     viewToggle.setAttribute("aria-pressed", String(flight));
     viewLabel.textContent = flight ? "3D flight" : "Reading view";
     viewToggle.setAttribute(
@@ -73,14 +213,14 @@
         ? "Switch to reading view without losing your place"
         : "Enable the 3D flight experience";
     viewHint.textContent = flight
-      ? "3D transitions on. Text stays still as you read."
+      ? "Scroll to read. Keep scrolling to fly."
       : "Reading view. Content scrolls at your pace.";
     soundToggle.hidden = !flight;
     if (!flight) stopSound();
     if (announce)
       viewStatus.textContent = flight
-        ? "3D flight view enabled. Your reading position is unchanged."
-        : "Reading view enabled. Your reading position is unchanged.";
+        ? "3D flight enabled. Scroll to read each panel and fly between sections. Your place is preserved."
+        : "Reading view enabled. Your place is preserved.";
     queueFrame();
   }
 
@@ -89,7 +229,7 @@
     try {
       localStorage.setItem(storageKey, preference);
     } catch (_) {
-      /* This visit still keeps the chosen view. */
+      /* Keep this visit's choice. */
     }
     applyView(true);
   });
@@ -112,23 +252,45 @@
     }
   }
 
-  function navigate(target, behavior) {
-    // Old waypoint URLs still resolve to their content inside the six new sections.
+  function navigate(target, behavior = "smooth") {
     let ancestor = target.parentElement;
     while (ancestor) {
       if (ancestor.tagName === "DETAILS") ancestor.open = true;
       ancestor = ancestor.parentElement;
     }
     closeMenu();
-    target.scrollIntoView({ block: "start", behavior });
+    if (flight) {
+      measureFlight();
+      const index =
+        target === main ? 0 : sections.indexOf(target.closest(".waypoint"));
+      if (index >= 0) {
+        const offset = Math.max(0, contentOffset(target, index) - 24);
+        window.scrollTo({
+          top: path[index].start + Math.min(offset, path[index].overflow),
+          behavior,
+        });
+      }
+    } else target.scrollIntoView({ block: "start", behavior });
     if (
       !target.hasAttribute("tabindex") &&
-      !target.matches("a,button,input,select,textarea")
-    )
+      !target.matches("a,button,input,select,textarea,summary")
+    ) {
       target.setAttribute("tabindex", "-1");
+    }
+    movingFocus = true;
     target.focus({ preventScroll: true });
+    movingFocus = false;
     queueFrame();
   }
+
+  function goToSection(index) {
+    const target = sections[clamp(index, 0, sections.length - 1)];
+    if (location.hash !== `#${target.id}`)
+      history.pushState(null, "", `#${target.id}`);
+    navigate(target, reducedMotion.matches ? "instant" : "smooth");
+  }
+  previous.addEventListener("click", () => goToSection(activeIndex - 1));
+  next.addEventListener("click", () => goToSection(activeIndex + 1));
 
   document.addEventListener("click", (event) => {
     const link = event.target.closest('a[href^="#"]');
@@ -145,7 +307,7 @@
       if (target) {
         event.preventDefault();
         if (location.hash !== hash) history.pushState(null, "", hash);
-        navigate(target, reducedMotion.matches ? "auto" : "smooth");
+        navigate(target, reducedMotion.matches ? "instant" : "smooth");
       }
     } else if (contents.open && !contents.contains(event.target)) closeMenu();
   });
@@ -157,73 +319,150 @@
   });
   window.addEventListener("hashchange", () => {
     const target = targetFor(location.hash);
-    if (target) navigate(target, "auto");
+    if (target) navigate(target, "instant");
+  });
+  // Tab and assistive-technology focus can reach the complete DOM in source order.
+  // Bring a focused link/summary into the viewport, even in a distant panel.
+  document.addEventListener("focusin", (event) => {
+    if (!flight || movingFocus || !main.contains(event.target)) return;
+    const index = sections.indexOf(event.target.closest(".waypoint"));
+    if (index < 0) return;
+    const position = flightPosition();
+    const top = contentOffset(event.target, index);
+    const bottom = top + event.target.offsetHeight;
+    if (
+      position.index !== index ||
+      position.transition > 0 ||
+      top < position.offset ||
+      bottom > position.offset + sections[index].clientHeight
+    ) {
+      navigate(event.target, "instant");
+    }
   });
 
   function sizeCanvas() {
     if (!context) return;
     canvasWidth = innerWidth;
     canvasHeight = innerHeight;
-    canvasRatio = Math.min(devicePixelRatio || 1, 1.5);
-    canvas.width = Math.round(canvasWidth * canvasRatio);
-    canvas.height = Math.round(canvasHeight * canvasRatio);
-    context.setTransform(canvasRatio, 0, 0, canvasRatio, 0, 0);
+    const ratio = Math.min(devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(canvasWidth * ratio);
+    canvas.height = Math.round(canvasHeight * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
   }
 
-  function drawStars(scrollFraction) {
+  function drawStars(camera) {
     if (!context || !flight) return;
     context.clearRect(0, 0, canvasWidth, canvasHeight);
     for (const star of stars) {
-      const depthShift = scrollFraction * star.depth;
-      const x =
-        (star.x * canvasWidth +
-          Math.sin(depthShift * 2.4) * 38 * star.depth +
-          canvasWidth) %
-        canvasWidth;
-      const y = ((star.y + depthShift * 0.45) % 1) * canvasHeight;
+      const depth = 0.15 + ((((star.depth - camera * 0.28) % 1) + 1) % 1);
+      const scale = 0.35 / depth;
+      const x = canvasWidth * (0.56 + star.x * scale);
+      const y = canvasHeight * (0.47 + star.y * scale);
       context.beginPath();
-      context.fillStyle = `rgba(159,187,220,${0.16 + star.depth * 0.33})`;
-      context.arc(x, y, 0.5 + star.depth, 0, Math.PI * 2);
+      context.fillStyle = `rgba(169,203,231,${Math.min(0.75, 0.12 / depth)})`;
+      context.arc(x, y, Math.min(2.2, 0.7 / depth), 0, Math.PI * 2);
       context.fill();
     }
   }
 
+  function renderFlight() {
+    const position = flightPosition();
+    const current =
+      position.transition > 0.5 ? position.index + 1 : position.index;
+    const width = main.clientWidth;
+    for (let i = 0; i < sections.length; i++) {
+      const distance = i - position.camera;
+      const future = distance >= 0;
+      const opacity = future
+        ? clamp(1 - distance * 0.72, 0, 1)
+        : clamp(1 + distance * 1.7, 0, 1);
+      const x = Math.sin((clamp(distance, -1, 1) * Math.PI) / 2) * width * 0.95;
+      const y = Math.min(1, Math.abs(distance)) * 24;
+      const z = clamp(-distance * 1400 - 50, -3000, 980);
+      const section = sections[i];
+      section.style.setProperty("--panel-x", `${x.toFixed(1)}px`);
+      section.style.setProperty("--panel-y", `${y.toFixed(1)}px`);
+      section.style.setProperty("--panel-z", `${z.toFixed(1)}px`);
+      section.style.setProperty(
+        "--panel-turn",
+        `${(-distance * 18 - 3).toFixed(2)}deg`,
+      );
+      section.style.setProperty("--panel-opacity", opacity.toFixed(3));
+      section.style.zIndex = String(20 - i);
+      section.classList.toggle("flight-current", i === current);
+      const offset =
+        i < position.index
+          ? path[i].overflow
+          : i === position.index
+            ? position.offset
+            : 0;
+      section.style.setProperty("--content-y", `${-offset}px`);
+    }
+    const inTransit = position.transition > 0;
+    const atBottom = position.offset >= path[position.index].overflow - 2;
+    const last = current === sections.length - 1;
+    instruction.textContent = inTransit
+      ? `Flying to ${sections[position.index + 1].dataset.label}`
+      : atBottom && !last
+        ? `Keep scrolling to fly to ${sections[current + 1].dataset.label}`
+        : last
+          ? "Final section · Contact details and résumé below"
+          : "Scroll to read · Use the arrows to change section";
+    root.style.setProperty(
+      "--floor-shift",
+      `${(position.camera * 140) % 100}px`,
+    );
+    root.style.setProperty(
+      "--tunnel-scale",
+      (1 + position.transition * 0.38).toFixed(3),
+    );
+    drawStars(
+      position.camera +
+        (position.offset / Math.max(1, path[position.index].overflow)) * 0.07,
+    );
+    return current;
+  }
+
   function updateFrame() {
     frameQueued = false;
-    if (document.hidden) return;
-    const range = Math.max(
-      1,
-      document.documentElement.scrollHeight - innerHeight,
-    );
-    const fraction = Math.max(0, Math.min(1, scrollY / range));
-    progress.style.transform = `scaleX(${fraction})`;
-    root.style.setProperty("--floor-shift", `${(scrollY * 0.055) % 100}px`);
-    const readingLine = Math.min(innerHeight * 0.35, 260);
-    let current = sections[0];
-    for (const section of sections) {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= readingLine) current = section;
-      // Entry depth settles before the content reaches the reader. No exit animation,
-      // pointer tilt, scroll magnet, forced snap, or movement of a paragraph being read.
-      const approach = flight
-        ? Math.max(
-            0,
-            Math.min(1, (rect.top - innerHeight * 0.72) / (innerHeight * 0.3)),
-          )
-        : 0;
-      section.style.setProperty("--approach", approach.toFixed(3));
+    if (document.hidden || printing) return;
+    const range = Math.max(1, root.scrollHeight - innerHeight);
+    progress.style.transform = `scaleX(${clamp(scrollY / range, 0, 1)})`;
+    let current = 0;
+    if (flight) current = renderFlight();
+    else {
+      const line = Math.min(innerHeight * 0.35, 260);
+      sections.forEach((section, index) => {
+        if (section.getBoundingClientRect().top <= line) current = index;
+      });
+      if (scrollY >= range - 4) current = sections.length - 1;
     }
-    if (scrollY >= range - 4) current = sections[sections.length - 1];
-    if (current.id !== activeId) {
-      activeId = current.id;
+    if (current !== activeIndex) {
+      activeIndex = current;
       for (const link of routeLinks) {
-        if (link.hash === `#${activeId}`)
+        if (link.hash === `#${sections[current].id}`)
           link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
       }
-      routeCount.textContent = `${String(sections.indexOf(current) + 1).padStart(2, "0")} / 06`;
+      const count = `${String(current + 1).padStart(2, "0")} / 06`;
+      routeCount.textContent = count;
+      chapter.textContent = `${count} · ${sections[current].dataset.label}`;
+      previous.disabled = current === 0;
+      next.disabled = current === sections.length - 1;
+      previous.setAttribute(
+        "aria-label",
+        current > 0
+          ? `Previous section: ${sections[current - 1].dataset.label}`
+          : "Previous section",
+      );
+      next.setAttribute(
+        "aria-label",
+        current < sections.length - 1
+          ? `Next section: ${sections[current + 1].dataset.label}`
+          : "Next section",
+      );
     }
-    drawStars(fraction);
+    lastPlace = capturePlace();
   }
 
   function queueFrame() {
@@ -237,6 +476,7 @@
     "resize",
     () => {
       sizeCanvas();
+      queueLayout();
       queueFrame();
     },
     { passive: true },
@@ -245,9 +485,17 @@
     if (document.hidden) stopSound();
     else queueFrame();
   });
-  document
-    .querySelectorAll("details")
-    .forEach((details) => details.addEventListener("toggle", queueFrame));
+  document.querySelectorAll("main details").forEach((details) =>
+    details.addEventListener("toggle", () => {
+      queueLayout();
+      queueFrame();
+    }),
+  );
+  if (window.ResizeObserver) {
+    const observer = new ResizeObserver(queueLayout);
+    surfaces.forEach((surface) => observer.observe(surface));
+    observer.observe(main);
+  }
 
   soundToggle.addEventListener("click", async () => {
     if (!flight || audio) {
@@ -280,6 +528,7 @@
 
   let closedForPrint = [];
   window.addEventListener("beforeprint", () => {
+    printing = true;
     stopSound();
     closedForPrint = [...document.querySelectorAll("main details:not([open])")];
     closedForPrint.forEach((details) => {
@@ -291,22 +540,25 @@
       details.open = false;
     });
     closedForPrint = [];
+    printing = false;
+    queueLayout();
+    queueFrame();
   });
 
   sizeCanvas();
   applyView();
-  // Native anchors work without JavaScript. Re-align a direct link after images/fonts
-  // have established the layout, without a boot screen or hidden résumé content.
+  // Re-align direct and legacy links once images and local fonts establish layout.
   const initialHash = location.hash;
-  if (initialHash)
-    window.addEventListener(
-      "load",
-      () => {
-        if (location.hash === initialHash) {
-          const target = targetFor(initialHash);
-          if (target) navigate(target, "auto");
-        }
-      },
-      { once: true },
-    );
+  window.addEventListener(
+    "load",
+    () => {
+      if (flight) measureFlight();
+      if (initialHash && location.hash === initialHash) {
+        const target = targetFor(initialHash);
+        if (target) navigate(target, "instant");
+      }
+      queueFrame();
+    },
+    { once: true },
+  );
 })();
