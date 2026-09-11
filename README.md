@@ -6,6 +6,10 @@ A web résumé for **Shane Turner, D.B.A.** The main page is the classic single-
 
 ## Features
 
+- **Main résumé**: a compact introduction with immediate PDF, email, and LinkedIn links; selected outcomes; a focused profile and grouped capabilities; and the full career history. All roles, dates, promotions, and concurrent assignments remain visible. The 3D résumé is a secondary link.
+- **Phone navigation**: a native contents menu at narrower widths, with keyboard focus, Escape dismissal, active-section feedback, and a persistent PDF link. Navigation, email links, and expandable methodology still work without JavaScript. Light/dark preference is remembered when storage is available.
+- **Clearly scoped AI estimates**: the initial shAIne cost-avoidance model, annual subscription reference, and separate reporting-tool estimate are labeled separately on both versions. No combined savings or unsupported net ROI is presented.
+- **Local assets**: both résumé pages load their fonts and optimized photographs from this repository, without external font requests. The main page respects reduced motion and prints in ordinary document flow.
 - **Six-section flight profile**: career results in the introduction, three case studies, an explicit Astrion promotion timeline, and capabilities grouped by leadership, mission, and delivery. Navigation has readable section labels and working legacy waypoint anchors.
 - **Reading and 3D views**: phones and short screens default to reading view. Flight view places the six sections in a perspective scene with floating panels, a starfield, a range grid, and visible travel between sections. Native document scrolling first reads a panel's entire measured content, then advances through depth to the next panel. Previous/next controls and the section menu also navigate the flight. No wheel/touch interception, snapping, or mouse tilt.
 - **Progressive enhancement**: all content, links, final career figures, and expandable details work without JavaScript. The view preference is saved when storage is available; changing views preserves the current paragraph or heading even when line wrapping changes. Flight distances remeasure after resizing, font/image loading, and opening details. The operating system's reduced-motion preference always selects reading view.
@@ -37,8 +41,8 @@ A web résumé for **Shane Turner, D.B.A.** The main page is the classic single-
 │   ├── main.js                     # Classic page scripts
 │   ├── favicon.svg                 # "ST" monogram icon
 │   ├── og-card.svg / og-card.png   # Social share card (source + rendered)
-│   ├── shane-turner.jpg            # Hero portrait (referenced by the page)
-│   ├── nlos-c.jpg                  # XM1203 NLOS-C photo in the Early-career section
+│   ├── shane-turner-760.jpg        # Optimized portrait used by both pages
+│   ├── nlos-c-640.jpg              # Optimized early-career photo used by both pages
 │   ├── Shane-Turner-Resume.pdf     # Official downloadable PDF (maintained by hand)
 │   └── (share collateral)          # NOT referenced by index.html; distributed directly:
 │                                   #   Shane-Turner-Resume.pptx, Shane_blue_suite.png,
@@ -59,6 +63,10 @@ Classic résumé text lives in `index.html`; the executive flight version lives 
 - **Education / service / affiliations**: `#wp-foundation`.
 
 Update both pages when the résumé changes, and refresh `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync.
+
+The main page retains its existing `#top`, `#highlights`, `#recognition`, `#about`, `#capabilities`, `#experience`, `#education`, and `#contact` anchors. Selected outcomes also link directly to `#astrion`, `#astrion-vp`, `#hii`, and `#nite`. Keep these destinations when editing. The main stylesheet is `assets/styles.css`; `assets/main.js` adds theme persistence, menu dismissal, focus management, and active-section feedback. Update their version query strings in `index.html` when publishing changes.
+
+For main-page changes, check 320px and 375px phones, tablet and desktop layouts, menu opening and Escape, keyboard navigation, light/dark persistence, deep links, contact/download destinations, and the print stylesheet. Compare career role titles and dates with the prior page to catch accidental omissions. The maintained PDF is independent of the web layout; a layout or wording clarification does not regenerate that file automatically.
 
 For layout-only changes to `/3d/`, keep the official PDF and classic page intact. Preserve the existing navy/gold palette, local fonts, and portrait assets. Test phone widths (including 375 × 667 and 320px), desktop, anchor navigation, view persistence, keyboard use, and printing before publishing. In flight mode, scroll to the bottom of the long results and experience panels, expand both sets of details, and check a transition in both directions. Flight-only geometry is scoped to screen media so printing retains normal document flow. A view or interaction change does not require changing the public DNS or GoDaddy website builder.
 

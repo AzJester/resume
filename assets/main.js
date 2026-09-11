@@ -1,76 +1,122 @@
-/* Shane Turner Resume: progressive enhancement only.
-   The page is fully readable and printable with JS disabled. */
-(function () {
+/* Progressive enhancements. Content, navigation, details and contact work without JS. */
+(() => {
   "use strict";
 
-  var root = document.documentElement;
-
-  /* ---------- Theme (light / dark) ---------- */
-  var THEME_KEY = "st-resume-theme";
-  var toggle = document.getElementById("themeToggle");
-
+  const root = document.documentElement;
+  const themeToggle = document.getElementById("themeToggle");
+  const themeKey = "st-resume-theme";
   function applyTheme(theme) {
-    root.setAttribute("data-theme", theme);
-    if (toggle) {
-      toggle.setAttribute("aria-pressed", String(theme === "dark"));
-      toggle.title = theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
+    root.dataset.theme = theme;
+    const label =
+      theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
+    themeToggle.setAttribute("aria-label", label);
+    themeToggle.title = label;
+  }
+  let savedTheme;
+  try {
+    savedTheme = localStorage.getItem(themeKey);
+  } catch {
+    /* Storage is optional. */
+  }
+  applyTheme(savedTheme === "light" ? "light" : "dark");
+  themeToggle.hidden = false;
+  themeToggle.addEventListener("click", () => {
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try {
+      localStorage.setItem(themeKey, next);
+    } catch {
+      /* Storage is optional. */
     }
+  });
+
+  const menu = document.getElementById("sectionMenu");
+  const menuSummary = menu.querySelector("summary");
+  function closeMenu(restoreFocus = false) {
+    if (!menu.open) return;
+    menu.open = false;
+    if (restoreFocus) menuSummary.focus({ preventScroll: true });
   }
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menu.open) {
+      event.preventDefault();
+      closeMenu(true);
+    }
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if (!menu.contains(event.target)) closeMenu();
+  });
+  menu.addEventListener("focusout", (event) => {
+    if (event.relatedTarget && !menu.contains(event.relatedTarget)) closeMenu();
+  });
+  const desktop = window.matchMedia("(min-width: 1041px)");
+  desktop.addEventListener("change", () => {
+    if (!desktop.matches) return;
+    const focusWasInMenu = menu.contains(document.activeElement);
+    closeMenu();
+    if (focusWasInMenu)
+      document.querySelector(".brand").focus({ preventScroll: true });
+  });
 
-  // Dark is the default. A visitor's manual choice is remembered and wins.
-  var saved = null;
-  try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
-  applyTheme(saved === "light" || saved === "dark" ? saved : "dark");
+  // Keep normal links, URL fragments, browser history and reduced-motion scrolling.
+  document.addEventListener("click", (event) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    )
+      return;
+    const link = event.target.closest("a[href^='#']");
+    if (!link) return;
+    const target = document.getElementById(link.hash.slice(1));
+    if (!target) return;
+    closeMenu();
+    if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+    // Focus before the link's native scroll. Focusing during a smooth scroll can cancel it.
+    target.focus({ preventScroll: true });
+  });
 
-  if (toggle) {
-    toggle.addEventListener("click", function () {
-      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      applyTheme(next);
-      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
-    });
+  const navLinks = [
+    ...document.querySelectorAll(".nav a, .mobile-nav a[href^='#']"),
+  ];
+  const sections = [
+    ...new Set(
+      navLinks.map((link) => document.getElementById(link.hash.slice(1))),
+    ),
+  ].filter(Boolean);
+  const header = document.querySelector(".site-header");
+  const toTop = document.getElementById("toTop");
+  let pending = false;
+  function updatePosition() {
+    pending = false;
+    const readingLine = header.getBoundingClientRect().height + 48;
+    let activeId = "";
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= readingLine)
+        activeId = section.id;
+    }
+    if (window.scrollY + window.innerHeight >= root.scrollHeight - 4)
+      activeId = "contact";
+    for (const link of navLinks) {
+      if (link.hash === `#${activeId}`)
+        link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    }
+    toTop.classList.toggle("is-visible", window.scrollY > 650);
   }
-
-  /* ---------- Back to top ---------- */
-  var toTop = document.getElementById("toTop");
-  if (toTop) {
-    var onScroll = function () {
-      if (window.scrollY > 600) toTop.classList.add("is-visible");
-      else toTop.classList.remove("is-visible");
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    toTop.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+  function schedulePosition() {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(updatePosition);
   }
-
-  /* ---------- Scroll-spy: highlight active nav link ---------- */
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
-  if (navLinks.length && "IntersectionObserver" in window) {
-    var byId = {};
-    navLinks.forEach(function (link) {
-      var id = link.getAttribute("href").slice(1);
-      byId[id] = link;
-    });
-
-    var sections = navLinks
-      .map(function (l) { return document.getElementById(l.getAttribute("href").slice(1)); })
-      .filter(Boolean);
-
-    var setActive = function (id) {
-      navLinks.forEach(function (l) { l.classList.remove("is-active"); });
-      if (byId[id]) byId[id].classList.add("is-active");
-    };
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) setActive(entry.target.id);
-      });
-    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
-
-    sections.forEach(function (s) { observer.observe(s); });
-  }
-
-  /* ---------- Keep the "current as of" date honest-ish ---------- */
-  // Leaves the authored date in place; no action needed at runtime.
+  window.addEventListener("scroll", schedulePosition, { passive: true });
+  window.addEventListener("resize", schedulePosition);
+  document
+    .querySelectorAll("details")
+    .forEach((details) => details.addEventListener("toggle", schedulePosition));
+  document.fonts.ready.then(schedulePosition);
+  updatePosition();
 })();
