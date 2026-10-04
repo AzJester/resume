@@ -373,8 +373,10 @@
     for (let i = 0; i < sections.length; i++) {
       const distance = i - position.camera;
       const future = distance >= 0;
+      // The next panel stays hidden while a section is at rest and fades in
+      // only as the camera travels toward it, so no clipped panel edge shows.
       const opacity = future
-        ? clamp(1 - distance * 0.72, 0, 1)
+        ? clamp((1 - distance) * 1.45, 0, 1)
         : clamp(1 + distance * 1.7, 0, 1);
       const x = Math.sin((clamp(distance, -1, 1) * Math.PI) / 2) * width * 0.95;
       const y = Math.min(1, Math.abs(distance)) * 24;

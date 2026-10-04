@@ -5,12 +5,16 @@
   const root = document.documentElement;
   const themeToggle = document.getElementById("themeToggle");
   const themeKey = "st-resume-theme";
+  const prefersLight = window.matchMedia("(prefers-color-scheme: light)");
+  const themeColor = document.querySelector('meta[name="theme-color"]:not([media])');
   function applyTheme(theme) {
     root.dataset.theme = theme;
     const label =
       theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
     themeToggle.setAttribute("aria-label", label);
     themeToggle.title = label;
+    if (themeColor)
+      themeColor.content = theme === "dark" ? "#0b1f33" : "#f7f8fa";
   }
   let savedTheme;
   try {
@@ -18,16 +22,23 @@
   } catch {
     /* Storage is optional. */
   }
-  applyTheme(savedTheme === "light" ? "light" : "dark");
+  // The inline script in <head> already set data-theme before first paint.
+  applyTheme(root.dataset.theme === "light" ? "light" : "dark");
   themeToggle.hidden = false;
   themeToggle.addEventListener("click", () => {
     const next = root.dataset.theme === "dark" ? "light" : "dark";
+    savedTheme = next;
     applyTheme(next);
     try {
       localStorage.setItem(themeKey, next);
     } catch {
       /* Storage is optional. */
     }
+  });
+  // Follow the operating system until the visitor picks a theme.
+  prefersLight.addEventListener("change", () => {
+    if (savedTheme === "light" || savedTheme === "dark") return;
+    applyTheme(prefersLight.matches ? "light" : "dark");
   });
 
   const menu = document.getElementById("sectionMenu");
@@ -58,6 +69,18 @@
       document.querySelector(".brand").focus({ preventScroll: true });
   });
 
+  // Earlier roles stay expanded on wide screens and start collapsed on phones.
+  const wide = window.matchMedia("(min-width: 761px)");
+  const olderRoles = document.querySelectorAll(".role__more");
+  function expandOlderRoles() {
+    if (!wide.matches) return;
+    olderRoles.forEach((details) => {
+      details.open = true;
+    });
+  }
+  expandOlderRoles();
+  wide.addEventListener("change", expandOlderRoles);
+
   // Keep normal links, URL fragments, browser history and reduced-motion scrolling.
   document.addEventListener("click", (event) => {
     if (
@@ -74,6 +97,11 @@
     const target = document.getElementById(link.hash.slice(1));
     if (!target) return;
     closeMenu();
+    let ancestor = target.parentElement;
+    while (ancestor) {
+      if (ancestor.tagName === "DETAILS") ancestor.open = true;
+      ancestor = ancestor.parentElement;
+    }
     if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
     // Focus before the link's native scroll. Focusing during a smooth scroll can cancel it.
     target.focus({ preventScroll: true });

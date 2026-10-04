@@ -1,16 +1,17 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dr. Shane Turner · Defense Growth & Solutions Executive</title>
+    <title>Dr. Shane Turner · Defense Growth &amp; Solutions Executive</title>
 
     <meta
       name="description"
-      content="Dr. Shane Turner, defense growth and solutions executive with 20+ years across Navy, Army, Air Force, and USMC programs. Enterprise AI strategy, multi-domain test & evaluation, contributions to $1B+ in contract wins."
+      content="Dr. Shane Turner, defense growth and solutions executive: enterprise AI, multi-domain test & evaluation, and $1B+ in contract wins across four services."
     />
     <meta name="author" content="Dr. Shane Turner" />
     <meta name="theme-color" content="#0b1f33" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="color-scheme" content="dark light" />
 
     <meta property="og:type" content="profile" />
@@ -42,7 +43,7 @@
     />
     <meta
       name="twitter:description"
-      content="Enterprise AI strategy, multi-domain T&E, and contributions to $1B+ in contract wins."
+      content="Enterprise AI strategy, multi-domain T&amp;E, and contributions to $1B+ in contract wins."
     />
     <meta
       name="twitter:image"
@@ -71,7 +72,25 @@
       crossorigin
     />
 
-    <link rel="stylesheet" href="assets/styles.css?v=20260911c" />
+    <script>
+      /* Apply the saved theme, else the operating system preference, before first paint. */
+      (function () {
+        var theme = "dark";
+        try {
+          var saved = localStorage.getItem("st-resume-theme");
+          theme =
+            saved === "light" || saved === "dark"
+              ? saved
+              : matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+        } catch (e) {
+          /* Storage is optional. */
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/styles.css?v=20261004a" />
 
     <script type="application/ld+json">
       {
@@ -81,12 +100,40 @@
         "honorificPrefix": "Dr.",
         "jobTitle": "Senior Vice President, Solutions & Artificial Intelligence",
         "worksFor": { "@type": "Organization", "name": "Astrion" },
+        "description": "Defense growth and solutions executive with 20+ years across Navy, Army, Air Force, and USMC programs.",
         "url": "https://resume.st-dba.com/",
-        "sameAs": ["https://www.linkedin.com/in/drshaneturner"],
+        "image": "https://resume.st-dba.com/assets/shane-turner-760.jpg",
+        "email": "mailto:shane@st-dba.com",
+        "address": { "@type": "PostalAddress", "addressRegion": "AZ", "addressCountry": "US" },
+        "sameAs": [
+          "https://www.linkedin.com/in/drshaneturner",
+          "https://st-dba.com/"
+        ],
+        "award": "2025 ASTRYS Award, Strategic Excellence in Innovative Solutions (Astrion)",
         "alumniOf": [
           { "@type": "CollegeOrUniversity", "name": "National University" },
           { "@type": "CollegeOrUniversity", "name": "Lewis University" },
           { "@type": "CollegeOrUniversity", "name": "University of Phoenix" }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Business Administration (D.B.A.), Management",
+            "recognizedBy": { "@type": "CollegeOrUniversity", "name": "National University" }
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "M.S., Management Information Security",
+            "recognizedBy": { "@type": "CollegeOrUniversity", "name": "Lewis University" }
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "B.S., Software Engineering",
+            "recognizedBy": { "@type": "CollegeOrUniversity", "name": "University of Phoenix" }
+          }
         ],
         "knowsAbout": [
           "Artificial Intelligence",
@@ -116,7 +163,8 @@
         <nav class="nav" aria-label="Section navigation">
           <a href="#highlights">Results</a><a href="#about">Profile</a
           ><a href="#experience">Experience</a
-          ><a href="#education">Foundation</a><a href="#contact">Contact</a>
+          ><a href="#education">Education</a><a href="#writing">Writing</a
+          ><a href="#contact">Contact</a>
         </nav>
         <div class="header-actions">
           <button
@@ -197,7 +245,8 @@
             <nav class="mobile-nav" aria-label="Mobile section navigation">
               <a href="#highlights">Results</a><a href="#about">Profile</a
               ><a href="#experience">Experience</a
-              ><a href="#education">Foundation</a><a href="#contact">Contact</a>
+              ><a href="#education">Education</a><a href="#writing">Writing</a
+              ><a href="#contact">Contact</a>
               <a class="mobile-nav__3d" href="3d/"
                 >Explore the 3D résumé <span aria-hidden="true">↗</span></a
               >
@@ -224,7 +273,7 @@
               </p>
               <p class="hero__lead">
                 I lead cleared teams across defense growth, mission solutions,
-                and enterprise AI. From hands-on engineering to large-scale
+                and enterprise AI, from hands-on engineering to large-scale
                 program delivery.
               </p>
               <div class="hero__cta">
@@ -255,7 +304,7 @@
                   class="hero__linkedin"
                   href="https://www.linkedin.com/in/drshaneturner"
                   target="_blank"
-                  rel="noopener"
+                  rel="me noopener"
                   >LinkedIn <span aria-hidden="true">↗</span></a
                 >
               </div>
@@ -266,14 +315,35 @@
               </ul>
             </div>
             <figure class="hero__portrait">
-              <img
-                src="assets/shane-turner-760.jpg"
-                alt="Dr. Shane Turner"
-                width="760"
-                height="760"
-                fetchpriority="high"
-                decoding="async"
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="
+                    assets/shane-turner-160.webp 160w,
+                    assets/shane-turner-320.webp 320w,
+                    assets/shane-turner-480.webp 480w,
+                    assets/shane-turner-640.webp 640w,
+                    assets/shane-turner-760.webp 760w
+                  "
+                  sizes="(max-width: 540px) 68px, (max-width: 760px) 30vw, 320px"
+                />
+                <img
+                  src="assets/shane-turner-760.jpg"
+                  srcset="
+                    assets/shane-turner-160.jpg 160w,
+                    assets/shane-turner-320.jpg 320w,
+                    assets/shane-turner-480.jpg 480w,
+                    assets/shane-turner-640.jpg 640w,
+                    assets/shane-turner-760.jpg 760w
+                  "
+                  sizes="(max-width: 540px) 68px, (max-width: 760px) 30vw, 320px"
+                  alt="Dr. Shane Turner"
+                  width="760"
+                  height="760"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </picture>
               <figcaption>
                 Defense growth · Mission solutions · Enterprise AI
               </figcaption>
@@ -282,7 +352,7 @@
           <dl class="hero__stats" aria-label="Career highlights">
             <div class="stat">
               <dt>20<span>+</span></dt>
-              <dd>Years across four services</dd>
+              <dd>Years across Navy, Army, Air Force &amp; USMC programs</dd>
             </div>
             <div class="stat">
               <dt>$1B<span>+</span></dt>
@@ -360,52 +430,53 @@
               <p class="card__category">Enterprise AI · Astrion</p>
               <h3 id="shaine-title">From AI strategy to a working platform.</h3>
               <p>
-                Launched <strong>shAIne</strong> and established its value model
-                during the first month. Built the ModelOps, evidence governance,
-                and quality standards to support reuse across programs.
+                Launched <strong>shAIne</strong>, Astrion’s enterprise AI
+                platform, and stood it up with governance from the first month:
+                reuse controls, output quality and explainability standards, and
+                a role-based method for attributing the hours it saves. In that
+                same month, agentic coding delivered a working Weekly Status
+                Reporting tool in one week.
               </p>
               <p class="ai-case__outcome">
-                A practical foundation for AI adoption, with attributed effort
-                and a clear method for estimating value.
+                Programs get a repeatable way to adopt AI, review its outputs,
+                and estimate its value with the assumptions in the open.
               </p>
-              <a class="text-link" href="#astrion"
-                >Read about my current role <span aria-hidden="true">↗</span></a
-              >
+              <div class="ai-case__links">
+                <a class="text-link" href="#astrion"
+                  >Read about my current role
+                  <span aria-hidden="true">↗</span></a
+                >
+                <a
+                  class="text-link"
+                  href="https://st-dba.com/2026/07/pentagon-ai-adoption-is-not-ai-value/"
+                  >How I separate AI adoption from AI value
+                  <span aria-hidden="true">↗</span></a
+                >
+              </div>
             </div>
             <aside
               class="value-panel"
-              aria-label="shAIne initial deployment value model"
+              aria-label="shAIne first-month value model"
             >
-              <p class="card__category">Initial deployment model</p>
+              <p class="card__category">First-month value model</p>
               <p class="value-number">$53K–$73K</p>
               <p class="value-label">Estimated cost avoidance</p>
-              <p class="value-period">
-                Value model established during the platform’s first month.
-              </p>
-              <p class="cost-reference">
-                <span>Annual platform subscription</span
-                ><strong>$37,200 <small>/ year</small></strong>
-              </p>
               <p class="value-basis">
-                Attributed hours × loaded labor rate, by role. An estimate of
-                avoided effort, not a verified reduction in cash spending.
+                Attributed hours × loaded labor rate, by role. A model of
+                avoided effort, not audited cash savings. The platform
+                subscription of $37,200 per year is reported alongside the
+                estimate rather than netted against it.
               </p>
               <details class="method-details">
-                <summary>How to interpret these figures</summary>
+                <summary>Method and limits</summary>
                 <div>
                   <p>
-                    The range comes from the initial deployment value model.
-                    Individual role rates and the underlying activity ledger are
-                    not published here.
-                  </p>
-                  <p>
-                    The annual subscription is a separate cost reference. A net
-                    ROI calculation would need the same period for benefits and
-                    costs, including implementation and ongoing support.
-                  </p>
-                  <p>
-                    The reporting-tool estimate in my current role is a separate
-                    project estimate. No combined savings total is claimed.
+                    Role rates and the underlying activity ledger are not
+                    published here. A net ROI figure would need the same period
+                    for benefits and costs, including implementation and
+                    support. The Weekly Status Reporting tool carries a separate
+                    estimate (310 hours, about $32,500 of avoided development
+                    effort) that is not added to this range.
                   </p>
                 </div>
               </details>
@@ -579,50 +650,41 @@
                 </p>
                 <ul class="bullets">
                   <li>
-                    Lead Astrion's data, evidence, analytics, ModelOps,
-                    scenario, and mission-thread development lane for Layered
-                    Defense, Autonomous Warfare, and Integrated Fires, directing
-                    cleared, cross-functional teams that turn operational, test,
+                    Lead the division's data and AI organization: cleared,
+                    cross-functional teams that turn operational, test,
                     training, and sustainment data into
-                    <strong>decision-grade insight</strong> across Counter-UAS,
-                    electronic warfare, integrated fires, tactical robotic
-                    autonomous systems, and multi-domain test and evaluation.
+                    <strong>decisions</strong> across Counter-UAS, electronic
+                    warfare, integrated fires, tactical autonomous systems, and
+                    multi-domain T&amp;E.
                   </li>
                   <li>
-                    Convert test evidence, analytics, and operational knowledge
-                    into customer-facing solution narratives, technical volumes,
+                    Translate test evidence, analytics, and operational
+                    knowledge into solution narratives, technical volumes,
                     capability roadmaps, and discriminating win themes for
-                    high-value pursuits where multi-domain T&amp;E, EW, C-UAS,
-                    and AI experience set Astrion apart.
+                    high-value pursuits.
                   </li>
                   <li>
-                    Launched <strong>shAIne</strong>, an enterprise AI platform,
-                    and established an initial value model during its first
-                    month showing
-                    <strong>$53K–$73K in estimated cost avoidance</strong>. The
-                    platform subscription is $37,200 per year, a separate cost
-                    reference.
+                    Launched <strong>shAIne</strong>, Astrion's enterprise AI
+                    platform, with ModelOps and evidence governance in place
+                    from the first month: reuse controls, output quality and
+                    explainability standards, and traceability from data source
+                    to analytic method to modeled value.
+                  </li>
+                  <li>
+                    Established the platform's first-month value model: an
+                    estimated <strong>$53K–$73K in cost avoidance</strong>
+                    (attributed hours × loaded labor rate), reported alongside
+                    the $37,200 annual subscription rather than netted against
+                    it.
                     <a class="inline-link" href="#shaine-title"
-                      >View the model and its assumptions</a
+                      >View the model and its limits</a
                     >.
                   </li>
                   <li>
-                    Built the platform's ModelOps and evidence governance: reuse
-                    controls, output quality and explainability standards, and a
-                    role-based value framework (attributed hours × loaded labor
-                    rate) with traceability from data source to analytic method
-                    to modeled value, supporting consistent review and reuse
-                    across programs.
-                  </li>
-                  <li>
-                    Used agentic AI coding to build a
-                    <strong
-                      >Weekly Status Reporting tool in its first week</strong
-                    >, with roughly 17,140 lines of code in the repository. A
-                    separate development-effort estimate valued the avoided work
-                    at
-                    <strong>310 hours / $32,500 in loaded labor cost</strong>;
-                    this estimate is not added to the platform figures above.
+                    Used agentic AI coding to deliver a
+                    <strong>Weekly Status Reporting tool in its first week</strong
+                    >; a separate estimate put the avoided development effort at
+                    310 hours, about $32,500 in loaded labor.
                   </li>
                 </ul>
               </div>
@@ -709,12 +771,11 @@
                 </p>
                 <ul class="bullets">
                   <li>
-                    Led full lifecycle modernization and sustainment of
-                    Electronic Warfare Threat Presentation Systems (the reusable
-                    threat scenarios and mission threads presented to aircrews)
-                    across CONUS and OCONUS Navy Tactical Training Ranges,
-                    delivered on budget and schedule with outstanding QASP
-                    scores.
+                    Modernized and sustained the Navy's Electronic Warfare
+                    Threat Presentation Systems (the threat scenarios and
+                    mission threads aircrews train against) across CONUS and
+                    OCONUS ranges, on budget and on schedule with outstanding
+                    QASP scores.
                   </li>
                   <li>
                     Executed clean transition of all systems and personnel,
@@ -733,10 +794,9 @@
                 </div>
                 <ul class="bullets">
                   <li>
-                    Architected technical solutions for Navy live and virtual
-                    training range pursuits across NCTE, NITE, and CTTR
-                    programs, contributing directly to
-                    <strong>$1B+ in contract wins</strong>.
+                    Architected the Navy live and virtual training range
+                    solutions behind <strong>$1B+ in contract wins</strong>
+                    across the NCTE, NITE, and CTTR pursuits.
                   </li>
                   <li>
                     Served as solutions architect for Army, Air Force, Navy, and
@@ -758,11 +818,10 @@
                 </div>
                 <ul class="bullets">
                   <li>
-                    Stood up the U.S. Navy DESIL operations center and data
-                    systems at Point Mugu Sea Range and Naval Base Ventura
-                    County, Port Hueneme. Established standards that enabled
-                    initial directed energy weapon test events on the Pacific
-                    range complex.
+                    Stood up the Navy's Directed Energy Systems Integration Lab
+                    at Point Mugu Sea Range and Port Hueneme, enabling the first
+                    directed energy weapon test events on the Pacific range
+                    complex.
                   </li>
                 </ul>
               </div>
@@ -777,10 +836,9 @@
                 </div>
                 <ul class="bullets">
                   <li>
-                    Built a dispersed engineering workforce from scratch, with
-                    recruitment and training programs that enabled
-                    <strong>30+ projects</strong> to be delivered ahead of
-                    schedule and under budget within the first year.
+                    Built a dispersed engineering workforce from scratch that
+                    delivered <strong>30+ projects</strong> ahead of schedule
+                    and under budget in its first year.
                   </li>
                   <li>
                     Led multidisciplinary teams across EW, communications, IT,
@@ -836,11 +894,16 @@
                   </h4>
                   <span class="role__dates">2015 – 2020</span>
                 </div>
+                <details class="role__more">
+                  <summary>
+                    <span class="when-closed">Show details</span
+                    ><span class="when-open">Hide details</span>
+                  </summary>
                 <ul class="bullets">
                   <li>
-                    Led 123 multi-site contractors across the Southwest Region,
-                    managing IT/cyber, quality, safety, security, logistics, and
-                    operational requirements for U.S. Navy training ranges.
+                    Ran Navy training range operations across the Southwest
+                    Region, leading 123 contractors across IT/cyber, quality,
+                    safety, security, logistics, and operations.
                   </li>
                   <li>
                     Negotiated and secured a 35-acre lease for an EW complex,
@@ -856,6 +919,7 @@
                     incident in the program history.
                   </li>
                 </ul>
+                </details>
               </div>
 
               <div class="role">
@@ -866,6 +930,15 @@
                   </h4>
                   <span class="role__dates">2010 – 2015</span>
                 </div>
+                <p class="role__note">
+                  Held with URS, Northrop Grumman, and Aerotek on the same Yuma
+                  range programs.
+                </p>
+                <details class="role__more">
+                  <summary>
+                    <span class="when-closed">Show details</span
+                    ><span class="when-open">Hide details</span>
+                  </summary>
                 <ul class="bullets">
                   <li>
                     Managed <strong>115+ engineering projects</strong> valued
@@ -879,6 +952,7 @@
                     enterprise-level capture and program leadership.
                   </li>
                 </ul>
+                </details>
               </div>
             </article>
 
@@ -910,14 +984,17 @@
                 </ul>
                 <figure class="early__figure">
                   <div class="early__frame">
-                    <img
-                      src="assets/nlos-c-640.jpg"
-                      alt="XM1203 Non-Line-of-Sight Cannon (NLOS-C) prototype on a desert test range"
-                      width="640"
-                      height="418"
-                      loading="lazy"
-                      decoding="async"
-                    />
+                    <picture>
+                      <source type="image/webp" srcset="assets/nlos-c-640.webp" />
+                      <img
+                        src="assets/nlos-c-640.jpg"
+                        alt="XM1203 Non-Line-of-Sight Cannon (NLOS-C) prototype on a desert test range"
+                        width="640"
+                        height="418"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                   </div>
                   <figcaption>
                     The XM1203 NLOS-C, the Future Combat Systems 155mm howitzer
@@ -942,7 +1019,7 @@
       >
         <div class="shell">
           <div class="section__head">
-            <span class="kicker">04 · Foundation</span>
+            <span class="kicker">04 · Education</span>
             <h2 class="section__title" id="foundation-title">
               Education, service &amp; affiliations
             </h2>
@@ -1002,6 +1079,90 @@
         </div>
       </section>
 
+      <!-- ===================== Writing ===================== -->
+      <section
+        class="section"
+        id="writing"
+        tabindex="-1"
+        aria-labelledby="writing-title"
+      >
+        <div class="shell">
+          <div class="section__head">
+            <span class="kicker">05 · Writing</span>
+            <h2 class="section__title" id="writing-title">
+              Analysis at Thought Circuit
+            </h2>
+          </div>
+          <div class="writing">
+            <div class="writing__intro">
+              <p>
+                I publish evidence-first analysis on defense data, AI, test and
+                evaluation, and autonomy at
+                <a class="inline-link" href="https://st-dba.com/">st-dba.com</a
+                >. The standard is the one I hold at work: follow the evidence,
+                test the assumption, and keep the argument tied to fielded
+                results.
+              </p>
+              <a class="text-link" href="https://st-dba.com/posts/"
+                >All analysis <span aria-hidden="true">↗</span></a
+              >
+            </div>
+            <ul class="writing__list">
+              <li>
+                <span class="writing__date">October 2026</span>
+                <a
+                  href="https://st-dba.com/2026/10/navy-musv-three-builders-one-fleet/"
+                  >The Navy Is Ordering 30 Unmanned Ships. Can Three Builders
+                  Deliver One Fleet?</a
+                >
+                <p class="writing__summary">
+                  Thirty medium unmanned vessels across three builders. The next
+                  test is whether they become one adaptable fleet.
+                </p>
+              </li>
+              <li>
+                <span class="writing__date">September 2026</span>
+                <a
+                  href="https://st-dba.com/2026/09/soldier-ai-teaming-trust-errors-and-recovery/"
+                  >The Robot Followed the Order. Did the Soldier Know When It
+                  Was Wrong?</a
+                >
+                <p class="writing__summary">
+                  Testing soldier and robot teams as a whole: recognizing bad
+                  advice, managing uncertainty, and recovering when automation
+                  drops out.
+                </p>
+              </li>
+              <li>
+                <span class="writing__date">September 2026</span>
+                <a
+                  href="https://st-dba.com/2026/09/pentagon-test-evidence-software-product/"
+                  >The Pentagon Just Turned Test Evidence Into a Software
+                  Product</a
+                >
+                <p class="writing__summary">
+                  A new instruction requires machine-readable assurance
+                  evidence, continuous testing, and reusable authorization
+                  artifacts.
+                </p>
+              </li>
+              <li>
+                <span class="writing__date">July 2026</span>
+                <a
+                  href="https://st-dba.com/2026/07/pentagon-ai-adoption-is-not-ai-value/"
+                  >The Pentagon Is Counting AI Users. That Is Not the Same as
+                  Counting Value.</a
+                >
+                <p class="writing__summary">
+                  A practical framework for separating adoption metrics from
+                  quality-adjusted, auditable mission value.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section
         class="cta"
         id="contact"
@@ -1009,7 +1170,7 @@
         aria-labelledby="contact-title"
       >
         <div class="shell cta__inner">
-          <p class="kicker kicker--light">05 · Let’s connect</p>
+          <p class="kicker kicker--light">06 · Let’s connect</p>
           <h2 class="cta__title" id="contact-title">
             Let’s talk about what comes next.
           </h2>
@@ -1024,7 +1185,7 @@
               class="btn btn--ghost btn--ghost-light"
               href="https://www.linkedin.com/in/drshaneturner"
               target="_blank"
-              rel="noopener"
+              rel="me noopener"
               >Connect on LinkedIn <span aria-hidden="true">↗</span></a
             ><a
               class="btn btn--ghost btn--ghost-light"
@@ -1066,6 +1227,6 @@
       >
         <path d="m18 15-6-6-6 6" /></svg
     ></a>
-    <script src="assets/main.js?v=20260911c" defer></script>
+    <script src="assets/main.js?v=20261004a" defer></script>
   </body>
 </html>
