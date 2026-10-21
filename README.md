@@ -1,15 +1,15 @@
 # Shane Turner Résumé
 
-A web résumé for **Shane Turner, D.B.A.** The main page is the classic single-page résumé. An executive flight profile at `/3d/` organizes the career into six sections: introduction, results, experience, capabilities, education and service, and contact. Both its reading and optional 3D views use normal document scrolling.
+A web résumé for **Shane Turner, D.B.A.** The main page is an executive flight profile that organizes the career into six sections: introduction, results, experience, capabilities, education and service, and contact. The classic single-page résumé lives at `/classic/`, and old `/3d/` links redirect to the main page. Both its reading and optional 3D views use normal document scrolling.
 
 🔗 **Live site:** [`https://resume.st-dba.com`](https://resume.st-dba.com) (custom domain via `CNAME`; GitHub Pages serving from `main`, which can differ from the repository's default branch).
 
 ## Features
 
-- **Main résumé**: a compact introduction with immediate PDF, email, and LinkedIn links; selected outcomes; a focused profile and grouped capabilities; and the full career history. All roles, dates, promotions, and concurrent assignments remain visible. The 3D résumé is a secondary link.
+- **Classic résumé** (`/classic/`): a compact introduction with immediate PDF, email, and LinkedIn links; selected outcomes; a focused profile and grouped capabilities; and the full career history. All roles, dates, promotions, and concurrent assignments remain visible. It links back to the flight profile and carries `noindex`, so search engines index the main page.
 - **Phone navigation**: a native contents menu at narrower widths, with keyboard focus, Escape dismissal, active-section feedback, and a persistent PDF link. Navigation, email links, and expandable methodology still work without JavaScript. Light/dark preference is remembered when storage is available.
 - **Clearly scoped AI results**: shAIne's measured savings (first three instrumented users, compared with the full annual subscription), its adoption rate, and the separate reporting-tool estimate are labeled separately on both versions, with the method and its limits one click away.
-- **Local assets**: both résumé pages load their fonts and optimized photographs from this repository, without external font requests. The main page respects reduced motion and prints in ordinary document flow.
+- **Local assets**: both résumé pages load their fonts and optimized photographs from this repository, without external font requests. Both pages respect reduced motion and print in ordinary document flow.
 - **Six-section flight profile**: career results in the introduction, three case studies, an explicit Astrion promotion timeline, and capabilities grouped by leadership, mission, and delivery. Navigation has readable section labels and working legacy waypoint anchors.
 - **Reading and 3D views**: phones and short screens default to reading view. Flight view places the six sections in a perspective scene with floating panels, a starfield, a range grid, and visible travel between sections. Native document scrolling first reads a panel's entire measured content, then advances through depth to the next panel. Previous/next controls and the section menu also navigate the flight. No wheel/touch interception, snapping, or mouse tilt.
 - **Progressive enhancement**: all content, links, final career figures, and expandable details work without JavaScript. The view preference is saved when storage is available; changing views preserves the current paragraph or heading even when line wrapping changes. Flight distances remeasure after resizing, font/image loading, and opening details. The operating system's reduced-motion preference always selects reading view.
@@ -30,17 +30,17 @@ A web résumé for **Shane Turner, D.B.A.** The main page is the classic single-
 
 ```
 .
-├── index.html                      # Classic single-page résumé (the default)
+├── index.html                      # Six-section flight profile (the default)
 ├── pdf/
 │   ├── index.html                  # Earlier HTML print source (superseded by the Word master)
 │   └── build.sh                    # Old Chromium build; do not run (overwrites the official PDF)
 ├── robots.txt / sitemap.xml        # Crawl hints for the main page
 ├── 3d/
-│   ├── index.html                  # Six-section flight profile (noindex; canonical remains the classic résumé)
+│   ├── index.html                  # Redirect to the main page, keeping any #section (old link compatibility)
 │   ├── flight.css                  # Shared reading/flight layout, responsive and print styles
 │   └── flight.js                   # Measured flight route, saved view, anchors and active navigation
 ├── classic/
-│   └── index.html                  # Redirect to the main page (old link compatibility)
+│   └── index.html                  # Classic single-page résumé (noindex; canonical is the main page)
 ├── assets/
 │   ├── fonts/                      # Subset Fraunces / Inter / IBM Plex Mono woff2
 │   ├── styles.css                  # Classic page styles (light/dark themes)
@@ -59,7 +59,7 @@ A web résumé for **Shane Turner, D.B.A.** The main page is the classic single-
 
 ## Editing the content
 
-Classic résumé text lives in `index.html`; the executive flight version lives in `3d/index.html` (each section has `class="waypoint"`). Common flight-page edits:
+The executive flight version lives in `index.html` (each section has `class="waypoint"`; styles and scripts are `3d/flight.css` and `3d/flight.js`). Classic résumé text lives in `classic/index.html`, which loads its assets with `../assets/` paths. Common flight-page edits:
 
 - **Contact details**: the `mailto:` links in the briefing and contact waypoints (no phone number is published).
 - **Hero copy**: the `#wp-briefing` section and current-appointment portrait caption.
@@ -70,23 +70,23 @@ Classic résumé text lives in `index.html`; the executive flight version lives 
 
 Update both pages when the résumé changes, then export the Word master to `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync. Keep the three copies on the same wording for the shAIne figures: savings measured for the first three instrumented users, compared with the full annual subscription, with the reporting-tool estimate kept separate.
 
-The main page also has a **Writing** section (`#writing`) that lists recent analysis from [st-dba.com](https://st-dba.com/). The titles, dates, and links are hard-coded; refresh them when new posts go up.
+The classic page also has a **Writing** section (`#writing`) that lists recent analysis from [st-dba.com](https://st-dba.com/). The titles, dates, and links are hard-coded; refresh them when new posts go up.
 
-**Theme.** An inline script in the `<head>` of `index.html` applies the saved theme, or the operating system's light/dark preference, before first paint. The stylesheet also follows `prefers-color-scheme` without JavaScript. The toggle stores the visitor's choice in `localStorage`.
+**Theme.** An inline script in the `<head>` of `classic/index.html` applies the saved theme, or the operating system's light/dark preference, before first paint. The stylesheet also follows `prefers-color-scheme` without JavaScript. The toggle stores the visitor's choice in `localStorage`.
 
 **Earlier roles.** The 2010–2020 roles keep their titles and dates visible and collapse their bullets behind a "Show details" control. `main.js` opens them on screens wider than 760px; print styles always expand them.
 
-The main page retains its existing `#top`, `#highlights`, `#recognition`, `#about`, `#capabilities`, `#experience`, `#education`, and `#contact` anchors. Selected outcomes also link directly to `#astrion`, `#astrion-vp`, `#hii`, `#nite`, and `#yuma`. Keep these destinations when editing. The main stylesheet is `assets/styles.css`; `assets/main.js` adds theme persistence, menu dismissal, focus management, and active-section feedback. Update their version query strings in `index.html` when publishing changes.
+The classic page retains its existing `#top`, `#highlights`, `#recognition`, `#about`, `#capabilities`, `#experience`, `#education`, and `#contact` anchors. Selected outcomes also link directly to `#astrion`, `#astrion-vp`, `#hii`, `#nite`, and `#yuma`. Keep these destinations when editing. The main stylesheet is `assets/styles.css`; `assets/main.js` adds theme persistence, menu dismissal, focus management, and active-section feedback. Update their version query strings in `index.html` when publishing changes.
 
-For main-page changes, check 320px and 375px phones, tablet and desktop layouts, menu opening and Escape, keyboard navigation, light/dark persistence, deep links, contact/download destinations, and the print stylesheet. Compare career role titles and dates with the prior page to catch accidental omissions. The maintained PDF is independent of the web layout; a layout or wording clarification does not regenerate that file automatically.
+For classic-page changes, check 320px and 375px phones, tablet and desktop layouts, menu opening and Escape, keyboard navigation, light/dark persistence, deep links, contact/download destinations, and the print stylesheet. Compare career role titles and dates with the prior page to catch accidental omissions. The maintained PDF is independent of the web layout; a layout or wording clarification does not regenerate that file automatically.
 
-For layout-only changes to `/3d/`, keep the official PDF and classic page intact. Preserve the existing navy/gold palette, local fonts, and portrait assets. Test phone widths (including 375 × 667 and 320px), desktop, anchor navigation, view persistence, keyboard use, and printing before publishing. In flight mode, scroll to the bottom of the long results and experience panels, expand both sets of details, and check a transition in both directions. Flight-only geometry is scoped to screen media so printing retains normal document flow. A view or interaction change does not require changing the public DNS or GoDaddy website builder.
+For layout-only changes to the flight profile (`index.html`, `3d/flight.css`, `3d/flight.js`), keep the official PDF and classic page intact. Preserve the existing navy/gold palette, local fonts, and portrait assets. Test phone widths (including 375 × 667 and 320px), desktop, anchor navigation, view persistence, keyboard use, and printing before publishing. In flight mode, scroll to the bottom of the long results and experience panels, expand both sets of details, and check a transition in both directions. Flight-only geometry is scoped to screen media so printing retains normal document flow. A view or interaction change does not require changing the public DNS or GoDaddy website builder.
 
 ## Security headers and analytics
 
 GitHub Pages cannot set response headers, so the site ships without `Strict-Transport-Security`, `Content-Security-Policy`, `X-Frame-Options`, or `X-Content-Type-Options` (securityheaders.com grades it F for that reason). The page sets a `referrer` meta tag, which is the only policy a static page can declare itself. To add the rest, put Cloudflare (free plan) in front of Pages: point the `resume` CNAME at Cloudflare, re-point to `azjester.github.io` inside Cloudflare, and add the headers with a Transform Rule. The same move lets you set a longer cache lifetime than Pages' ten minutes. Moving the site to Cloudflare Pages or Netlify with a `_headers` file is the other option.
 
-No analytics are installed. A privacy-friendly counter (Cloudflare Web Analytics, Plausible, Fathom, or GoatCounter) is a one-line `<script>` in both `index.html` and `3d/index.html` once an account exists.
+No analytics are installed. A privacy-friendly counter (Cloudflare Web Analytics, Plausible, Fathom, or GoatCounter) is a one-line `<script>` in both `index.html` and `classic/index.html` once an account exists.
 
 ## Hosting on GitHub Pages
 
