@@ -1,37 +1,119 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b2540"/><stop offset="1" stop-color="#06182a"/></linearGradient>
-  <radialGradient id="glow" cx="0.85" cy="0" r="0.75"><stop offset="0" stop-color="#c89a3e" stop-opacity="0.20"/><stop offset="1" stop-color="#c89a3e" stop-opacity="0"/></radialGradient>
-  <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse"><path d="M46 0 H0 V46" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/></pattern></defs>
-<rect width="1080" height="1920" fill="url(#bg)"/><rect width="1080" height="1920" fill="url(#grid)"/><rect width="1080" height="1920" fill="url(#glow)"/>
-<text x="90" y="170" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" letter-spacing="4" fill="#d8b15e">DR. SHANE TURNER, D.B.A.</text>
-<text x="88" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700" fill="#ffffff">Turning defense data</text>
-<text x="88" y="338" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700" fill="#ffffff">into <tspan fill="#d8b15e">decision advantage.</tspan></text>
-<rect x="90" y="372" width="120" height="5" rx="2" fill="#d8b15e"/>
-<text x="90" y="438" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#aec8e2">Defense Growth &amp; Solutions Executive · Enterprise AI</text>
-<text x="90" y="474" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#aec8e2">Layered Defense, Autonomous Warfare &amp; Integrated Fires</text>
-<rect x="90" y="520" width="340" height="46" rx="23" fill="#d8b167" fill-opacity="0.14" stroke="#d8b167" stroke-opacity="0.6"/><circle cx="124" cy="543" r="7" fill="#d8b15e"/><text x="142" y="550" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" letter-spacing="2" fill="#f0e6cf">ACTIVE TS CLEARANCE</text>
-<line x1="90" y1="600" x2="990" y2="600" stroke="#ffffff" stroke-opacity="0.12"/>
-<text x="90" y="690" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">20+</text><text x="90" y="726" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#b7cadd">Years, five services</text>
-<text x="560" y="690" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">$1B+</text><text x="560" y="726" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#b7cadd">Contract wins</text>
-<text x="90" y="800" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">$896M</text><text x="90" y="836" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#b7cadd">Program directed</text>
-<text x="560" y="800" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#d8b15e">700+</text><text x="560" y="836" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#b7cadd">Personnel led</text>
-<line x1="90" y1="864" x2="990" y2="864" stroke="#ffffff" stroke-opacity="0.12"/>
-<text x="90" y="884" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#d8b15e" dy="-2">SIGNATURE WINS</text>
-<g stroke="#d8b15e" stroke-width="2.4" fill="none" stroke-linecap="round"><rect x="90" y="900" width="30" height="30" rx="5"/><rect x="99" y="909" width="12" height="12" rx="2"/><line x1="99" y1="895" x2="99" y2="900"/><line x1="111" y1="895" x2="111" y2="900"/><line x1="99" y1="930" x2="99" y2="935"/><line x1="111" y1="930" x2="111" y2="935"/><line x1="85" y1="909" x2="90" y2="909"/><line x1="85" y1="921" x2="90" y2="921"/><line x1="120" y1="909" x2="125" y2="909"/><line x1="120" y1="921" x2="125" y2="921"/></g>
-    <text x="158" y="924" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#ffffff">shAIne AI Platform</text>
-    <text x="158" y="954" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#aec3d6">Stood up in its first month with auditable ROI</text><g stroke="#d8b15e" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="90,1038 101,1024 110,1031 124,1012"/><polyline points="115,1012 124,1012 124,1021"/></g>
-    <text x="158" y="1032" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#ffffff">$1B+ in Contract Wins</text>
-    <text x="158" y="1062" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#aec3d6">Across Navy, Army, Air Force and USMC pursuits</text><g stroke="#d8b15e" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="101" cy="1126" r="6"/><path d="M90 1149 a11 11 0 0 1 22 0"/><circle cx="117" cy="1128" r="5"/><path d="M114 1149 a10 10 0 0 1 13 -7"/></g>
-    <text x="158" y="1140" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#ffffff">$896M Program, 700+ Led</text>
-    <text x="158" y="1170" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#aec3d6">Directed across the western United States</text><g stroke="#d8b15e" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="105" cy="1235" r="10"/><polyline points="99,1243 96,1259 105,1252 114,1259 111,1243"/></g>
-    <text x="158" y="1248" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#ffffff">2025 ASTRYS Award</text>
-    <text x="158" y="1278" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#aec3d6">Strategic Excellence in Innovative Solutions</text>
-<line x1="90" y1="1360" x2="990" y2="1360" stroke="#ffffff" stroke-opacity="0.12"/>
-<text x="90" y="1418" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#d8b15e">CORE CAPABILITIES</text>
-<text x="90" y="1458" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#cddcea">Artificial Intelligence &amp; ModelOps    ·    Solution Architecture</text>
-<text x="90" y="1493" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#cddcea">Multi-Domain Test &amp; Evaluation    ·    Electronic Warfare &amp; C-UAS</text>
-<text x="90" y="1528" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#cddcea">Capture &amp; Win Strategy    ·    Cleared Workforce Leadership</text>
-<text x="90" y="1660" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-style="italic" fill="#c6d6e6">From hands-on systems integration to standing up</text>
-<text x="90" y="1702" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-style="italic" fill="#c6d6e6">enterprise AI for the modern fight.</text>
-<line x1="90" y1="1828" x2="990" y2="1828" stroke="#ffffff" stroke-opacity="0.10"/>
-<text x="90" y="1866" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#8ea6bd">USMC Veteran · D.B.A., Management</text>
-<text x="990" y="1866" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#d8b15e" text-anchor="end">resume.st-dba.com</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-label="Dr. Shane Turner · Enterprise AI Executive">
+<!-- Source for shane-turner-infographic-vertical.png. Names the site fonts (Fraunces, Inter): render it at 1080 x 1920, inline in a browser page that loads assets/fonts/fraunces-vf.woff2 and inter-vf.woff2 with font-weight: 100 900. -->
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e2c49"/><stop offset="1" stop-color="#060f1b"/></linearGradient>
+  <radialGradient id="glow" cx="0.9" cy="0" r="0.75"><stop offset="0" stop-color="#ddb45e" stop-opacity="0.16"/><stop offset="1" stop-color="#ddb45e" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#9fb1c6" stroke-opacity="0.06" stroke-width="1"/></pattern>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<rect width="1080" height="1920" fill="url(#grid)"/>
+<rect width="1080" height="1920" fill="url(#glow)"/>
+<rect x="0" y="0" width="1080" height="6" fill="#ddb45e"/>
+
+<!-- header -->
+<text x="90" y="156" font-family="Inter, Arial, Helvetica, sans-serif" font-size="25" font-weight="600" letter-spacing="3" fill="#ddb45e">DR. SHANE TURNER · D.B.A.</text>
+<text x="88" y="250" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="68" font-weight="600" letter-spacing="-1.8" fill="#ffffff">From AI experiments to</text>
+<text x="88" y="328" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="68" font-weight="600" letter-spacing="-1.8" fill="#ddb45e">measured value.</text>
+<rect x="90" y="356" width="120" height="5" rx="2" fill="#ddb45e"/>
+
+<!-- title and subtitle -->
+<text x="90" y="420" font-family="Inter, Arial, Helvetica, sans-serif" font-size="29" font-weight="600" fill="#ffffff">Enterprise AI Executive</text>
+<text x="90" y="460" font-family="Inter, Arial, Helvetica, sans-serif" font-size="25" font-weight="500" fill="#acbdcf">Agentic AI · AI Governance · Regulated Defense Environments</text>
+
+<!-- clearance pill -->
+<rect x="90" y="494" width="262" height="46" rx="23" fill="#ddb45e" fill-opacity="0.10" stroke="#ddb45e" stroke-opacity="0.5"/>
+<circle cx="119" cy="517" r="5.5" fill="#ddb45e"/>
+<text x="136" y="523.5" font-family="Inter, Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#f0e6cf">Active TS clearance</text>
+
+<!-- proof points -->
+<line x1="90" y1="580" x2="990" y2="580" stroke="#ddb45e" stroke-opacity="0.42"/>
+<g font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="60" font-weight="560" letter-spacing="-1" fill="#ddb45e">
+  <text x="90" y="658">+40%</text>
+  <text x="560" y="658">$1B+</text>
+  <text x="90" y="806">700+</text>
+  <text x="560" y="806">20+</text>
+</g>
+<g font-family="Inter, Arial, Helvetica, sans-serif" font-size="22" fill="#acbdcf">
+  <text x="90" y="696">AI savings above full annual</text>
+  <text x="90" y="724">platform cost, first three users</text>
+  <text x="560" y="696">Winning proposals</text>
+  <text x="560" y="724">authored or architected</text>
+  <text x="90" y="844">People directed on an</text>
+  <text x="560" y="844">Years of defense</text>
+  <text x="90" y="872">$896M Navy contract</text>
+  <text x="560" y="872">leadership</text>
+</g>
+<g stroke="#9fb1c6" stroke-opacity="0.23">
+  <line x1="524" y1="604" x2="524" y2="880"/>
+  <line x1="90" y1="912" x2="990" y2="912"/>
+</g>
+
+<!-- selected AI initiatives -->
+<text x="90" y="962" font-family="Inter, Arial, Helvetica, sans-serif" font-size="21" font-weight="600" letter-spacing="3" fill="#ddb45e">SELECTED AI INITIATIVES</text>
+<g stroke="#ddb45e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- enterprise AI platform -->
+  <rect x="95" y="993" width="28" height="28" rx="5"/>
+  <rect x="103.5" y="1001.5" width="11" height="11" rx="2"/>
+  <path d="M104 988v5M114 988v5M104 1021v5M114 1021v5M90 1002h5M90 1012h5M123 1002h5M123 1012h5"/>
+  <!-- intelligence brief -->
+  <rect x="96" y="1116" width="26" height="34" rx="4"/>
+  <path d="M103 1126h12M103 1133h12M103 1140h7"/>
+  <!-- command center -->
+  <rect x="90" y="1246" width="38" height="26" rx="4"/>
+  <path d="M101 1280h16M109 1272v8M98 1264l6-6 5 4 8-8"/>
+  <!-- award -->
+  <circle cx="109" cy="1401" r="10"/>
+  <path d="M103 1409l-3 15 9-6.5 9 6.5-3-15"/>
+</g>
+<g font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="30" font-weight="600" letter-spacing="-0.4" fill="#ffffff">
+  <text x="158" y="1017">shAIne Enterprise AI Platform</text>
+  <text x="158" y="1143">AI Intel Brief Agent</text>
+  <text x="158" y="1269">Enterprise Intelligence Command Center</text>
+  <text x="158" y="1419">2025 ASTRYS Award</text>
+</g>
+<g font-family="Inter, Arial, Helvetica, sans-serif" font-size="20" fill="#acbdcf">
+  <text x="158" y="1050">Full seat uptake in one quarter, about 77% weekly use.</text>
+  <text x="158" y="1078">Governance in place from the first month.</text>
+  <text x="158" y="1176">Monitors 39 federal, defense, and AI sources and tracks 15 themes,</text>
+  <text x="158" y="1204">scoring each item for business relevance.</text>
+  <text x="158" y="1302">On-demand reports and forecasts for the CEO and executive leaders.</text>
+  <text x="158" y="1330">Goes live December 4, 2026.</text>
+  <text x="158" y="1452">Strategic Excellence in Innovative Solutions, Astrion’s highest company honor.</text>
+</g>
+<g stroke="#9fb1c6" stroke-opacity="0.23">
+  <line x1="90" y1="1368" x2="990" y2="1368"/>
+  <line x1="90" y1="1490" x2="990" y2="1490"/>
+</g>
+
+<!-- core capabilities -->
+<text x="90" y="1540" font-family="Inter, Arial, Helvetica, sans-serif" font-size="21" font-weight="600" letter-spacing="3" fill="#ddb45e">CORE CAPABILITIES</text>
+<g font-family="Inter, Arial, Helvetica, sans-serif" font-size="21" font-weight="600" fill="#ffffff">
+  <text x="90" y="1584">AI strategy &amp; value</text>
+  <text x="394" y="1584">Regulated AI &amp; data</text>
+  <text x="708" y="1584">Leadership &amp; growth</text>
+</g>
+<g font-family="Inter, Arial, Helvetica, sans-serif" font-size="19" fill="#acbdcf">
+  <text x="90" y="1618">Agentic AI</text>
+  <text x="90" y="1646">Enterprise AI platforms</text>
+  <text x="90" y="1674">AI value measurement &amp; ROI</text>
+  <text x="90" y="1702">Use-case portfolio</text>
+  <text x="90" y="1730">Agentic AI coding</text>
+  <text x="90" y="1758">ModelOps</text>
+  <text x="394" y="1618">AI governance</text>
+  <text x="394" y="1646">Azure GCC High</text>
+  <text x="394" y="1674">IL4 to IL6</text>
+  <text x="394" y="1702">Hybrid on-prem to cloud data</text>
+  <text x="394" y="1730">Databricks, Fabric &amp; Synapse</text>
+  <text x="394" y="1758">Data lakes</text>
+  <text x="708" y="1618">Executive &amp; customer buy-in</text>
+  <text x="708" y="1646">Talent acquisition &amp; retention</text>
+  <text x="708" y="1674">Matrixed teams</text>
+  <text x="708" y="1702">Labor relations</text>
+  <text x="708" y="1730">Capture strategy</text>
+</g>
+
+<!-- footer -->
+<line x1="90" y1="1806" x2="990" y2="1806" stroke="#9fb1c6" stroke-opacity="0.23"/>
+<text x="90" y="1846" font-family="Inter, Arial, Helvetica, sans-serif" font-size="20" fill="#8fa5bc">USMC veteran · D.B.A., Management</text>
+<text x="990" y="1846" font-family="Inter, Arial, Helvetica, sans-serif" font-size="22" font-weight="600" fill="#ddb45e" text-anchor="end">resume.st-dba.com</text>
+</svg>
