@@ -1,46 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Shane Turner, D.B.A. · Defense Growth and Solutions Executive">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Dr. Shane Turner · Enterprise AI Executive">
+  <!-- Source for og-card.png. Render with the site fonts loaded (Fraunces, Inter); see README. -->
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0f3354"/>
-      <stop offset="1" stop-color="#16486f"/>
+      <stop offset="0" stop-color="#0e2c49"/>
+      <stop offset="1" stop-color="#060f1b"/>
     </linearGradient>
+    <radialGradient id="glow" cx="0.9" cy="0" r="0.75">
+      <stop offset="0" stop-color="#ddb45e" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#ddb45e" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#9fb1c6" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <!-- accent rule -->
-  <rect x="80" y="300" width="120" height="6" rx="3" fill="#d8b167"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="0" y="0" width="1200" height="6" fill="#ddb45e"/>
 
   <!-- monogram -->
-  <rect x="80" y="78" width="92" height="92" rx="20" fill="#ffffff" opacity="0.10"/>
-  <text x="126" y="138" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#ffffff" text-anchor="middle">ST</text>
+  <rect x="80" y="70" width="64" height="64" rx="6" fill="#ddb45e" fill-opacity="0.08" stroke="#ddb45e" stroke-opacity="0.45"/>
+  <text x="112" y="113" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="28" font-weight="650" fill="#ddb45e" text-anchor="middle">ST</text>
 
-  <!-- name -->
-  <text x="80" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="84" font-weight="700" fill="#ffffff">Dr. Shane Turner</text>
+  <!-- clearance pill -->
+  <rect x="868" y="80" width="252" height="44" rx="22" fill="#ddb45e" fill-opacity="0.10" stroke="#ddb45e" stroke-opacity="0.5"/>
+  <circle cx="896" cy="102" r="5" fill="#ddb45e"/>
+  <text x="912" y="108" font-family="Inter, Arial, Helvetica, sans-serif" font-size="17" font-weight="600" fill="#f0e6cf">Active TS clearance</text>
 
-  <!-- title -->
-  <text x="80" y="360" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="600" fill="#aecbe5">Defense Growth &amp; Solutions Executive</text>
-  <text x="80" y="408" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" fill="#aecbe5">Enterprise AI Strategy · Multi-Domain T&amp;E</text>
+  <!-- name and title -->
+  <text x="80" y="212" font-family="Inter, Arial, Helvetica, sans-serif" font-size="24" font-weight="600" letter-spacing="3" fill="#ddb45e">DR. SHANE TURNER · D.B.A.</text>
+  <text x="78" y="306" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="82" font-weight="600" letter-spacing="-2.5" fill="#ffffff">Enterprise AI Executive</text>
+  <text x="80" y="362" font-family="Inter, Arial, Helvetica, sans-serif" font-size="27" font-weight="500" fill="#acbdcf">Agentic AI · AI Governance · Regulated Defense Environments</text>
 
-  <!-- stat chips -->
-  <g font-family="Arial, Helvetica, sans-serif" fill="#eaf2fa">
-    <text x="80" y="520" font-size="30" font-weight="700">20+ yrs</text>
-    <text x="80" y="556" font-size="20" fill="#aecbe5">Experience</text>
+  <line x1="80" y1="412" x2="1120" y2="412" stroke="#ddb45e" stroke-opacity="0.42"/>
 
-    <text x="320" y="520" font-size="30" font-weight="700">$1B+</text>
-    <text x="320" y="556" font-size="20" fill="#aecbe5">Contract wins</text>
-
-    <text x="520" y="520" font-size="30" font-weight="700">$896M</text>
-    <text x="520" y="556" font-size="20" fill="#aecbe5">Program directed</text>
-
-    <text x="780" y="520" font-size="30" font-weight="700">700+</text>
-    <text x="780" y="556" font-size="20" fill="#aecbe5">Personnel led</text>
+  <!-- proof points -->
+  <g font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="54" font-weight="560" fill="#ddb45e" letter-spacing="-1">
+    <text x="80" y="486">+40%</text>
+    <text x="440" y="486">$1B+</text>
+    <text x="800" y="486">700+</text>
   </g>
-
-  <!-- clearance badge -->
-  <g transform="translate(80,150)">
-    <circle cx="10" cy="0" r="8" fill="#d8b167"/>
+  <g font-family="Inter, Arial, Helvetica, sans-serif" font-size="19" fill="#acbdcf">
+    <text x="80" y="522">AI savings above full annual</text>
+    <text x="80" y="548">platform cost, first three users</text>
+    <text x="440" y="522">Winning proposals</text>
+    <text x="440" y="548">authored or architected</text>
+    <text x="800" y="522">People directed on an</text>
+    <text x="800" y="548">$896M Navy contract</text>
   </g>
-  <text x="980" y="138" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#eaf2fa" text-anchor="end">Active TS Clearance</text>
+  <line x1="408" y1="440" x2="408" y2="552" stroke="#9fb1c6" stroke-opacity="0.23"/>
+  <line x1="768" y1="440" x2="768" y2="552" stroke="#9fb1c6" stroke-opacity="0.23"/>
 
   <!-- url -->
-  <text x="1120" y="600" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#7ea7cc" text-anchor="end">resume.st-dba.com</text>
+  <text x="1120" y="598" font-family="Inter, Arial, Helvetica, sans-serif" font-size="20" font-weight="600" fill="#ddb45e" text-anchor="end">resume.st-dba.com</text>
 </svg>

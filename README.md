@@ -1,28 +1,30 @@
 # Shane Turner Résumé
 
-A web résumé for **Shane Turner, D.B.A.** The main page is an executive flight profile that organizes the career into six sections: introduction, results, experience, capabilities, education and service, and contact. The classic single-page résumé lives at `/classic/`, and old `/3d/` links redirect to the main page. Both its reading and optional 3D views use normal document scrolling.
+A web résumé for **Shane Turner, D.B.A.** The main page is an executive flight profile in six sections that follow the résumé's order: introduction, executive summary (with core capabilities), selected AI initiatives, experience, education and credentials, and contact. The positioning is **Enterprise AI Executive** (agentic AI, AI governance, regulated defense environments), matching the November 2026 résumé. The classic single-page résumé lives at `/classic/`, and old `/3d/` links redirect to the main page. Both its reading and optional 3D views use normal document scrolling.
 
 🔗 **Live site:** [`https://resume.st-dba.com`](https://resume.st-dba.com) (custom domain via `CNAME`; GitHub Pages serving from `main`, which can differ from the repository's default branch).
 
 ## Features
 
-- **Classic résumé** (`/classic/`): a compact introduction with immediate PDF, email, and LinkedIn links; selected outcomes; a focused profile and grouped capabilities; and the full career history. All roles, dates, promotions, and concurrent assignments remain visible. It links back to the flight profile and carries `noindex`, so search engines index the main page.
+- **Classic résumé** (`/classic/`): a compact introduction with immediate PDF, email, and LinkedIn links; the four-part executive summary and grouped capabilities; the three AI initiatives; and the full career history. All roles, dates, promotions, and concurrent assignments remain visible. It links back to the flight profile and carries `noindex`, so search engines index the main page.
 - **Phone navigation**: a native contents menu at narrower widths, with keyboard focus, Escape dismissal, active-section feedback, and a persistent PDF link. Navigation, email links, and expandable methodology still work without JavaScript. Light/dark preference is remembered when storage is available.
-- **Clearly scoped AI results**: shAIne's measured savings (first three instrumented users, compared with the full annual subscription), its adoption rate, and the separate reporting-tool estimate are labeled separately on both versions, with the method and its limits one click away.
+- **Selected AI initiatives**: shAIne, the AI Intel Brief Agent, and the Enterprise Intelligence Command Center, each written as problem, solution, and outcome. shAIne's measured savings (first three instrumented users, compared with the full annual subscription), its adoption rate, and the separate reporting-tool estimate are labeled separately on both versions, with the method and its limits one click away.
 - **Local assets**: both résumé pages load their fonts and optimized photographs from this repository, without external font requests. Both pages respect reduced motion and print in ordinary document flow.
-- **Six-section flight profile**: career results in the introduction, three case studies, an explicit Astrion promotion timeline, and capabilities grouped by leadership, mission, and delivery. Navigation has readable section labels and working legacy waypoint anchors.
+- **Six-section flight profile**: proof points in the introduction, a four-part executive summary (agentic AI, regulated environments, scale, talent) with capabilities grouped as in the résumé, three AI case studies, and an Astrion promotion timeline above role-by-role experience. Navigation has readable section labels and working legacy waypoint anchors.
 - **Reading and 3D views**: phones and short screens default to reading view. Flight view places the six sections in a perspective scene with floating panels, a starfield, a range grid, and visible travel between sections. Native document scrolling first reads a panel's entire measured content, then advances through depth to the next panel. Previous/next controls and the section menu also navigate the flight. No wheel/touch interception, snapping, or mouse tilt.
 - **Progressive enhancement**: all content, links, final career figures, and expandable details work without JavaScript. The view preference is saved when storage is available; changing views preserves the current paragraph or heading even when line wrapping changes. Flight distances remeasure after resizing, font/image loading, and opening details. The operating system's reduced-motion preference always selects reading view.
 - **Download PDF**: serves the official, maintained résumé PDF (`assets/Shane-Turner-Resume.pdf`). No print-dialog fiddling required.
 - **Print**: an ink-light print stylesheet flattens the flight into a clean document straight from the browser's native print / Save-as-PDF (Ctrl/Cmd+P).
 - **Opt-in sound**: a quiet ambient tone is available from the desktop flight-plan rail. It starts only after a click, and stops when the page is hidden or reading view is selected.
-- **Social share card**: `assets/og-card.png` gives links a branded preview on LinkedIn, Slack, email, etc.
+- **Social share card**: `assets/og-card.png` gives links a branded preview on LinkedIn, Slack, email, etc. `assets/og-card.svg` is its source; it names the site fonts (Fraunces, Inter), so render it at 1200 × 630 in a browser page that loads `assets/fonts/`. Both pages reference the image with a `?v=` date so social platforms pick up a new card; bump it when the card changes.
 - **Structured data**: schema.org `Person` JSON-LD for search engines and rich previews.
 - **Keyboard access**: native arrow, Page Up/Down, Home/End, and Tab behavior; skip links move focus to their destination; the mobile contents menu supports Escape; active section and view state are exposed to assistive technology.
 
 ## The downloadable PDF
 
-`assets/Shane-Turner-Resume.pdf` is the official résumé PDF, served by every "Download PDF" link. Since October 2026 it is exported from Shane's Word master résumé, which is kept outside this repository. In Word, use **File → Export → Create PDF/XPS** (or Save As → PDF) with "Document structure tags for accessibility" checked, save it as `assets/Shane-Turner-Resume.pdf`, confirm it is two letter pages, and commit it.
+`assets/Shane-Turner-Resume.pdf` is the official résumé PDF, served by every "Download PDF" link. Since October 2026 it is produced from Shane's Word master résumé, which is kept outside this repository. In Word, use **File → Export → Create PDF/XPS** (or Save As → PDF) with "Document structure tags for accessibility" checked, save it as `assets/Shane-Turner-Resume.pdf`, confirm it is two letter pages, and commit it.
+
+The November 2026 copy was converted from the Word file with headless LibreOffice (`soffice --headless --convert-to pdf`) because Word was not available. The document's font is Cambria; LibreOffice substituted Caladea, which has the same metrics, so line and page breaks match and only the letter shapes differ slightly. Re-export from Word to restore Cambria.
 
 `pdf/index.html` and `pdf/build.sh` are the earlier HTML print source. They no longer match the official PDF; running `pdf/build.sh` would overwrite the current download with older wording. `assets/Shane-Turner-Resume.pptx` is separate share collateral and is not generated by either route.
 
@@ -64,9 +66,12 @@ The executive flight version lives in `index.html` (each section has `class="way
 - **Contact details**: the `mailto:` links in the briefing and contact waypoints (no phone number is published).
 - **Hero copy**: the `#wp-briefing` section and current-appointment portrait caption.
 - **Stats**: the `#wp-flight-data` definition list. Values are real text, not zero-initialized animation counters.
-- **Results**: `#wp-results`, containing shAIne, Navy program execution, CrewFlex, and recognition. State the shAIne savings as measured for the first three instrumented users against the full annual subscription, keep the method note, and keep the separate reporting-tool estimate out of that figure.
-- **Experience**: `#wp-experience`, retaining employer anchors `#wp-astrion`, `#wp-hii`, `#wp-amentum`, and `#wp-origins`. Astrion promotions have their own dates, and concurrent HII assignments are labeled.
-- **Education / service / affiliations**: `#wp-foundation`.
+- **Executive summary**: `#wp-profile`, holding the four summary cards (`.pillar-grid`) and the core capabilities (`#wp-capabilities`), worded as in the résumé.
+- **AI initiatives**: `#wp-results`, containing shAIne (`#wp-shaine`), the AI Intel Brief Agent (`#wp-intel-brief`), the Enterprise Intelligence Command Center (`#wp-command-center`), and recognition (`#wp-recognition`). State the shAIne savings as measured for the first three instrumented users against the full annual subscription, keep the method note, and keep the separate reporting-tool estimate out of that figure.
+- **Experience**: `#wp-experience`, with employer anchors `#wp-astrion`, `#wp-hii`, `#wp-amentum` (URS/AECOM and Amentum, 2015–2020), `#wp-northrop`, and `#wp-origins`. Each role has its own title, dates, and bullets (`.role-block`); concurrent HII assignments are labeled.
+- **Education / credentials / service / affiliations**: `#wp-foundation`.
+
+**Dated statement.** The Command Center outcome reads "Goes live December 4, 2026" on both pages and in the hero-style metric on the main page. Change it to past tense after go-live.
 
 Update both pages when the résumé changes, then export the Word master to `assets/Shane-Turner-Resume.pdf` so the downloadable copy stays in sync. Keep the three copies on the same wording for the shAIne figures: savings measured for the first three instrumented users, compared with the full annual subscription, with the reporting-tool estimate kept separate.
 
@@ -74,9 +79,7 @@ The classic page also has a **Writing** section (`#writing`) that lists recent a
 
 **Theme.** An inline script in the `<head>` of `classic/index.html` applies the saved theme, or the operating system's light/dark preference, before first paint. The stylesheet also follows `prefers-color-scheme` without JavaScript. The toggle stores the visitor's choice in `localStorage`.
 
-**Earlier roles.** The 2010–2020 roles keep their titles and dates visible and collapse their bullets behind a "Show details" control. `main.js` opens them on screens wider than 760px; print styles always expand them.
-
-The classic page retains its existing `#top`, `#highlights`, `#recognition`, `#about`, `#capabilities`, `#experience`, `#education`, and `#contact` anchors. Selected outcomes also link directly to `#astrion`, `#astrion-vp`, `#hii`, `#nite`, and `#yuma`. Keep these destinations when editing. The main stylesheet is `assets/styles.css`; `assets/main.js` adds theme persistence, menu dismissal, focus management, and active-section feedback. Update their version query strings in `index.html` when publishing changes.
+The classic page retains its existing `#top`, `#highlights` (now the AI initiatives), `#recognition`, `#about` (now the executive summary), `#capabilities`, `#experience`, `#education`, and `#contact` anchors. Summary cards and older links also point to `#astrion`, `#astrion-vp`, `#hii`, `#nite`, `#yuma` (URS/AECOM and Amentum), and `#northrop`. Keep these destinations when editing. The main stylesheet is `assets/styles.css`; `assets/main.js` adds theme persistence, menu dismissal, focus management, and active-section feedback. Update their version query strings in `classic/index.html` when publishing changes, and the `3d/flight.css` / `3d/flight.js` query strings in `index.html` when those files change.
 
 For classic-page changes, check 320px and 375px phones, tablet and desktop layouts, menu opening and Escape, keyboard navigation, light/dark persistence, deep links, contact/download destinations, and the print stylesheet. Compare career role titles and dates with the prior page to catch accidental omissions. The maintained PDF is independent of the web layout; a layout or wording clarification does not regenerate that file automatically.
 
