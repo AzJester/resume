@@ -77,6 +77,7 @@ button[hidden] {
 h1,
 h2,
 h3,
+h4,
 p,
 figure,
 dl,
@@ -85,7 +86,8 @@ dd {
 }
 h1,
 h2,
-h3 {
+h3,
+h4 {
   text-wrap: balance;
 }
 img {
@@ -825,6 +827,26 @@ main {
   color: var(--ink);
   font-weight: 600;
 }
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 18px 0;
+  margin-top: 22px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.case-metrics dt {
+  font: 550 clamp(22px, 2vw, 27px)/1.15 var(--font-display);
+  letter-spacing: -0.02em;
+  color: var(--gold);
+}
+.case-metrics dd {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: 6px;
+}
 .delivery-note {
   margin-top: 25px;
   padding-top: 20px;
@@ -1064,6 +1086,47 @@ main {
 .experience-body .experience-note {
   font-size: 12px !important;
 }
+.experience-body > p + .outcome-list {
+  margin-top: 14px;
+}
+.role-block {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.role-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 20px;
+}
+.role-head h4 {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+.role-head h4 small {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.role-head > span {
+  font: 10px/1.6 var(--font-mono);
+  color: var(--gold);
+  white-space: nowrap;
+}
+.role-block > p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.role-block .outcome-list {
+  margin-top: 14px;
+}
 .outcome-list {
   list-style: none;
   padding: 0;
@@ -1141,13 +1204,46 @@ main {
   color: var(--dim);
   margin-top: 8px;
 }
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.pillar-grid article {
+  display: flex;
+  flex-direction: column;
+  padding: 27px 25px 16px;
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--gold);
+  border-radius: 4px;
+  background: rgba(13, 30, 49, 0.8);
+}
+.pillar-grid h3 {
+  font: 550 24px/1.2 var(--font-display);
+}
+.pillar-grid p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--muted);
+  margin: 12px 0 10px;
+}
+.pillar-grid .text-link {
+  margin-top: auto;
+  align-self: start;
+}
+.capabilities {
+  margin-top: 34px;
+}
+.capabilities > .eyebrow {
+  margin-bottom: 16px;
+}
 .capability-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 .capability-grid article {
-  padding: 27px 25px;
+  padding: 24px 25px;
   border: 1px solid var(--line);
   border-radius: 4px;
   background: rgba(13, 30, 49, 0.8);
@@ -1156,17 +1252,17 @@ main {
   font: 12px var(--font-mono);
   color: var(--gold);
   display: block;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
-.capability-grid h3 {
-  font: 550 24px/1.2 var(--font-display);
+.capability-grid h4 {
+  font: 550 21px/1.2 var(--font-display);
 }
 .capability-grid ul {
   list-style: none;
   padding: 0;
-  margin: 20px 0 0;
+  margin: 16px 0 0;
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 .capability-grid li {
   font-size: 12px;
@@ -1275,6 +1371,11 @@ main {
 .affiliations abbr {
   text-decoration: none;
   cursor: help;
+}
+.affiliations .credential-list {
+  display: grid;
+  gap: 8px;
+  line-height: 1.5;
 }
 .contact {
   border-bottom: 0;
@@ -1488,23 +1589,23 @@ main {
   .case-grid .case-study {
     padding: 25px;
   }
+  .pillar-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
   .capability-grid {
     grid-template-columns: 1fr;
   }
   .capability-grid article {
     display: grid;
-    grid-template-columns: 35px minmax(180px, 0.85fr) 1fr;
+    grid-template-columns: minmax(180px, 0.7fr) 1fr;
     gap: 20px;
     align-items: start;
   }
-  .capability-number {
-    margin-top: 6px;
-  }
   .capability-grid ul {
     margin: 0;
-  }
-  .capability-grid h3 {
-    font-size: 25px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 18px;
   }
   .foundation-grid {
     grid-template-columns: 1fr;
@@ -1834,22 +1935,43 @@ main {
   .range-photo figcaption {
     font-size: 10px;
   }
+  .pillar-grid article {
+    padding: 24px 22px 12px;
+  }
+  .pillar-grid h3 {
+    font-size: 24px;
+  }
+  .capabilities {
+    margin-top: 28px;
+  }
   .capability-grid article {
     display: block;
-    padding: 26px;
+    padding: 24px 22px;
   }
   .capability-number {
-    margin: 0 0 17px;
+    margin: 0 0 14px;
   }
-  .capability-grid h3 {
-    font-size: 26px;
+  .capability-grid h4 {
+    font-size: 22px;
   }
   .capability-grid ul {
-    margin-top: 22px;
-    gap: 13px;
+    margin-top: 16px;
+    grid-template-columns: 1fr;
+    gap: 11px;
   }
   .capability-grid li {
     font-size: 14px;
+  }
+  .case-metrics {
+    gap: 14px;
+    padding: 16px 0;
+  }
+  .role-block {
+    margin-top: 22px;
+    padding-top: 20px;
+  }
+  .role-head h4 {
+    font-size: 15px;
   }
   .profile-strip {
     gap: 10px;
@@ -2095,6 +2217,26 @@ main {
   }
   .flight-mode .hero-bottom {
     margin-top: 26px;
+  }
+  /* Laptop-height screens: tighten the introduction so its actions stay in view. */
+  @media (max-height: 820px) {
+    .flight-mode .role-line {
+      margin-bottom: 14px;
+    }
+    .flight-mode .hero-lead {
+      margin-top: 18px;
+      line-height: 1.7;
+    }
+    .flight-mode .credentials {
+      margin: 15px 0;
+    }
+    .flight-mode .hero-proof {
+      margin-top: 16px;
+      padding-top: 17px;
+    }
+    .flight-mode .hero-actions {
+      margin-top: 22px;
+    }
   }
   .flight-mode .flight-controls {
     display: grid;
@@ -2343,10 +2485,43 @@ main {
   .case-study,
   .value-panel,
   .recognition,
+  .pillar-grid article,
   .capability-grid article,
   .service-panel {
     background: #fff;
     box-shadow: none;
+    break-inside: avoid;
+  }
+  .pillar-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .pillar-grid article {
+    padding: 16px;
+  }
+  .pillar-grid h3 {
+    font-size: 15pt;
+  }
+  .pillar-grid p,
+  .role-block > p {
+    font-size: 9pt;
+  }
+  .pillar-grid .text-link {
+    display: none;
+  }
+  .case-metrics dt {
+    font-size: 15pt;
+  }
+  .case-metrics dd,
+  .role-head > span {
+    font-size: 8pt;
+  }
+  .role-head h4 {
+    font-size: 10.5pt;
+  }
+  .role-block {
+    margin-top: 14px;
+    padding-top: 12px;
     break-inside: avoid;
   }
   .case-study--featured {
@@ -2388,7 +2563,10 @@ main {
   .experience-card {
     grid-template-columns: 105px 1fr;
     gap: 20px;
-    break-inside: avoid;
+  }
+  .experience-body h3,
+  .experience-lead {
+    break-after: avoid;
   }
   .experience-body h3 {
     font-size: 22pt;
@@ -2438,8 +2616,11 @@ main {
     display: block;
     padding: 18px;
   }
-  .capability-grid h3 {
-    font-size: 17pt;
+  .capability-grid h4 {
+    font-size: 14pt;
+  }
+  .capability-grid ul {
+    grid-template-columns: 1fr;
   }
   .capability-grid li {
     font-size: 9pt;

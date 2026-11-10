@@ -69,18 +69,6 @@
       document.querySelector(".brand").focus({ preventScroll: true });
   });
 
-  // Earlier roles stay expanded on wide screens and start collapsed on phones.
-  const wide = window.matchMedia("(min-width: 761px)");
-  const olderRoles = document.querySelectorAll(".role__more");
-  function expandOlderRoles() {
-    if (!wide.matches) return;
-    olderRoles.forEach((details) => {
-      details.open = true;
-    });
-  }
-  expandOlderRoles();
-  wide.addEventListener("change", expandOlderRoles);
-
   // Keep normal links, URL fragments, browser history and reduced-motion scrolling.
   document.addEventListener("click", (event) => {
     if (

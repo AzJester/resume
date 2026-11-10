@@ -600,6 +600,17 @@ strong {
 .card .text-link {
   margin-top: auto;
 }
+.card > p strong,
+.ai-case__story > p strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+.cards--spaced {
+  margin-top: 1.4rem;
+}
+.ai-case--lead {
+  margin-top: 0;
+}
 .ai-case {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
@@ -886,9 +897,6 @@ strong {
   color: var(--muted);
   margin: 0.35rem 0 0;
 }
-.org__employers {
-  margin: -0.9rem 0 1.3rem;
-}
 .role__status {
   display: inline-block;
   margin-bottom: 0.6rem;
@@ -962,47 +970,6 @@ strong {
   margin-top: 0.4rem;
 }
 
-/* Earlier roles: titles and dates always visible; bullets expand (open by default on wide screens via JS). */
-.role__more summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 44px;
-  margin-top: 0.15rem;
-  color: var(--navy-soft);
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  list-style: none;
-}
-.role__more summary::-webkit-details-marker {
-  display: none;
-}
-.role__more summary::before {
-  content: "+";
-  display: inline-grid;
-  place-items: center;
-  width: 1.1rem;
-  height: 1.1rem;
-  border: 1px solid currentColor;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  line-height: 1;
-}
-.role__more[open] summary::before {
-  content: "–";
-}
-.role__more summary .when-open,
-.role__more[open] summary .when-closed {
-  display: none;
-}
-.role__more[open] summary .when-open {
-  display: inline;
-}
-.role__more .bullets {
-  margin-top: 0.4rem;
-}
-
 /* Writing: recent analysis from st-dba.com. */
 .writing {
   display: grid;
@@ -1072,6 +1039,9 @@ strong {
 }
 .edu-list li:last-child {
   margin-bottom: 0;
+}
+.edu-list--tight li {
+  margin-bottom: 0.55rem;
 }
 .edu-degree {
   display: block;
@@ -1535,15 +1505,8 @@ strong {
   .writing {
     display: block;
   }
-  .role__more summary {
-    display: none;
-  }
-  .role__more .bullets {
-    display: block !important;
-  }
-  .role__more::details-content {
-    display: block !important;
-    content-visibility: visible !important;
+  .cards--spaced {
+    margin-top: 0.8rem;
   }
   .writing__list a {
     font-size: 10pt;
