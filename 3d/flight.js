@@ -1,8 +1,10 @@
-/* Native document scrolling drives the flight. No wheel/touch interception. */
+/* Reading view is the default. The optional 3D view is driven by native
+   document scrolling: no wheel/touch interception and no scroll snapping. */
 (() => {
   "use strict";
   const root = document.documentElement;
   const main = document.getElementById("main-content");
+  const header = document.querySelector(".site-header");
   const sections = [...document.querySelectorAll(".waypoint")];
   const surfaces = sections.map((section) =>
     section.querySelector(".journey-surface"),
@@ -14,10 +16,9 @@
   const instruction = document.getElementById("flight-instruction");
   const viewToggle = document.getElementById("view-toggle");
   const viewLabel = document.getElementById("view-label");
-  const viewHint = document.getElementById("view-hint");
-  const viewStatus = document.getElementById("view-status");
+  const status = document.getElementById("view-status");
   const contents = document.getElementById("contents-menu");
-  const soundToggle = document.getElementById("sound-toggle");
+  const copyEmail = document.getElementById("copy-email");
   const progress = document.getElementById("reading-progress");
   const routeCount = document.querySelector(".route-eyebrow span");
   const routeLinks = [
@@ -26,8 +27,12 @@
     ),
   ];
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  const smallScreen = matchMedia("(max-width: 900px), (max-height: 700px)");
+  // Keep this query in step with the inline script in index.html.
+  const flightCapable = matchMedia(
+    "(min-width: 901px) and (min-height: 620px)",
+  );
   const storageKey = "resume-view-v2";
+  const total = String(sections.length).padStart(2, "0");
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   let preference = null;
   try {
@@ -36,17 +41,25 @@
   } catch (_) {
     /* Navigation still works when storage is unavailable. */
   }
+  // A link can ask for the 3D view (?view=3d). It applies to this visit and is
+  // saved only if the visitor then uses the toggle.
+  const linked3d = /[?&]view=3d(&|$)/.test(location.search);
+  if (linked3d) preference = "flight";
+  // Set for this visit only when find-in-page needs the whole document in flow.
+  let readingForFind = false;
   let flight = false;
   let ready = false;
   let printing = false;
   let frameQueued = false;
   let layoutQueued = false;
   let activeIndex = -1;
-  let audio = null;
   let path = [];
   let flightLength = 0;
   let lastPlace = null;
+  let placeTimer = 0;
+  let statusTimer = 0;
   let movingFocus = false;
+  let keyTarget = null;
   const canvas = document.getElementById("starfield");
   const context = canvas.getContext("2d");
   let canvasWidth = 0;
@@ -56,16 +69,25 @@
     y: (((index * 173 + 41) % 991) / 991 - 0.5) * 2.8,
     depth: 0.1 + ((index * 61) % 97) / 97,
   }));
+  // Custom properties are written only when their value changes.
+  const written = sections.map(() => ({}));
+  function setVar(index, name, value) {
+    if (written[index][name] === value) return;
+    written[index][name] = value;
+    sections[index].style.setProperty(name, value);
+  }
 
   root.classList.add("js");
 
-  function stopSound() {
-    if (audio) {
-      audio.context.close().catch(() => {});
-      audio = null;
-    }
-    soundToggle.textContent = "Sound off";
-    soundToggle.setAttribute("aria-pressed", "false");
+  function announce(message, visible = true) {
+    status.textContent = message;
+    clearTimeout(statusTimer);
+    status.classList.toggle("is-visible", visible);
+    if (visible)
+      statusTimer = setTimeout(
+        () => status.classList.remove("is-visible"),
+        4500,
+      );
   }
 
   // Layout offsets are measured before transforms, including nested legacy targets.
@@ -118,7 +140,7 @@
         offset = 0;
       }
     } else {
-      const line = document.querySelector(".site-header").offsetHeight + 24;
+      const line = header.offsetHeight + 24;
       for (let i = 0; i < sections.length; i++) {
         if (sections[i].getBoundingClientRect().top <= line) index = i;
       }
@@ -151,19 +173,22 @@
       : surfaces[place.index].getBoundingClientRect().top +
         scrollY +
         offset -
-        document.querySelector(".site-header").offsetHeight -
+        header.offsetHeight -
         24;
     window.scrollTo({ top: Math.max(0, y), behavior: "instant" });
   }
 
+  // Each panel gets scroll room for its full content, then a short hop to the
+  // next one. The hop is kept brief so most of the scrolling is reading.
   function measureFlight() {
     const viewport = sections[0].clientHeight;
-    const transition = Math.max(640, innerHeight * 0.9);
+    const transition = clamp(innerHeight * 0.42, 300, 420);
+    const dwell = 40;
     let start = 0;
     path = surfaces.map((surface, index) => {
       const overflow = Math.max(0, surface.offsetHeight - viewport);
       const last = index === sections.length - 1;
-      const depart = start + overflow + (last ? 0 : 130);
+      const depart = start + overflow + (last ? 0 : dwell);
       const stop = { start, overflow, depart, transition };
       start = depart + (last ? 0 : transition);
       return stop;
@@ -188,53 +213,42 @@
     }
   }
 
-  function applyView(announce = false) {
-    const chosen =
-      !reducedMotion.matches &&
-      (preference ? preference === "flight" : !smallScreen.matches);
+  function applyView(message = "") {
+    const available = flightCapable.matches && !reducedMotion.matches;
+    const chosen = available && preference === "flight" && !readingForFind;
     const place = ready && chosen !== flight ? capturePlace() : null;
     flight = chosen;
     root.classList.toggle("flight-mode", flight);
     if (flight) measureFlight();
+    else lastPlace = null;
     if (place) restorePlace(place);
     ready = true;
-    viewToggle.setAttribute("aria-pressed", String(flight));
-    viewLabel.textContent = flight ? "3D flight" : "Reading view";
-    viewToggle.setAttribute(
-      "aria-label",
-      flight
-        ? "3D flight view. Switch to reading view"
-        : "Reading view. Switch to 3D flight view",
-    );
-    viewToggle.disabled = reducedMotion.matches;
-    viewToggle.title = reducedMotion.matches
-      ? "Reading view follows your device’s reduced-motion preference."
-      : flight
-        ? "Switch to reading view without losing your place"
-        : "Enable the 3D flight experience";
-    viewHint.textContent = flight
-      ? "Scroll to read. Keep scrolling to fly."
-      : "Reading view. Content scrolls at your pace.";
-    soundToggle.hidden = !flight;
-    if (!flight) stopSound();
-    if (announce)
-      viewStatus.textContent = flight
-        ? "3D flight enabled. Scroll to read each panel and fly between sections. Your place is preserved."
-        : "Reading view enabled. Your place is preserved.";
+    // The label names what the button does, not the current state.
+    viewToggle.hidden = !available;
+    viewLabel.textContent = flight ? "Exit 3D view" : "View in 3D";
+    viewToggle.title = flight
+      ? "Return to the reading view without losing your place"
+      : "Fly through the six sections in 3D";
+    if (message) announce(message);
     queueFrame();
   }
 
   viewToggle.addEventListener("click", () => {
     preference = flight ? "reading" : "flight";
+    readingForFind = false;
     try {
       localStorage.setItem(storageKey, preference);
     } catch (_) {
       /* Keep this visit's choice. */
     }
-    applyView(true);
+    applyView(
+      preference === "flight"
+        ? "3D view on. Scroll to read each panel, keep scrolling to fly to the next."
+        : "Reading view on. Your place is kept.",
+    );
   });
   reducedMotion.addEventListener("change", () => applyView());
-  smallScreen.addEventListener("change", () => applyView());
+  flightCapable.addEventListener("change", () => applyView());
 
   function closeMenu(returnFocus = false) {
     if (!contents.open) return;
@@ -264,6 +278,16 @@
       const index =
         target === main ? 0 : sections.indexOf(target.closest(".waypoint"));
       if (index >= 0) {
+        const from = flightPosition();
+        const current = from.transition > 0.5 ? from.index + 1 : from.index;
+        // A jump of more than one section fades in at the destination rather
+        // than streaking every panel in between past the reader.
+        if (behavior === "smooth" && Math.abs(index - current) > 1) {
+          behavior = "instant";
+          main.classList.remove("flight-jump");
+          void main.offsetWidth;
+          main.classList.add("flight-jump");
+        }
         const offset = Math.max(0, contentOffset(target, index) - 24);
         window.scrollTo({
           top: path[index].start + Math.min(offset, path[index].overflow),
@@ -282,6 +306,10 @@
     movingFocus = false;
     queueFrame();
   }
+  main.addEventListener("animationend", (event) => {
+    if (event.animationName === "flight-arrive")
+      main.classList.remove("flight-jump");
+  });
 
   function goToSection(index) {
     const target = sections[clamp(index, 0, sections.length - 1)];
@@ -311,11 +339,70 @@
       }
     } else if (contents.open && !contents.contains(event.target)) closeMenu();
   });
+
+  // Page Down, Page Up and Space move by readable pages in the 3D view: they
+  // page through the current panel, then land on the next panel, never between.
+  function pageStep(forward) {
+    const now = performance.now();
+    const base =
+      keyTarget && now - keyTarget.time < 700 ? keyTarget.top : scrollY;
+    const position = flightPosition(base);
+    const stop = path[position.index];
+    const end = stop.start + stop.overflow;
+    const page = sections[0].clientHeight * 0.88;
+    let top;
+    if (forward) {
+      if (base < end - 2) top = Math.min(base + page, end);
+      else if (position.index < path.length - 1)
+        top = path[position.index + 1].start;
+      else return false;
+    } else if (base > end + 2) top = end;
+    else if (base > stop.start + 2) top = Math.max(base - page, stop.start);
+    else if (position.index > 0) {
+      const before = path[position.index - 1];
+      top = before.start + before.overflow;
+    } else return false;
+    keyTarget = { top, time: now };
+    window.scrollTo({
+      top,
+      behavior: reducedMotion.matches ? "instant" : "smooth",
+    });
+    return true;
+  }
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && contents.open) {
       event.preventDefault();
       closeMenu(true);
+      return;
     }
+    if (!flight || event.defaultPrevented) return;
+    const key = event.key;
+    // Find-in-page cannot reach text in panels that are out of view, so the
+    // page returns to the reading view (same place) while the browser searches.
+    const find =
+      ((event.ctrlKey || event.metaKey) &&
+        !event.altKey &&
+        (key === "f" || key === "F" || key === "g" || key === "G")) ||
+      key === "F3";
+    if (find) {
+      readingForFind = true;
+      applyView("Reading view on so find-in-page can search every section.");
+      return;
+    }
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    const editable = event.target.closest?.(
+      "input,select,textarea,[contenteditable]",
+    );
+    if (editable) return;
+    let forward;
+    if (key === "PageDown") forward = true;
+    else if (key === "PageUp") forward = false;
+    else if (key === " " || key === "Spacebar") {
+      if (event.target.closest?.("a,button,summary")) return;
+      forward = !event.shiftKey;
+    } else return;
+    if (pageStep(forward)) event.preventDefault();
   });
   window.addEventListener("hashchange", () => {
     const target = targetFor(location.hash);
@@ -374,23 +461,28 @@
       const distance = i - position.camera;
       const future = distance >= 0;
       // The next panel stays hidden while a section is at rest and fades in
-      // only as the camera travels toward it, so no clipped panel edge shows.
+      // only as the camera travels toward it. A departing panel fades quickly
+      // so its text never sits over the navigation.
       const opacity = future
         ? clamp((1 - distance) * 1.45, 0, 1)
-        : clamp(1 + distance * 1.7, 0, 1);
-      const x = Math.sin((clamp(distance, -1, 1) * Math.PI) / 2) * width * 0.95;
-      const y = Math.min(1, Math.abs(distance)) * 24;
-      const z = clamp(-distance * 1400 - 50, -3000, 980);
+        : clamp(1 + distance * 2.6, 0, 1);
+      // At rest (distance 0) the panel is flat and unscaled, so text is drawn
+      // on the pixel grid at its true size. Depth and tilt apply only in transit.
+      const reach = clamp(distance, -1, 1);
+      const x = Math.sin((reach * Math.PI) / 2) * width * 0.95;
+      const y = Math.abs(reach) * 24;
+      const z = clamp(-distance * 1400, -3000, 980);
+      setVar(i, "--panel-x", `${x.toFixed(1)}px`);
+      setVar(i, "--panel-y", `${y.toFixed(1)}px`);
+      setVar(i, "--panel-z", `${z.toFixed(1)}px`);
+      setVar(i, "--panel-turn", `${(-distance * 18).toFixed(2)}deg`);
+      setVar(i, "--panel-tilt", `${Math.abs(reach).toFixed(3)}deg`);
+      setVar(i, "--panel-opacity", opacity.toFixed(3));
       const section = sections[i];
-      section.style.setProperty("--panel-x", `${x.toFixed(1)}px`);
-      section.style.setProperty("--panel-y", `${y.toFixed(1)}px`);
-      section.style.setProperty("--panel-z", `${z.toFixed(1)}px`);
-      section.style.setProperty(
-        "--panel-turn",
-        `${(-distance * 18 - 3).toFixed(2)}deg`,
-      );
-      section.style.setProperty("--panel-opacity", opacity.toFixed(3));
-      section.style.zIndex = String(20 - i);
+      if (!written[i].z) {
+        written[i].z = true;
+        section.style.zIndex = String(20 - i);
+      }
       section.classList.toggle("flight-current", i === current);
       const offset =
         i < position.index
@@ -398,21 +490,29 @@
           : i === position.index
             ? position.offset
             : 0;
-      section.style.setProperty("--content-y", `${-offset}px`);
+      setVar(i, "--content-y", `${-offset}px`);
+      // Edge fades show that a panel holds more content above or below.
+      const resting = i === position.index && position.transition === 0;
+      section.classList.toggle("has-more-above", resting && offset > 4);
+      section.classList.toggle(
+        "has-more-below",
+        resting && offset < path[i].overflow - 4,
+      );
     }
     const inTransit = position.transition > 0;
     const atBottom = position.offset >= path[position.index].overflow - 2;
     const last = current === sections.length - 1;
-    instruction.textContent = inTransit
+    const text = inTransit
       ? `Flying to ${sections[position.index + 1].dataset.label}`
-      : atBottom && !last
-        ? `Keep scrolling to fly to ${sections[current + 1].dataset.label}`
-        : last
-          ? "Final section · Contact details and résumé below"
-          : "Scroll to read · Use the arrows to change section";
+      : last
+        ? "Final section"
+        : atBottom
+          ? `Keep scrolling for ${sections[current + 1].dataset.label}`
+          : "Scroll to read";
+    if (instruction.textContent !== text) instruction.textContent = text;
     root.style.setProperty(
       "--floor-shift",
-      `${(position.camera * 140) % 100}px`,
+      `${((position.camera * 140) % 100).toFixed(1)}px`,
     );
     root.style.setProperty(
       "--tunnel-scale",
@@ -446,7 +546,7 @@
           link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
       }
-      const count = `${String(current + 1).padStart(2, "0")} / 06`;
+      const count = `${String(current + 1).padStart(2, "0")} / ${total}`;
       routeCount.textContent = count;
       chapter.textContent = `${count} · ${sections[current].dataset.label}`;
       previous.disabled = current === 0;
@@ -464,7 +564,14 @@
           : "Next section",
       );
     }
-    lastPlace = capturePlace();
+    // The reader's place is only needed to survive a re-measure in the 3D
+    // view, so it is recorded once scrolling settles rather than every frame.
+    if (flight) {
+      clearTimeout(placeTimer);
+      placeTimer = setTimeout(() => {
+        if (flight && !printing) lastPlace = capturePlace();
+      }, 140);
+    }
   }
 
   function queueFrame() {
@@ -484,8 +591,7 @@
     { passive: true },
   );
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopSound();
-    else queueFrame();
+    if (!document.hidden) queueFrame();
   });
   document.querySelectorAll("main details").forEach((details) =>
     details.addEventListener("toggle", () => {
@@ -499,39 +605,50 @@
     observer.observe(main);
   }
 
-  soundToggle.addEventListener("click", async () => {
-    if (!flight || audio) {
-      stopSound();
-      return;
-    }
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) {
-      soundToggle.hidden = true;
-      return;
-    }
-    try {
-      const audioContext = new AudioContext();
-      const gain = audioContext.createGain();
-      gain.gain.value = 0.017;
-      gain.connect(audioContext.destination);
-      const oscillator = audioContext.createOscillator();
-      oscillator.type = "sine";
-      oscillator.frequency.value = 74;
-      oscillator.connect(gain);
-      oscillator.start();
-      audio = { context: audioContext };
-      await audioContext.resume();
-      soundToggle.textContent = "Sound on";
-      soundToggle.setAttribute("aria-pressed", "true");
-    } catch (_) {
-      stopSound();
-    }
-  });
+  // A mailto link does nothing on a machine with no mail app set up, so the
+  // address can also be copied.
+  if (copyEmail) {
+    const label = copyEmail.textContent.trim();
+    let resetTimer = 0;
+    copyEmail.addEventListener("click", async () => {
+      const address = copyEmail.dataset.copy;
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(address);
+        copied = true;
+      } catch (_) {
+        // Older browsers and non-secure contexts: copy through a selection.
+        const field = document.createElement("textarea");
+        field.value = address;
+        field.setAttribute("readonly", "");
+        field.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+        document.body.appendChild(field);
+        field.select();
+        try {
+          copied = document.execCommand("copy");
+        } catch (_) {
+          copied = false;
+        }
+        field.remove();
+        copyEmail.focus({ preventScroll: true });
+      }
+      copyEmail.textContent = copied ? "Copied" : "Select the address to copy";
+      copyEmail.classList.toggle("is-copied", copied);
+      announce(
+        copied ? `Copied ${address}` : "Copy is not available here.",
+        false,
+      );
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        copyEmail.textContent = label;
+        copyEmail.classList.remove("is-copied");
+      }, 2400);
+    });
+  }
 
   let closedForPrint = [];
   window.addEventListener("beforeprint", () => {
     printing = true;
-    stopSound();
     closedForPrint = [...document.querySelectorAll("main details:not([open])")];
     closedForPrint.forEach((details) => {
       details.open = true;
@@ -548,7 +665,11 @@
   });
 
   sizeCanvas();
-  applyView();
+  applyView(
+    linked3d && !(flightCapable.matches && !reducedMotion.matches)
+      ? "The 3D view needs a larger window with motion enabled. Showing the reading view."
+      : "",
+  );
   // Re-align direct and legacy links once images and local fonts establish layout.
   const initialHash = location.hash;
   window.addEventListener(
