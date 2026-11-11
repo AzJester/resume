@@ -153,8 +153,27 @@
         ]
       }
     </script>
-    <link rel="stylesheet" href="3d/flight.css?v=20261110a" />
-    <script src="3d/flight.js?v=20261004a" defer></script>
+    <script>
+      /* Apply a saved or linked (?view=3d) 3D-view choice before first paint
+         so the layout does not jump. */
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        var wanted = /[?&]view=3d(&|$)/.test(location.search);
+        try {
+          wanted =
+            wanted || localStorage.getItem("resume-view-v2") === "flight";
+        } catch (_) {}
+        if (
+          wanted &&
+          matchMedia("(min-width: 901px) and (min-height: 620px)").matches &&
+          !matchMedia("(prefers-reduced-motion: reduce)").matches
+        )
+          root.classList.add("flight-mode");
+      })();
+    </script>
+    <link rel="stylesheet" href="3d/flight.css?v=20261111a" />
+    <script src="3d/flight.js?v=20261111a" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#wp-contact">Skip to contact</a>
@@ -174,30 +193,22 @@
     </div>
 
     <header class="site-header">
-      <a
-        class="brand"
-        href="#wp-briefing"
-        aria-label="Dr. Shane Turner, back to introduction"
-      >
+      <a class="brand" href="#wp-briefing" title="Back to introduction">
         <span class="brand-mark" aria-hidden="true">ST</span>
         <span class="brand-name"
           >Dr. Shane Turner<span>Enterprise AI · Agentic AI · AI governance</span></span
         >
       </a>
       <div class="header-actions">
-        <button
-          class="view-toggle js-only"
-          id="view-toggle"
-          type="button"
-          aria-pressed="false"
-          aria-label="Reading view. Switch to 3D flight view"
-        >
+        <button class="view-toggle js-only" id="view-toggle" type="button">
           <span class="view-symbol" aria-hidden="true">◇</span
-          ><span id="view-label">Reading view</span>
+          ><span id="view-label">View in 3D</span>
         </button>
         <a
           class="button button--quiet header-pdf"
           href="assets/Shane-Turner-Resume.pdf"
+          target="_blank"
+          rel="noopener"
           ><svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" /></svg
           ><span class="pdf-long">Résumé PDF</span
@@ -226,8 +237,8 @@
       </div>
     </header>
 
-    <aside class="route" aria-label="Résumé flight plan">
-      <p class="route-eyebrow">Flight plan <span>01 / 06</span></p>
+    <aside class="route" aria-label="Résumé contents">
+      <p class="route-eyebrow">Contents <span>01 / 06</span></p>
       <nav aria-label="Résumé sections">
         <a href="#wp-briefing" aria-current="location"
           ><span class="route-dot" aria-hidden="true"></span
@@ -235,7 +246,7 @@
         >
         <a href="#wp-profile"
           ><span class="route-dot" aria-hidden="true"></span
-          ><span>Summary</span></a
+          ><span>Executive summary</span></a
         >
         <a href="#wp-results"
           ><span class="route-dot" aria-hidden="true"></span
@@ -247,7 +258,7 @@
         >
         <a href="#wp-foundation"
           ><span class="route-dot" aria-hidden="true"></span
-          ><span>Education</span></a
+          ><span>Education &amp; credentials</span></a
         >
         <a href="#wp-contact"
           ><span class="route-dot" aria-hidden="true"></span
@@ -255,16 +266,7 @@
         >
       </nav>
       <div class="route-footer">
-        <a href="classic/">Full classic résumé ↗</a
-        ><button
-          id="sound-toggle"
-          class="sound-toggle js-only"
-          type="button"
-          aria-pressed="false"
-          hidden
-        >
-          Sound off
-        </button>
+        <a href="classic/">Full classic résumé ↗</a>
       </div>
     </aside>
 
@@ -275,12 +277,10 @@
       </button>
       <div class="flight-readout">
         <p>
-          <span class="flight-live" aria-hidden="true"></span>3D FLIGHT
+          <span class="flight-live" aria-hidden="true"></span>3D view
           <span id="flight-chapter">01 / 06 · Introduction</span>
         </p>
-        <span id="flight-instruction"
-          >Scroll to explore, then fly to the next section</span
-        >
+        <span id="flight-instruction">Scroll to read</span>
       </div>
       <button id="flight-next" type="button" aria-label="Next section">
         →
@@ -298,7 +298,7 @@
         <div class="journey-surface">
           <div class="hero-grid">
             <div class="hero-copy">
-              <p class="eyebrow">Dr. Shane Turner · D.B.A.</p>
+              <p class="hero-name">Dr. Shane Turner<span>D.B.A.</span></p>
               <p class="role-line">
                 Enterprise AI Executive · Agentic AI · AI Governance · Regulated
                 Defense Environments
@@ -336,9 +336,24 @@
               <div class="hero-actions">
                 <a class="button button--gold" href="#wp-results"
                   >See the AI initiatives <span aria-hidden="true">↓</span></a
-                ><a class="text-link" href="assets/Shane-Turner-Resume.pdf"
-                  >Download résumé <span aria-hidden="true">↗</span></a
                 >
+                <div class="hero-links">
+                  <a class="text-link" href="mailto:shane@st-dba.com"
+                    >shane@st-dba.com</a
+                  ><a
+                    class="text-link"
+                    href="https://www.linkedin.com/in/drshaneturner"
+                    target="_blank"
+                    rel="me noopener noreferrer"
+                    >LinkedIn <span aria-hidden="true">↗</span></a
+                  ><a
+                    class="text-link"
+                    href="assets/Shane-Turner-Resume.pdf"
+                    target="_blank"
+                    rel="noopener"
+                    >Résumé PDF <span aria-hidden="true">↗</span></a
+                  >
+                </div>
               </div>
             </div>
             <figure class="portrait">
@@ -383,22 +398,13 @@
               </figcaption>
             </figure>
           </div>
-          <div class="hero-bottom">
-            <span
-              >20+ years of defense leadership · Director to Senior Vice
-              President in under two years</span
-            ><span class="view-hint js-only" id="view-hint">Reading view</span
-            ><a href="#wp-profile" aria-label="Continue to the executive summary"
-              >Explore six sections <span aria-hidden="true">↓</span></a
-            >
-          </div>
         </div>
       </section>
 
       <section
         class="waypoint"
         id="wp-profile"
-        data-label="Summary"
+        data-label="Executive summary"
         tabindex="-1"
         aria-labelledby="summary-title"
       >
@@ -410,10 +416,8 @@
               on it.
             </h2>
             <p>
-              Enterprise AI executive who moves AI from experimentation to
-              measured business value inside defense security and compliance
-              requirements. Ready to take an enterprise from generative AI to
-              agentic and multi-agent operations.
+              Ready to take an enterprise from generative AI to agentic and
+              multi-agent operations.
             </p>
           </div>
           <div class="pillar-grid">
@@ -509,11 +513,6 @@
               </article>
             </div>
           </div>
-          <div class="profile-strip">
-            <p><strong>Active TS</strong>Clearance</p>
-            <p><strong>20+ years</strong>Defense leadership</p>
-            <p><strong>Arizona</strong>Based in</p>
-          </div>
         </div>
       </section>
 
@@ -599,8 +598,7 @@
                 Savings above the platform’s full annual cost
               </p>
               <p class="value-period">
-                From the first three instrumented users alone. Full seat uptake
-                within one quarter, at about 77% weekly use.
+                From the first three instrumented users alone.
               </p>
               <div class="cost-reference">
                 <span>Annual platform subscription</span
@@ -612,13 +610,11 @@
                 subscription.
               </p>
               <details class="method-details">
-                <summary>Method and limits</summary>
+                <summary>Limits of this figure</summary>
                 <div>
                   <p>
-                    Savings are attributed hours × loaded labor rate, by role,
-                    for the first three instrumented users, compared with the
-                    $37,200 annual subscription. Individual role rates and the
-                    underlying activity ledger are not published here.
+                    Individual role rates and the underlying activity ledger
+                    are not published here.
                   </p>
                   <p>
                     Implementation and support costs are not included in the
@@ -1195,13 +1191,21 @@
               From generative AI to<br /><em>agentic operations.</em>
             </h2>
             <p>
-              Ready to take an enterprise from generative AI to agentic and
-              multi-agent operations. Open to executive and senior leadership
-              conversations about enterprise AI in regulated environments.
+              Open to executive and senior leadership conversations about
+              enterprise AI in regulated environments.
             </p>
-            <a class="contact-email" href="mailto:shane@st-dba.com"
-              >shane@st-dba.com <span aria-hidden="true">↗</span></a
-            >
+            <div class="contact-email-row">
+              <a class="contact-email" href="mailto:shane@st-dba.com"
+                >shane@st-dba.com</a
+              ><button
+                class="copy-email js-only"
+                id="copy-email"
+                type="button"
+                data-copy="shane@st-dba.com"
+              >
+                Copy address
+              </button>
+            </div>
             <div class="contact-actions">
               <a class="button button--gold" href="mailto:shane@st-dba.com"
                 >Start a conversation</a
@@ -1211,20 +1215,25 @@
                 target="_blank"
                 rel="me noopener noreferrer"
                 >LinkedIn <span aria-hidden="true">↗</span></a
-              ><a class="text-link" href="assets/Shane-Turner-Resume.pdf"
-                >Download résumé <span aria-hidden="true">↗</span></a
+              ><a
+                class="text-link"
+                href="assets/Shane-Turner-Resume.pdf"
+                target="_blank"
+                rel="noopener"
+                >Résumé PDF <span aria-hidden="true">↗</span></a
               >
             </div>
           </div>
           <footer>
             <span>© 2026 Dr. Shane Turner</span
             ><a href="classic/">Full classic résumé ↗</a
-            ><a href="https://st-dba.com/">Analysis at st-dba.com ↗</a
+            ><a href="https://st-dba.com/" target="_blank" rel="noopener"
+              >Analysis at st-dba.com ↗</a
             ><a href="#wp-briefing">Back to introduction ↑</a>
           </footer>
         </div>
       </section>
     </main>
-    <p class="sr-only" id="view-status" role="status"></p>
+    <p class="toast" id="view-status" role="status"></p>
   </body>
 </html>
